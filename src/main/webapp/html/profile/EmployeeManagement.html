@@ -1,0 +1,76 @@
+<div class="jquery-accordion-collapsed">
+	<h3>
+		<a href="#">Search Criteria</a>
+	</h3>
+	<div id="search-form">
+		<table class="form"><tr><th>
+			#ID
+		</th><td>
+			<input type="text" id="employeeId"/>
+		</td><th>
+			Name
+		</th><td>
+			<input type="text" id="name"/>
+		</td><th>
+			email
+		</th><td>
+			<input type="text" id="eMail" />
+		</td></tr><tr><th>
+			Mobile
+		</th><td>
+			<input type="text" id="mobileNum"/>
+		</td><th>
+			Joining date
+		</th><td>
+			<input type="text" id="joiningDates" class="jquery-daterangepicker"/>
+   	    </td><th>
+   	    	Base Location
+  	    </th><td>
+   	        <select id="baseLocation" >
+		    	<option value="">Any</option>
+				<option lookupFetch="119" disabled>Loading...</option>
+   	    	</select>
+   		</td></tr></table>
+	<div class="buttons-section">
+		<button icon="ui-icon-search" onclick="framework.getScreen().search()">Search</button>
+		<button icon="ui-icon-arrowrefresh-1-w" onclick="Form.clear($('#search-form'))">Reset</button>
+	</div>
+	</div>
+</div>
+
+<div class="jquery-accordion">
+	<h3>
+		<a href="#">Employee List</a>
+	</h3>
+	<div>
+		<div id="employeeListTable"></div>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section">
+	<button icon="ui-icon-plus" onclick="window.location.hash='profile/EmployeeDetails'" id="add-new-employee-button">Add New Employee</button>
+	<button icon="ui-icon-note" onclick="framework.getScreen().exportToExcel($(this))" id="export-to-excel">Export to Excel</button>
+</div></div>
+
+<div class="jquery-dialog" id="addNotificationDialog" title="Add Notification">
+	<div id="notificationAddForm">
+		<table class="form" width="100%"><tr>
+			<th nowrap="nowrap" width="30%"><label for="forUserId">For</label></th>
+			<td nowrap="nowrap">
+				<input type="text" id="forUserId" mandatory="true" disabled="true"/>
+			</td>
+		</tr><tr>
+			<th nowrap="nowrap" width="30%"><label for="notificationTime">Notification Time</label></th>
+			<td nowrap="nowrap">
+				<input type="text" id="notificationTime" mandatory="true" class="jquery-datetimepicker" mindate="0"/>
+			</td>
+		</tr><tr>
+			<th nowrap="nowrap"><label for="notificationComment">Comments</label></th>
+			<td nowrap="nowrap">
+				<textarea id="notificationComment" mandatory="true" format="any( ,250)"></textarea>
+			</td>
+		</tr></table>	
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-check" onclick="framework.getScreen().addNotification();">Update</button>
+		<button icon="ui-icon-close" onclick="$('#addNotificationDialog').dialog('close');return false;">Close</button>
+</div></div>

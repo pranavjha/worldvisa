@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="marketDataGroupComments">
+    <!-- sql map for DataGroupComments -->
+    <resultMap id="DataGroupComments" class="com.worldvisa.business.domain.market.DataGroupComments">
+        <result property="dataGroupName" column="DATA_GROUP_NAME" />
+        <result property="addedBy" column="ADDED_BY" />
+        <result property="comment" column="COMMENT" />
+        <result property="commentTime" column="COMMENT_TIME" />
+        <result property="officeLocation" column="OFFICE_LOCATION" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.market.DataGroupComments">
+        INSERT INTO MARKET_DATA_GROUP_COMMENTS (
+	        DATA_GROUP_NAME,
+	        ADDED_BY,
+	        COMMENT,
+	        COMMENT_TIME,
+	        OFFICE_LOCATION
+        )
+        VALUES (
+	        #dataGroupName:VARCHAR#,
+	        #addedBy:VARCHAR#,
+	        #comment:VARCHAR#,
+	        #commentTime:TIMESTAMP#,
+	        #officeLocation:NUMBER#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE MARKET_DATA_GROUP_COMMENTS SET
+        	DATA_GROUP_NAME = #data.dataGroupName:VARCHAR#,
+        	ADDED_BY = #data.addedBy:VARCHAR#,
+        	COMMENT = #data.comment:VARCHAR#,
+        	COMMENT_TIME = #data.commentTime:TIMESTAMP#,
+        	OFFICE_LOCATION = #data.officeLocation:NUMBER#
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="filter.dataGroupName">
+                DATA_GROUP_NAME = #filter.dataGroupName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.addedBy">
+                ADDED_BY = #filter.addedBy:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.comment">
+                COMMENT = #filter.comment:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.commentTime">
+                COMMENT_TIME = #filter.commentTime:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.officeLocation">
+                OFFICE_LOCATION = #filter.officeLocation:NUMBER#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.market.DataGroupComments">
+        DELETE FROM MARKET_DATA_GROUP_COMMENTS
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="dataGroupName">
+                DATA_GROUP_NAME = #dataGroupName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="addedBy">
+                ADDED_BY = #addedBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="comment">
+                COMMENT = #comment:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="commentTime">
+                COMMENT_TIME = #commentTime#
+            </isNotNull>
+            <isNotNull prepend="AND" property="officeLocation">
+                OFFICE_LOCATION = #officeLocation#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            DATA_GROUP_NAME,
+            ADDED_BY,
+            COMMENT,
+            COMMENT_TIME,
+            OFFICE_LOCATION
+        FROM MARKET_DATA_GROUP_COMMENTS
+    </sql>
+    
+    <select id="read" resultMap="marketDataGroupComments.DataGroupComments" 
+    	parameterClass="com.worldvisa.business.domain.market.DataGroupComments">
+        <include refid="marketDataGroupComments.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="dataGroupName">
+                DATA_GROUP_NAME = #dataGroupName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="addedBy">
+                ADDED_BY = #addedBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="comment">
+                COMMENT = #comment:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="commentTime">
+                COMMENT_TIME = #commentTime#
+            </isNotNull>
+            <isNotNull prepend="AND" property="officeLocation">
+                OFFICE_LOCAITON = #officeLocation#
+            </isNotNull>
+      </dynamic>
+    </select>
+</sqlMap>

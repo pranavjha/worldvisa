@@ -1,0 +1,63 @@
+<div class="jquery-accordion-collapsed">
+	<h3>
+		<a href="#">Search Criteria</a>
+	</h3>
+	<div id="search-form">
+	<table class="form"><tr><th width="25%">
+		#ID
+	</th><td width="25%">
+		<input type="text" id="paymentId" />
+	</td><th width="25%">
+		Customer Name
+	</th><td width="25%">
+		<input type="text" id="customerName" />
+	</tr><tr><th>
+		Amount Range
+	</th><td>
+		<input type="text" id="amountRangeFrom" style="width:60px"/> to <input type="text" id="amountRangeTo" style="width:60px"/>
+ 	</td><th>
+ 		Customer Email
+ 	</th><td>
+ 		<input type="text" id="customerEmail"/>
+	</td></tr><tr><th>
+		Transaction date
+	</th><td>
+		<input type="text" id="transactionDates" class="jquery-daterangepicker"/>
+  	</td><th>
+  		Employee Name
+ 	</th><td>
+   	    <select id="employeeName" >
+	    	<option value="">Any</option>
+			<option dwrFetch="CommonView.getAssignmentOptions" label="employeeName" value="emailId" disabled>Loading...</option>
+   	    </select>
+	</td></tr><tr><th>
+		Payment Mode
+	</th><td>
+		<select id="paymentMode" >
+			<option value="">Any</option>
+			<option lookupFetch="116" disabled>Loading...</option>
+		</select>
+	</td><th>
+ 		Cheque / DD No
+	</th><td>
+        <input type="text" id="chequeDdNo" />
+    </td></tr></table>
+	<div class="buttons-section">
+		<button icon="ui-icon-search" onclick="framework.getScreen().search()">Search</button>
+		<button icon="ui-icon-arrowrefresh-1-w" onclick="Form.clear($('#search-form'))">Reset</button>
+	</div>
+	</div>
+</div>
+
+<div class="jquery-accordion">
+	<h3>
+		<a href="#">Transaction Records</a>
+	</h3>
+	<div>
+		<div id="transactionRecordsTable"></div>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section">
+	<button icon="ui-icon-locked" onclick="framework.getScreen().downloadReceipts($(this))">Download All receipts</button>
+	<button icon="ui-icon-note" onclick="framework.getScreen().exportToExcel($(this))" id="export-to-excel">Export to Excel</button>
+</div></div>

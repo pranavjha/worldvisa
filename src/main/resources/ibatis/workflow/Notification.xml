@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="workflowNotification">
+    <!-- sql map for Notification -->
+    <resultMap id="Notification" class="com.worldvisa.business.domain.workflow.Notification">
+        <result property="notificationId" column="NOTIFICATION_ID" />
+        <result property="reportId" column="REPORT_ID" />
+        <result property="notificationTime" column="NOTIFICATION_TIME" />
+        <result property="forUserId" column="FOR_USER_ID" />
+        <result property="byUserId" column="BY_USER_ID" />
+        <result property="notificationStatus" column="NOTIFICATION_STATUS" />
+        <result property="notificationComment" column="NOTIFICATION_COMMENT" />
+        <result property="creationTime" column="CREATION_TIME" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.workflow.Notification">
+		<selectKey resultClass="java.lang.Long" keyProperty="notificationId" type="pre">
+	        SELECT IFNULL(MAX(NOTIFICATION_ID), 0)+1 FROM WORKFLOW_NOTIFICATION
+	    </selectKey>
+        INSERT INTO WORKFLOW_NOTIFICATION (
+	        NOTIFICATION_ID,
+	        REPORT_ID,
+	        NOTIFICATION_TIME,
+	        FOR_USER_ID,
+	        BY_USER_ID,
+	        NOTIFICATION_STATUS,
+	        NOTIFICATION_COMMENT,
+	        CREATION_TIME
+        )
+        VALUES (
+	        
+	        #notificationId:DECIMAL#,
+	        #reportId:CHAR#,
+	        #notificationTime:TIMESTAMP#,
+	        #forUserId:VARCHAR#,
+	        #byUserId:VARCHAR#,
+	        #notificationStatus:DECIMAL#,
+	        #notificationComment:VARCHAR#,
+	        #creationTime:TIMESTAMP#
+        )
+    </insert>
+    <insert id="update"  parameterClass="com.worldvisa.business.domain.workflow.Notification">
+            INSERT INTO WORKFLOW_NOTIFICATION (
+	        NOTIFICATION_ID,
+	        REPORT_ID,
+	        NOTIFICATION_TIME,
+	        FOR_USER_ID,
+	        BY_USER_ID,
+	        NOTIFICATION_STATUS,
+	        NOTIFICATION_COMMENT,
+	        CREATION_TIME
+        )
+        VALUES (
+	        
+	        #notificationId:DECIMAL#,
+	        #reportId:CHAR#,
+	        #notificationTime:TIMESTAMP#,
+	        #forUserId:VARCHAR#,
+	        #byUserId:VARCHAR#,
+	        #notificationStatus:DECIMAL#,
+	        #notificationComment:VARCHAR#,
+	        #creationTime:TIMESTAMP#
+        )
+    </insert>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.workflow.Notification">
+        DELETE FROM WORKFLOW_NOTIFICATION
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="notificationId">
+                NOTIFICATION_ID = #notificationId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="notificationTime">
+                NOTIFICATION_TIME = #notificationTime#
+            </isNotNull>
+            <isNotNull prepend="AND" property="forUserId">
+                FOR_USER_ID = #forUserId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="byUserId">
+                BY_USER_ID = #byUserId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="notificationStatus">
+                NOTIFICATION_STATUS = #notificationStatus#
+            </isNotNull>
+            <isNotNull prepend="AND" property="notificationComment">
+                NOTIFICATION_COMMENT = #notificationComment#
+            </isNotNull>
+            <isNotNull prepend="AND" property="creationTime">
+                CREATION_TIME = #creationTime#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+            NOTIFICATION_ID,
+            REPORT_ID,
+            NOTIFICATION_TIME,
+            FOR_USER_ID,
+            BY_USER_ID,
+            NOTIFICATION_STATUS,
+            NOTIFICATION_COMMENT,
+            CREATION_TIME
+        FROM WORKFLOW_NOTIFICATION
+    </sql>
+    
+    <select id="read" resultMap="workflowNotification.Notification" 
+    	parameterClass="com.worldvisa.business.domain.workflow.Notification">
+        <include refid="workflowNotification.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="notificationId">
+                NOTIFICATION_ID = #notificationId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="notificationTime">
+                NOTIFICATION_TIME = #notificationTime#
+            </isNotNull>
+            <isNotNull prepend="AND" property="forUserId">
+                FOR_USER_ID = #forUserId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="byUserId">
+                BY_USER_ID = #byUserId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="notificationStatus">
+                NOTIFICATION_STATUS = #notificationStatus#
+            </isNotNull>
+            <isNotNull prepend="AND" property="notificationComment">
+                NOTIFICATION_COMMENT = #notificationComment#
+            </isNotNull>
+            <isNotNull prepend="AND" property="creationTime">
+                CREATION_TIME = #creationTime#
+            </isNotNull>
+      	</dynamic>
+		ORDER BY CREATION_TIME DESC
+    </select>
+    
+    <select id="readForbyUserId" resultMap="workflowNotification.Notification" 
+    	parameterClass="java.lang.String">
+        <include refid="workflowNotification.readSelect" />
+        WHERE BY_USER_ID = #value#
+    </select>
+    
+    <select id="readForreportId" resultMap="workflowNotification.Notification" 
+    	parameterClass="java.lang.String">
+        <include refid="workflowNotification.readSelect" />
+        WHERE REPORT_ID = #value#
+    </select>
+    
+    <select id="readFornotificationStatus" resultMap="workflowNotification.Notification" 
+    	parameterClass="java.lang.Integer">
+        <include refid="workflowNotification.readSelect" />
+        WHERE NOTIFICATION_STATUS = #value#
+    </select>
+    
+    <select id="readForforUserId" resultMap="workflowNotification.Notification" 
+    	parameterClass="java.lang.String">
+        <include refid="workflowNotification.readSelect" />
+        WHERE FOR_USER_ID = #value#
+    </select>
+    <select id="readLengthForUser" resultClass="java.lang.Integer" 
+    	parameterClass="com.worldvisa.business.domain.common.ContextAwareDataTableRequest">
+    		SELECT count(*) as value
+			FROM (
+        <include refid="workflowNotification.readSelect" />
+			INNER JOIN
+			(SELECT NOTIFICATION_ID as notId, 
+				MAX(CREATION_TIME) as cTime 
+				FROM WORKFLOW_NOTIFICATION      
+				GROUP BY NOTIFICATION_ID
+			)ViewLatestNotification     
+			ON ViewLatestNotification.notId = NOTIFICATION_ID
+			AND ViewLatestNotification.cTime = CREATION_TIME
+			WHERE
+                FOR_USER_ID = #emailId#
+                AND NOTIFICATION_STATUS NOT IN (10003, 10004)
+			) maintable
+    </select>
+    <select id="readForUser" resultMap="workflowNotification.Notification" 
+    	parameterClass="com.worldvisa.business.domain.common.ContextAwareDataTableRequest">
+	    SELECT * FROM (
+			SELECT *,
+				@rownum:=@rownum+1 AS rownum
+			FROM (
+        <include refid="workflowNotification.readSelect" />
+			INNER JOIN
+			(SELECT NOTIFICATION_ID as notId, 
+				MAX(CREATION_TIME) as cTime 
+				FROM WORKFLOW_NOTIFICATION      
+				GROUP BY NOTIFICATION_ID
+			)ViewLatestNotification     
+			ON ViewLatestNotification.notId = NOTIFICATION_ID
+			AND ViewLatestNotification.cTime = CREATION_TIME
+			WHERE
+                FOR_USER_ID = #emailId#
+                AND NOTIFICATION_STATUS NOT IN (10003, 10004)
+			ORDER BY $sortCol$ $sortOrder$) maintable, (SELECT @rownum:=0) r) a
+		WHERE a.rownum between #startRow# and #endRow#
+    </select>
+    <select id="readForReport" resultMap="workflowNotification.Notification" 
+    	parameterClass="java.lang.String">
+        <include refid="workflowNotification.readSelect" />
+			INNER JOIN
+			(SELECT NOTIFICATION_ID as notId, 
+				MAX(CREATION_TIME) as cTime 
+				FROM WORKFLOW_NOTIFICATION   
+				WHERE REPORT_ID = #value#   
+				GROUP BY NOTIFICATION_ID
+			)ViewLatestNotification     
+			ON ViewLatestNotification.notId = NOTIFICATION_ID
+			AND ViewLatestNotification.cTime = CREATION_TIME
+			WHERE NOTIFICATION_STATUS NOT IN (10004)
+			ORDER BY NOTIFICATION_TIME ASC
+    </select>
+</sqlMap>

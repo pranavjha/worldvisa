@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="marketNonRegUser">
+    <!-- sql map for NonRegUser -->
+    <resultMap id="NonRegUser" class="com.worldvisa.business.domain.market.NonRegUser">
+		<result property="userId" column="USER_ID" />
+		<result property="name" column="NAME" />
+		<result property="gender" column="GENDER" />
+		<result property="age" column="AGE" />
+		<result property="qualCompleted" column="QUAL_COMPLETED" />
+		<result property="email" column="EMAIL" />
+		<result property="mobile" column="MOBILE" />
+		<result property="desCountries" column="DES_COUNTRIES" />
+		<result property="desCourse" column="DES_COURSE" />
+		<result property="specialization" column="SPECIALIZATION" />
+		<result property="desCollege" column="DES_COLLEGE" />
+		<result property="serviceType" column="SERVICE_TYPE" />
+		<result property="branchOffice" column="BRANCH_OFFICE" />
+		<result property="dataGroup" column="DATA_GROUP" />
+		<result property="addedBy" column="ADDED_BY" />
+		<result property="telephoneNo" column="TELEPHONE_NO" />
+		<result property="dateOfBirth" column="DATE_OF_BIRTH" />
+		<result property="createdTime" column="CREATED_TIME" />
+	</resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.market.NonRegUser">
+        INSERT INTO MARKET_NON_REG_USER (
+			NAME,
+			GENDER,
+			AGE,
+			QUAL_COMPLETED,
+			EMAIL,
+			MOBILE,
+			DES_COUNTRIES,
+			DES_COURSE,
+			SPECIALIZATION,
+			DES_COLLEGE,
+			SERVICE_TYPE,
+			BRANCH_OFFICE,
+			DATA_GROUP,
+			ADDED_BY,
+			TELEPHONE_NO,
+			DATE_OF_BIRTH,
+			CREATED_TIME
+        )
+        VALUES (
+			#name:VARCHAR#,
+			#gender:VARCHAR#,
+			#age:NUMBER#,
+			#qualCompleted:VARCHAR#,
+			#email:VARCHAR#,
+			#mobile:VARCHAR#,
+			#desCountries:VARCHAR#,
+			#desCourse:VARCHAR#,
+			#specialization:VARCHAR#,
+			#desCollege:VARCHAR#,
+			#serviceType:DECIMAL#,
+			#branchOffice:DECIMAL#,
+			#dataGroup:VARCHAR#,
+			#addedBy:VARCHAR#,
+			#telephoneNo:VARCHAR#,
+			#dateOfBirth:VARCHAR#,
+			#createdTime:TIMESTAMP#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE MARKET_NON_REG_USER SET
+			NAME = #data.name:VARCHAR#,
+			GENDER = #data.gender:VARCHAR#,
+			AGE = #data.age:DECIMAL#,
+			QUAL_COMPLETED = #data.qualCompleted:VARCHAR#,
+			EMAIL = #data.email:VARCHAR#,
+			MOBILE = #data.mobile:VARCHAR#,
+			DES_COUNTRIES = #data.desCountries:VARCHAR#,
+			DES_COURSE = #data.desCourse:VARCHAR#,    
+			SPECIALIZATION = #data.specialization:VARCHAR#,
+			DES_COLLEGE = #data.desCollege:VARCHAR#,
+			DATA_GROUP = #data.dataGroup:VARCHAR#,
+			SERVICE_TYPE = #data.serviceType:DECIMAL#,
+			BRANCH_OFFICE = #data.branchOffice:DECIMAL#,
+			ADDED_BY = #data.addedBy:VARCHAR#,
+			TELEPHONE_NO = #data.telephoneNo:VARCHAR#,
+			DATE_OF_BIRTH = #data.dateOfBirth:VARCHAR#
+		WHERE
+             USER_ID = #filter.userId:DECIMAL#
+    </update>
+    <delete id="deleteByUserId" parameterClass="java.util.Map">
+        DELETE FROM MARKET_NON_REG_USER WHERE USER_ID IN
+        <iterate property="user" open="(" close=")" conjunction=",">#user[]#</iterate>
+    </delete>
+    <sql id="readSelect">
+        SELECT * FROM MARKET_NON_REG_USER
+    </sql>
+    <select id="read" resultMap="marketNonRegUser.NonRegUser" 
+    	parameterClass="com.worldvisa.business.domain.market.NonRegUser">
+        <include refid="marketNonRegUser.readSelect" />
+	        WHERE USER_ID = #userId#
+    </select>
+    <select id="readByUserIds" resultMap="marketNonRegUser.NonRegUser" 
+    	parameterClass="java.util.Map">
+        <include refid="marketNonRegUser.readSelect" />
+	        WHERE USER_ID IN
+	        <iterate property="id" open="(" close=")" conjunction=",">#id[]#</iterate>
+    </select>
+    
+    <resultMap id="nonRegUserFilter" class="com.worldvisa.business.domain.market.NonRegUser">
+		<result property="userId" column="userId" />
+		<result property="name" column="name" />
+		<result property="age" column="age" />
+		<result property="gender" column="gender" />
+		<result property="requestNumber" column="requestNumber" />
+		<result property="qualCompleted" column="qualCompleted" />
+		<result property="email" column="email" />
+		<result property="mobile" column="mobile" />
+		<result property="desCountries" column="desCountries" />
+		<result property="desCourse" column="desCourse" />
+		<result property="specialization" column="specialization" />
+		<result property="desCollege" column="desCollege" />
+		<result property="serviceType" column="serviceType" />
+		<result property="branchOffice" column="branchOffice" />
+		<result property="dataGroup" column="dataGroup" />
+		<result property="addedBy" column="addedBy" />
+		<result property="telephoneNo" column="telephoneNo" />
+		<result property="dateOfBirth" column="dateOfBirth" />
+		<result property="createdTime" column="createdTime" />
+	</resultMap>
+    
+    <sql id="readByFilterQuery" >
+		SELECT * FROM (
+		(
+			SELECT
+				MNRU.USER_ID as userId,
+				MNRU.NAME as name,
+				MNRU.GENDER as gender,
+				MNRU.AGE as age,
+				MNRU.QUAL_COMPLETED as qualCompleted,
+				MNRU.EMAIL as email,
+				MNRU.MOBILE as mobile,
+				MNRU.DES_COUNTRIES as desCountries,
+				MNRU.DES_COURSE as desCourse,
+				MNRU.SPECIALIZATION as specialization,
+				MNRU.DES_COLLEGE as desCollege,
+				MNRU.SERVICE_TYPE as serviceType,
+				MNRU.BRANCH_OFFICE as branchOffice,
+				MNRU.DATA_GROUP as dataGroup,
+				null as requestNumber,
+				MNRU.ADDED_BY as addedBy,
+				MNRU.TELEPHONE_NO as telephoneNo,
+				MNRU.DATE_OF_BIRTH as dateOfBirth,
+				MNRU.CREATED_TIME as createdTime
+			FROM MARKET_NON_REG_USER MNRU
+    	)
+    	UNION
+    	(
+			SELECT
+				null as userId,
+				PUD.NAME as name,
+				null as gender,
+				(DATEDIFF(CURRENT_DATE, PUD.DATE_OF_BIRTH)/365) as age,
+				NULL as qualCompleted,
+				PUD.EMAIL_ID as email,
+				PUD.CELLPHONE as mobile,
+				RCP.COUNTRY as desCountries,
+				RCPF.COURSE_DETAIL as desCourse,
+				null as specialization,
+				RCPF.INSTITUTION_CHOICE as desCollege,
+				RRD.REQUEST_TYPE as serviceType,
+				PED.BASE_LOCATION as branchOffice,
+				'Registered Users' as dataGroup,
+				RRD.REPORT_ID as requestNumber,
+				RRD.ASSIGNED_TO as addedBy,
+		        PUD.LANDLINE as telephoneNo,
+		        PUD.DATE_OF_BIRTH as dateOfBirth,
+		        RRD.RAISED_DT as createdTime
+	        FROM PROFILE_USER_DETAILS PUD
+			LEFT OUTER JOIN REQUEST_REPORT_DETAILS RRD
+			  ON RRD.RAISED_FOR = PUD.EMAIL_ID
+			LEFT OUTER JOIN PROFILE_EMPLOYEE_DETAILS PED
+			  ON RRD.ASSIGNED_TO = PED.EMAIL_ID
+			LEFT OUTER JOIN REQUEST_COUNTRY_PREFERENCES RCP
+			  ON RCP.REPORT_ID = RRD.REPORT_ID AND RCP.SEQ_NUM = 1
+			LEFT OUTER JOIN REQUEST_COURSE_PREFERENCE RCPF
+			  ON RCPF.REPORT_ID = RRD.REPORT_ID AND RCPF.SEQ_NUM = 1
+   		)
+  		) as A
+          <dynamic prepend="WHERE">
+            <isNotEmpty prepend="AND" property="name">
+                A.name LIKE CONCAT('%',#name#,'%')
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="gender">
+                A.gender LIKE CONCAT('%',#gender#,'%')
+            </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="qualCompleted">
+                A.qualCompleted LIKE CONCAT('%',#qualCompleted#,'%')
+            </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="email">
+                A.email LIKE CONCAT('%',#email#,'%')
+            </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="mobile">
+                A.mobile LIKE CONCAT('%',#mobile#,'%')
+            </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="desCountries">
+                A.desCountries LIKE CONCAT('%',#desCountries#,'%')
+            </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="desCourse">
+                A.desCourse LIKE CONCAT('%',#desCourse#,'%')
+            </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="specialization">
+                A.specialization LIKE CONCAT('%',#specialization#,'%')
+            </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="desCollege">
+                A.desCollege LIKE CONCAT('%',#desCollege#,'%')
+            </isNotEmpty>
+		    <isNotNull prepend="AND" property="serviceType">
+                A.serviceType  = #serviceType#
+            </isNotNull>
+		    <isNotNull prepend="AND" property="branchOffice">
+                A.branchOffice  = #branchOffice#
+            </isNotNull>
+		    <isNotEmpty prepend="AND" property="dataGroup">
+                A.dataGroup LIKE CONCAT('%',#dataGroup#,'%')
+            </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="addedBy">
+                A.addedBy = #addedBy#
+            </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="createdTime">
+                DATE(A.createdTime) BETWEEN DATE(#createdTime[0]#) AND DATE(#createdTime[1]#)
+            </isNotEmpty>
+      </dynamic>
+    </sql>
+    
+    
+   	<select id="readCountByFilter" resultClass="java.lang.Integer"
+	parameterClass="com.worldvisa.business.domain.market.ListContactsFilter">
+		SELECT count(*) FROM (
+			<include refid="marketNonRegUser.readByFilterQuery" />
+		) maintable
+	</select>
+	<select id="readByFilter" resultMap="marketNonRegUser.nonRegUserFilter"
+    	parameterClass="com.worldvisa.business.domain.market.ListContactsFilter">
+		SELECT * FROM (
+			SELECT *,
+				@rownum:=@rownum+1 AS rownum
+			FROM (
+			<include refid="marketNonRegUser.readByFilterQuery" />
+		        ORDER BY $sortCol$ $sortOrder$) maintable, (SELECT @rownum:=0) r) a
+		WHERE a.rownum between #startRow# and #endRow#
+	</select>
+    
+    <select id="readGroups" resultClass="java.lang.String" parameterClass="java.lang.String">
+		SELECT DATA_GROUP AS value FROM MARKET_NON_REG_USER GROUP BY value HAVING value LIKE CONCAT('%',#value#,'%')
+    </select>
+    	
+	<resultMap id="groupDetailsMap" class="com.worldvisa.business.domain.market.DataGroup"
+    	groupBy="dataGroupName,officeLocation">
+		<result property="dataGroupName" column="dataGroupName" />
+		<result property="officeLocation" column="officeLocation" />
+		<result property="numberOfEntities" column="numberOfEntities" />
+		<result property="dataGroupComments" resultMap="marketNonRegUser.dataGroupCommentsMap"/>
+	</resultMap>
+    <resultMap id="dataGroupCommentsMap" class="com.worldvisa.business.domain.market.DataGroupComments">
+        <result property="comment" column="comment" />
+        <result property="addedBy" column="addedBy" />
+        <result property="commentTime" column="commentTime" />
+    </resultMap>
+	<select id="readGroupDetails" parameterClass="com.worldvisa.business.domain.market.DataGroup"
+    resultMap="marketNonRegUser.groupDetailsMap">
+	    SELECT
+			A.dataGroupName,
+			A.numberOfEntities,
+			A.officeLocation,
+			B.COMMENT as comment,
+			B.ADDED_BY as addedBy,
+			B.COMMENT_TIME as commentTime
+		FROM
+	    (
+	   		SELECT
+				DATA_GROUP AS dataGroupName,
+	  			COUNT(USER_ID) as numberOfEntities,
+		  		BRANCH_OFFICE as officeLocation
+			FROM
+				MARKET_NON_REG_USER
+	  		GROUP BY dataGroupName, officeLocation
+			<dynamic prepend="HAVING">
+	            <isNotEmpty prepend="AND" property="dataGroupName">
+	                dataGroupName LIKE CONCAT('%',#dataGroupName#,'%')
+	            </isNotEmpty>
+	            <isNotNull prepend="AND" property="officeLocation">
+	                officeLocation  = #officeLocation#
+	            </isNotNull>
+			</dynamic>
+	    ) A
+		LEFT OUTER JOIN MARKET_DATA_GROUP_COMMENTS B
+			ON B.DATA_GROUP_NAME = A.dataGroupName AND B.OFFICE_LOCATION = officeLocation
+		ORDER BY dataGroupname ASC,commentTime DESC
+    </select>
+</sqlMap>

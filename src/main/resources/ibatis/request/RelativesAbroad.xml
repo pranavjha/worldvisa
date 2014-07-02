@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="requestRelativesAbroad">
+    <!-- sql map for RelativesAbroad -->
+    <resultMap id="RelativesAbroad" class="com.worldvisa.business.domain.request.RelativesAbroad">
+    
+        <result property="reportId" column="REPORT_ID" />
+        <result property="relativeName" column="RELATIVE_NAME" />
+        <result property="relation" column="RELATION" />
+        <result property="cityCountry" column="CITY_COUNTRY" />
+        <result property="seqNum" column="SEQ_NUM" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.request.RelativesAbroad">
+        INSERT INTO REQUEST_RELATIVES_ABROAD (
+	        
+	        REPORT_ID,
+	        RELATIVE_NAME,
+	        RELATION,
+	        CITY_COUNTRY,
+	        SEQ_NUM
+        )
+        VALUES (
+	        
+	        #reportId:CHAR#,
+	        #relativeName:VARCHAR#,
+	        #relation:DECIMAL#,
+	        #cityCountry:VARCHAR#,
+	        #seqNum:DECIMAL#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE REQUEST_RELATIVES_ABROAD SET
+        
+        	REPORT_ID = #data.reportId:CHAR#,
+        	RELATIVE_NAME = #data.relativeName:VARCHAR#,
+        	RELATION = #data.relation:DECIMAL#,
+        	CITY_COUNTRY = #data.cityCountry:VARCHAR#,
+        	SEQ_NUM = #data.seqNum:DECIMAL#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.reportId">
+                REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.relativeName">
+                RELATIVE_NAME = #filter.relativeName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.relation">
+                RELATION = #filter.relation:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.cityCountry">
+                CITY_COUNTRY = #filter.cityCountry:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.seqNum">
+                SEQ_NUM = #filter.seqNum:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.request.RelativesAbroad">
+        DELETE FROM REQUEST_RELATIVES_ABROAD
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="relativeName">
+                RELATIVE_NAME = #relativeName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="relation">
+                RELATION = #relation#
+            </isNotNull>
+            <isNotNull prepend="AND" property="cityCountry">
+                CITY_COUNTRY = #cityCountry#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            REPORT_ID,
+            RELATIVE_NAME,
+            RELATION,
+            CITY_COUNTRY,
+            SEQ_NUM
+        FROM REQUEST_RELATIVES_ABROAD
+    </sql>
+    
+    <select id="read" resultMap="requestRelativesAbroad.RelativesAbroad" 
+    	parameterClass="com.worldvisa.business.domain.request.RelativesAbroad">
+        <include refid="requestRelativesAbroad.readSelect" />
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="relativeName">
+                RELATIVE_NAME = #relativeName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="relation">
+                RELATION = #relation#
+            </isNotNull>
+            <isNotNull prepend="AND" property="cityCountry">
+                CITY_COUNTRY = #cityCountry#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="readForrelation" resultMap="requestRelativesAbroad.RelativesAbroad" 
+    	parameterClass="java.lang.Integer">
+        <include refid="requestRelativesAbroad.readSelect" />
+        WHERE RELATION = #value#
+    </select>
+    
+    <select id="readForreportId" resultMap="requestRelativesAbroad.RelativesAbroad" 
+    	parameterClass="java.lang.String">
+        <include refid="requestRelativesAbroad.readSelect" />
+        WHERE REPORT_ID = #value#
+    </select>
+    
+    
+</sqlMap>

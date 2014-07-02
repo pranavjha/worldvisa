@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="requestFamilyDetails">
+    <!-- sql map for FamilyDetails -->
+    <resultMap id="FamilyDetails" class="com.worldvisa.business.domain.request.FamilyDetails">
+        <result property="reportId" column="REPORT_ID" />
+        <result property="seqNum" column="SEQ_NUM" />
+        <result property="relativeName" column="RELATIVE_NAME" />
+        <result property="relation" column="RELATION" />
+        <result property="highestDegree" column="HIGHEST_DEGREE" />
+        <result property="workExperience" column="WORK_EXPERIENCE" />
+        <result property="dateOfBirth" column="DATE_OF_BIRTH" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.request.FamilyDetails">
+        INSERT INTO REQUEST_FAMILY_DETAILS (
+	        
+	        REPORT_ID,
+	        RELATIVE_NAME,
+	        RELATION,
+	        SEQ_NUM,
+	        HIGHEST_DEGREE,
+	        WORK_EXPERIENCE,
+	        DATE_OF_BIRTH
+        )
+        VALUES (
+	        #reportId:CHAR#,
+	        #relativeName:VARCHAR#,
+	        #relation:DECIMAL#,
+	        #seqNum:DECIMAL#,
+	        #highestDegree:VARCHAR#,
+	        #workExperience:DECIMAL#,
+	        #dateOfBirth:TIMESTAMP#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE REQUEST_FAMILY_DETAILS SET
+        
+        	REPORT_ID = #data.reportId:CHAR#,
+        	RELATIVE_NAME = #data.relativeName:VARCHAR#,
+        	RELATION = #data.relation:DECIMAL#,
+        	SEQ_NUM = #data.seqNum:DECIMAL#,
+        	HIGHEST_DEGREE = #data.highestDegree:VARCHAR#,
+        	WORK_EXPERIENCE = #data.workExperience:DECIMAL#,
+        	DATE_OF_BIRTH = #data.dateOfBirth:TIMESTAMP#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.reportId">
+                REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.relativeName">
+                RELATIVE_NAME = #filter.relativeName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.relation">
+                RELATION = #filter.relation:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.seqNum">
+                SEQ_NUM = #filter.seqNum:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.highestDegree">
+                HIGHEST_DEGREE = #filter.highestDegree:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.workExperience">
+                WORK_EXPERIENCE = #filter.workExperience:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.dateOfBirth">
+                DATE_OF_BIRTH = #filter.dateOfBirth:TIMESTAMP#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.request.FamilyDetails">
+        DELETE FROM REQUEST_FAMILY_DETAILS
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="relativeName">
+                RELATIVE_NAME = #relativeName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="relation">
+                RELATION = #relation#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="highestDegree">
+                HIGHEST_DEGREE = #highestDegree#
+            </isNotNull>
+            <isNotNull prepend="AND" property="workExperience">
+                WORK_EXPERIENCE = #workExperience#
+            </isNotNull>
+            <isNotNull prepend="AND" property="dateOfBirth">
+                DATE_OF_BIRTH = #dateOfBirth:TIMESTAMP#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            REPORT_ID,
+            RELATIVE_NAME,
+            RELATION,
+            SEQ_NUM,
+            HIGHEST_DEGREE,
+            WORK_EXPERIENCE,
+            DATE_OF_BIRTH
+        FROM REQUEST_FAMILY_DETAILS
+    </sql>
+    
+    <select id="read" resultMap="requestFamilyDetails.FamilyDetails" 
+    	parameterClass="com.worldvisa.business.domain.request.FamilyDetails">
+        <include refid="requestFamilyDetails.readSelect" />
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="relativeName">
+                RELATIVE_NAME = #relativeName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="relation">
+                RELATION = #relation#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="highestDegree">
+                HIGHEST_DEGREE = #highestDegree#
+            </isNotNull>
+            <isNotNull prepend="AND" property="workExperience">
+                WORK_EXPERIENCE = #workExperience#
+            </isNotNull>
+            <isNotNull prepend="AND" property="dateOfBirth">
+                DATE_OF_BIRTH = #dateOfBirth#
+            </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="readForrelation" resultMap="requestFamilyDetails.FamilyDetails" 
+    	parameterClass="java.lang.Integer">
+        <include refid="requestFamilyDetails.readSelect" />
+        WHERE RELATION = #value#
+    </select>
+    
+    <select id="readForreportId" resultMap="requestFamilyDetails.FamilyDetails" 
+    	parameterClass="java.lang.String">
+        <include refid="requestFamilyDetails.readSelect" />
+        WHERE REPORT_ID = #value#
+    </select>
+</sqlMap>

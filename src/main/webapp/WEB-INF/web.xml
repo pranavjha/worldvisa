@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>WorldVisaWeb</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring-context.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<servlet>
+		<display-name>DWR Servlet</display-name>
+		<servlet-name>dwr-invoker</servlet-name>
+		<servlet-class>org.directwebremoting.spring.DwrSpringServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>File Upload Servlet</display-name>
+		<servlet-name>file-uploader</servlet-name>
+		<servlet-class>com.worldvisa.business.infra.servlet.FileUploaderServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>File Download Servlet</display-name>
+		<servlet-name>file-downloader</servlet-name>
+		<servlet-class>com.worldvisa.business.infra.servlet.FileDownloaderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dwr-invoker</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>file-uploader</servlet-name>
+		<url-pattern>/upload/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>file-downloader</servlet-name>
+		<url-pattern>/download/*</url-pattern>
+	</servlet-mapping>
+	<!-- filters -->
+	<filter>
+		<filter-name>CacheFilter</filter-name>
+		<filter-class>com.worldvisa.business.infra.servlet.CachingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>/html/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.js</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>/css/*</url-pattern>
+	</filter-mapping>
+</web-app>

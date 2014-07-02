@@ -1,0 +1,97 @@
+
+
+<div class="jquery-accordion-collapsed">
+	<h3>
+		<a href="#">Search Criteria</a>
+	</h3>
+	<div id="search-form">
+		<table class="form"><tr>
+		<th>Report ID</th>
+		<td>
+			<input type="text" id="reportId" />
+		</td>
+		<th>Request Type</th>
+		<td>
+			<select id="requestType" >
+				<option value="">Any</option>
+				<option lookupFetch="101" disabled>Loading...</option>
+			</select>
+		</td>
+		<th>Mode</th>
+		<td>
+			<select id="mode" >
+				<option value="">Any</option>
+				<option lookupFetch="102" disabled>Loading...</option>
+			</select>
+		</td>
+	</tr><tr>
+		<th>Client Name</th>
+		<td>
+			<input type="text" id="clientName" />
+		</td>
+		<th>Client Email</th>
+		<td>
+			<input type="text" id="clientEmail" />
+		</td>
+		<th>Mobile</th>
+		<td>
+			<input type="text" id="mobile" />
+		</td>
+	</tr>
+	<tr>
+		<th>SLA Status</th>
+		<td>
+			<select id="slaStatus">
+				<option value="">Any</option>
+				<option lookupFetch="104" disabled>Loading...</option>
+			</select>
+		</td>
+		<th>Client Status </th>
+		<td>	
+			<select id="clientStatus">
+				<option value="">Any</option>
+				<option lookupFetch="103" disabled>Loading...</option>
+			</select>
+		</td>
+		<th>Case Status </th>
+		<td>
+			<select id="caseSubStatus">
+				<option value="">Any</option>
+				<option lookupFetch="106" disabled>Loading...</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th>Raised On</th>
+		<td>
+			<input type="text" id="dateRange" class="jquery-daterangepicker"/>
+		</td>
+		<th>Assigned To </th>
+		<td>
+			<select id="assignedTo">
+				<option value="">Any</option>
+				<option dwrFetch="CommonView.getAssignmentOptions" label="employeeName" value="emailId" disabled>Loading...</option>
+			</select>
+		</td>
+	</tr></table>
+	<div class="buttons-section">
+		<button icon="ui-icon-search" onclick="framework.getScreen().search()">Search</button>
+		<button icon="ui-icon-arrowrefresh-1-w" onclick="Form.clear($('#search-form'))">Reset</button>
+	</div>
+	</div>
+</div><div class="jquery-accordion">
+	<h3>
+		<a href="#">Request List</a>
+	</h3>
+	<div>
+		<div id="myAssignmentsListTable"></div>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section">
+	<select id="assign-to">
+		<option value="">send back to pool</option>
+		<option dwrFetch="CommonView.getAssignmentOptions" label="employeeName" value="emailId" disabled>Loading...</option>
+	</select>
+	<button icon="ui-icon-locked" onclick="framework.getScreen().assign()">Assign</button>
+	<button icon="ui-icon-note" onclick="framework.getScreen().exportToExcel($(this))"  id="export-to-excel">Export to Excel</button>
+</div></div>

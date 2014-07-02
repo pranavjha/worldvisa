@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="requestWorkExperience">
+    <!-- sql map for WorkExperience -->
+    <resultMap id="WorkExperience" class="com.worldvisa.business.domain.request.WorkExperience">
+    
+        <result property="reportId" column="REPORT_ID" />
+        <result property="seqNum" column="SEQ_NUM" />
+        <result property="fromDate" column="FROM_DATE" />
+        <result property="toDate" column="TO_DATE" />
+        <result property="employer" column="EMPLOYER" />
+        <result property="designation" column="DESIGNATION" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.request.WorkExperience">
+        INSERT INTO REQUEST_WORK_EXPERIENCE (
+	        
+	        REPORT_ID,
+	        SEQ_NUM,
+	        FROM_DATE,
+	        TO_DATE,
+	        EMPLOYER,
+	        DESIGNATION
+        )
+        VALUES (
+	        
+	        #reportId:CHAR#,
+	        #seqNum:DECIMAL#,
+	        #fromDate:TIMESTAMP#,
+	        #toDate:TIMESTAMP#,
+	        #employer:VARCHAR#,
+	        #designation:VARCHAR#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE REQUEST_WORK_EXPERIENCE SET
+        
+        	REPORT_ID = #data.reportId:CHAR#,
+        	SEQ_NUM = #data.seqNum:DECIMAL#,
+        	FROM_DATE = #data.fromDate:TIMESTAMP#,
+        	TO_DATE = #data.toDate:TIMESTAMP#,
+        	EMPLOYER = #data.employer:VARCHAR#,
+        	DESIGNATION = #data.designation:VARCHAR#,
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.reportId">
+                REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.seqNum">
+                SEQ_NUM = #filter.seqNum:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.fromDate">
+                FROM_DATE = #filter.fromDate:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.toDate">
+                TO_DATE = #filter.toDate:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.employer">
+                EMPLOYER = #filter.employer:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.designation">
+                DESIGNATION = #filter.designation:VARCHAR#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.request.WorkExperience">
+        DELETE FROM REQUEST_WORK_EXPERIENCE
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fromDate">
+                FROM_DATE = #fromDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="toDate">
+                TO_DATE = #toDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="employer">
+                EMPLOYER = #employer#
+            </isNotNull>
+            <isNotNull prepend="AND" property="designation">
+                DESIGNATION = #designation#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            REPORT_ID,
+            SEQ_NUM,
+            FROM_DATE,
+            TO_DATE,
+            EMPLOYER,
+            DESIGNATION
+        FROM REQUEST_WORK_EXPERIENCE
+    </sql>
+    
+    <select id="read" resultMap="requestWorkExperience.WorkExperience" 
+    	parameterClass="com.worldvisa.business.domain.request.WorkExperience">
+        <include refid="requestWorkExperience.readSelect" />
+        WHERE REPORT_ID = #reportId#
+    </select>
+    
+    <select id="readForreportId" resultMap="requestWorkExperience.WorkExperience" 
+    	parameterClass="java.lang.String">
+        <include refid="requestWorkExperience.readSelect" />
+        WHERE REPORT_ID = #value#
+    </select>
+    
+    
+</sqlMap>

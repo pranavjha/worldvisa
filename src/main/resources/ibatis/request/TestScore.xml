@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="requestTestScore">
+    <!-- sql map for TestScore -->
+    <resultMap id="TestScore" class="com.worldvisa.business.domain.request.TestScore">
+    
+        <result property="reportId" column="REPORT_ID" />
+        <result property="seqNum" column="SEQ_NUM" />
+        <result property="score" column="SCORE" />
+        <result property="testDate" column="TEST_DATE" />
+        <result property="testId" column="TEST_ID" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.request.TestScore">
+        INSERT INTO REQUEST_TEST_SCORE (
+	        
+	        REPORT_ID,
+	        SEQ_NUM,
+	        SCORE,
+	        TEST_DATE,
+	        TEST_ID
+        )
+        VALUES (
+	        
+	        #reportId:CHAR#,
+	        #seqNum:DECIMAL#,
+	        #score:VARCHAR#,
+	        #testDate:TIMESTAMP#,
+	        #testId:DECIMAL#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE REQUEST_TEST_SCORE SET
+        
+        	REPORT_ID = #data.reportId:CHAR#,
+        	SEQ_NUM = #data.seqNum:DECIMAL#,
+        	SCORE = #data.score:VARCHAR#,
+        	TEST_DATE = #data.testDate:TIMESTAMP#,
+        	TEST_ID = #data.testId:DECIMAL#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.reportId">
+                REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.seqNum">
+                SEQ_NUM = #filter.seqNum:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.score">
+                SCORE = #filter.score:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.testDate">
+                TEST_DATE = #filter.testDate:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.testId">
+                TEST_ID = #filter.testId:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.request.TestScore">
+        DELETE FROM REQUEST_TEST_SCORE
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="score">
+                SCORE = #score#
+            </isNotNull>
+            <isNotNull prepend="AND" property="testDate">
+                TEST_DATE = #testDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="testId">
+                TEST_ID = #testId#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            REPORT_ID,
+            SEQ_NUM,
+            SCORE,
+            TEST_DATE,
+            TEST_ID
+        FROM REQUEST_TEST_SCORE
+    </sql>
+    
+    <select id="read" resultMap="requestTestScore.TestScore" 
+    	parameterClass="com.worldvisa.business.domain.request.TestScore">
+        <include refid="requestTestScore.readSelect" />
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="score">
+                SCORE = #score#
+            </isNotNull>
+            <isNotNull prepend="AND" property="testDate">
+                TEST_DATE = #testDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="testId">
+                TEST_ID = #testId#
+            </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="readForreportId" resultMap="requestTestScore.TestScore" 
+    	parameterClass="java.lang.String">
+        <include refid="requestTestScore.readSelect" />
+        WHERE REPORT_ID = #value#
+    </select>
+    
+    <select id="readFortestId" resultMap="requestTestScore.TestScore" 
+    	parameterClass="java.lang.Integer">
+        <include refid="requestTestScore.readSelect" />
+        WHERE TEST_ID = #value#
+    </select>
+    
+    
+</sqlMap>

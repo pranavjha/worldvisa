@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="requestReportAttributes">
+    <!-- sql map for ReportAttributes -->
+    <resultMap id="ReportAttributes" class="com.worldvisa.business.domain.request.ReportAttributes">
+    
+        <result property="reportId" column="REPORT_ID" />
+        <result property="attributeId" column="ATTRIBUTE_ID" />
+        <result property="atributeValue" column="ATRIBUTE_VALUE" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.request.ReportAttributes">
+        INSERT INTO REQUEST_REPORT_ATTRIBUTES (
+	        
+	        REPORT_ID,
+	        ATTRIBUTE_ID,
+	        ATRIBUTE_VALUE
+	    )
+        VALUES (
+	        
+	        #reportId:CHAR#,
+	        #attributeId:DECIMAL#,
+	        #atributeValue:VARCHAR#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE REQUEST_REPORT_ATTRIBUTES SET
+        
+        	REPORT_ID = #data.reportId:CHAR#,
+        	ATTRIBUTE_ID = #data.attributeId:DECIMAL#,
+        	ATRIBUTE_VALUE = #data.atributeValue:VARCHAR#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.reportId">
+                REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.attributeId">
+                ATTRIBUTE_ID = #filter.attributeId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.atributeValue">
+                ATRIBUTE_VALUE = #filter.atributeValue:VARCHAR#
+            </isNotNull>
+        </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.request.ReportAttributes">
+        DELETE FROM REQUEST_REPORT_ATTRIBUTES
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="attributeId">
+                ATTRIBUTE_ID = #attributeId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="atributeValue">
+                ATRIBUTE_VALUE = #atributeValue#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            REPORT_ID,
+            ATTRIBUTE_ID,
+            ATRIBUTE_VALUE
+        FROM REQUEST_REPORT_ATTRIBUTES
+    </sql>
+    
+    <select id="read" resultMap="requestReportAttributes.ReportAttributes" 
+    	parameterClass="com.worldvisa.business.domain.request.ReportAttributes">
+        <include refid="requestReportAttributes.readSelect" />
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="attributeId">
+                ATTRIBUTE_ID = #attributeId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="atributeValue">
+                ATRIBUTE_VALUE = #atributeValue#
+            </isNotNull>
+      </dynamic>
+      	ORDER BY ATTRIBUTE_ID
+    </select>
+</sqlMap>

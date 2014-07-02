@@ -1,0 +1,41 @@
+<div class="jquery-accordion">
+	<h3>
+		<a href="#">Communication Details</a>
+	</h3>
+	<div id="add-communications-form">
+		<table class="form" style="width:100%"><tr><th width="85px">
+			<label for="actionType">Type</label>
+		</th><td>
+			<select id="actionType" mandatory="true" format="numeric">
+				<option value="">select...</option>
+				<option lookupFetch="121" disabled>loading...</option>
+			</select>
+		</td></tr><tr><th>
+			<label for="mailSubject">Subject</label>
+		</th><td>
+			<input type="text" id="mailSubject" style="width:99%" format="any( ,200)"/>
+		</td></tr><tr><th>
+			<label for="attachments">Attachments</label>
+		</th><td>
+			<div class="jquery-editable-list" id="attachments">
+				<table><thead><tr><th>
+					<label for="file">File</label>
+				</th><th>
+					<label for="fileDesc">Description</label>
+				</th></tr></thead><tbody><tr><td>
+					<div class="jquery-file-upload" id="file" mandatory="true" allowedTypes="bmp, doc, docx, dot, gif, jpg, png, jpeg, pdf, ppt, rtf, txt, xls, zip"></div>
+				</td><td>
+					<input type="text" id="fileDesc" mandatory="true" format="any( ,200)"/>
+				</td></tr></tbody></table>
+			</div>
+		</td></tr><tr><th>
+			<label for="mailBody">Body</label>
+		</th><td>
+			<textarea id="mailBody" label="Mail Body" class="jquery-richeditor" mandatory="true"></textarea>
+		</td></tr></table>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section">
+	<button icon="ui-icon-disk" onclick="framework.getScreen().saveCommunication()">Save</button>
+	<button icon="ui-icon-calculator" onclick="window.location.hash='market/ListTemplates'">List Templates</button>
+</div></div>

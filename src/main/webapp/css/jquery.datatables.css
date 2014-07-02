@@ -1,0 +1,56 @@
+.list-table {
+	border-collapse: collapse;
+	table-layout: fixed;
+    font-weight:normal !important;
+}
+.list-table .list-table-sortable-th {
+	cursor:pointer;
+}
+.list-table tr.odd {
+	background:url("images/ui-bg_inset-hard_100_f5f8f9_1x100.png") repeat-x scroll 50% 50% #F5F8F9;
+}
+
+.list-table tr {
+	background-color:#FFFFFF;	
+}
+.list-table td {
+	padding:3px;
+	border:1px solid #C5DBEC;
+    overflow: hidden;
+    text-align:left;
+    font-weight:normal !important;
+}
+.list-table thead th {
+	padding:5px 10px 5px 2px;
+	text-align:center;
+}
+.list-table-sort-icon {
+	float:right;
+	margin: 0px -10px 0 0;
+}
+.list-table-info {
+    float: left;
+    font-weight: normal;
+    padding: 5px;
+    width: 200px;
+    line-height:26px;
+}
+.list-table-numrecords {
+    float: left;
+    font-weight: normal;
+    padding: 5px;
+    width: 150px;
+    line-height:26px;
+}
+.list-table-pagenate {
+    float: right;
+    text-align:right;
+    font-size:10px;
+    padding:5px;
+}
+.list-table-pagenate .ui-button .ui-button-text {
+    display: block;
+    height: 16px;
+    line-height: 1.6;
+    overflow: hidden;
+}

@@ -1,0 +1,213 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: Trebuchet MS, Verdana;
+	font-size: 11px;
+}
+
+table.form {
+	text-align: right;
+	padding: 5px;
+	font-weight: normal;
+}
+
+table.form th {
+	font-weight: normal;
+	vertical-align: top;
+	text-align: right;
+	padding: 5px;
+}
+
+table.form td {
+	color: #000000;
+	font-weight: bold;
+	line-height: 22px;
+	padding: 2px;
+	text-align: left;
+	vertical-align: top;
+}
+
+input[type=text],input[type=password],textarea,select {
+	width: 200px;
+	padding: 3px;
+	border: 1px solid #A6C9E2;
+	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+}
+
+input[type=text]:hover,input[type=password]:hover,textarea:hover,select:hover
+	{
+	box-shadow: 0 0 2px #A6C9E2;
+}
+
+input[type=text]:focus,input[type=password]:focus,textarea:focus,select:focus
+	{
+	box-shadow: 0 0 5px #A6C9E2;
+}
+
+input[type=text].validation-error,input[type=password].validation-error,textarea.validation-error,select.validation-error
+	{
+	border: 1px solid #E17009;
+	box-shadow: 0 0 2px #E17009;
+}
+
+select[multiple] option {
+	padding:2px 5px;
+}
+.jquery-editable-list.validation-error .list-table {
+	box-shadow: 0 0 2px #E17009;
+}
+
+span.mandatory-marker {
+	color: #E17009;
+	font-weight: bold;
+}
+/** loading indicator css **/
+#loading-indicator {
+	height: 25px;
+	line-height: 25px;
+	background: url("images/ajax-loader.gif") no-repeat scroll 10px 7px
+		#FFFFFF;
+	border: 3px solid #E0E0E0;
+	border-radius: 5px 5px 5px 5px;
+	float: left;
+	font-size: 11px;
+	padding: 0 10px 0 32px;
+	position: absolute;
+}
+
+#loading-mask {
+	position: absolute;
+	background:none repeat scroll 0 0 rgba(92, 156, 204, 0.1);
+}
+
+.buttons-section {
+	border-top: 1px solid #E17009;
+	margin: 10px 0;
+	padding: 10px 0 0;
+	text-align: left;
+}
+
+#mainContainer {
+    overflow-y: auto;
+    position: absolute;
+    top: 35px;
+    bottom: 40px;
+    left:0px;
+    right:0px;
+	padding:0 10px;
+}
+
+#mainContainer .footer {
+	background: url("images/ui-bg_inset-hard_100_f5f8f9_1x100.png") repeat-x
+		scroll 50% 50% #F5F8F9;
+	bottom: 0;
+	box-shadow: 0 0 2px #999999;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	width: 100%;
+}
+
+#mainContainer .footer .buttons-section {
+	border: medium none;
+	margin: 0;
+	padding: 6px 10px;
+}
+
+.ui-datepicker-trigger {
+	height: 27px;
+	margin: 0 0 -9px;
+	width: 27px;
+	cursor: pointer;
+}
+
+.center {
+	text-align: center;
+}
+
+.right {
+	text-align: right;
+}
+
+h1 {
+	border-bottom: 2px solid #4297D7;
+	color: #E17009;
+	font-size: 16px;
+	font-weight: normal;
+	margin: 10px;
+	text-align: right;
+}
+
+input[type=text][disabled],input[type=file][disabled],textarea[disabled],select[disabled]
+	{
+	display: none;
+}
+
+.jquery-editable-list.disabled .button-cell,.jquery-editable-list.disabled .button-cell-header,.jquery-editable-list.disabled .add-button-cell
+	{
+	display: none;
+}
+
+.jquery-editable-list span.ui-button-text {
+	padding: 0 0.3em 0 2em;
+}
+
+.jquery-editable-list button.ui-button-icon-only {
+	height: 20px;
+	width: 20px;
+}
+
+.fileupload-file-name {
+	overflow: hidden !important;
+	white-space: nowrap;
+	width: 183px;
+}
+.jquery-file-upload[disabled] .fileupload-file-name {
+	background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    font-weight: normal;
+    margin: 0;
+    overflow: hidden !important;
+    padding: 0;
+    white-space: normal;
+    width: auto;
+}
+
+.jquery-file-upload[disabled] .fileupload-file-name .ui-button-text {
+	padding:0;
+	margin:0;
+}
+
+#global-loading-indicator {
+    background: url("images/ajax-loader2.gif") repeat scroll 0 0 transparent;
+    border: 5px solid #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    bottom: 5px;
+    box-shadow: 0 0 3px #000000;
+    color: #FFFFFF;
+    font-weight: bold;
+    height: 22px;
+    left: 5px;
+    line-height: 22px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 0 3px #000000;
+    padding:0px 10px;
+}
+
+#search-form-dialog {
+    background: url("images/ui-bg_inset-hard_100_f5f8f9_1x100.png") repeat-x scroll 50% 50% #F5F8F9;
+    border: 4px solid #C5DBEC;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 10px #000000;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 36px;
+    font-size:11px;
+    display:none;
+}

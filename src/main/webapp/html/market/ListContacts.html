@@ -1,0 +1,160 @@
+
+
+<div class="jquery-accordion-collapsed">
+	<h3>
+		<a href="#">Search Criteria</a>
+	</h3>
+	<div id="search-form">
+	<table class="form">
+	<tr>
+		<th><label for="name">Name</label></th>
+		<td><input type="text" id="name"/></td>
+		<th><label for="gender">Gender</label></th>
+		<td><input type="text" id="gender" /></td>
+		<th><label for="qualCompleted">Qualification</label></th>
+		<td><input type="text" id="qualCompleted" /></td>
+	</tr>
+	<tr>
+		<th><label for="email">e-mail</label></th>
+		<td><input type="text" id="email"/></td>
+		<th><label for="mobile">Mobile</label></th>
+		<td><input type="text" id="mobile" /></td>
+		<th><label for="desCountries">Desired Countries</label></th>
+		<td><input type="text" id="desCountries" /></td>
+	</tr>
+	<tr>
+		<th><label for="desCourse">Desired Course</label></th>
+		<td><input type="text" id="desCourse"/></td>
+		<th><label for="specialization">Specialization</label></th>
+		<td><input type="text" id="specialization"/></td>
+		<th><label for="desCollege">Desired College</label></th>
+		<td><input type="text" id="desCollege" /></td>
+	</tr>
+	<tr>
+		<th><label for="userGroupId">User Group</label></th>
+		<td>
+		<select id="userGroupId">
+			<option value="">Any</option>
+			<option id="userGroupIdOptions" value="" disabled>Loading...</option>
+		</select>
+		</td>
+		<th><label for="addedBy">Added By</label></th>
+		<td>
+			<select id="addedBy">
+				<option value="">Any</option>
+				<option dwrFetch="CommonView.getAllEmployees" label="employeeName" value="emailId" disabled>Loading...</option>
+			</select>
+		</td>
+		<th><label for="createdTime">Created On</label></th>
+		<td>
+			<input type="text" class="jquery-daterangepicker" id="createdTime" />
+		</td>
+	</tr>
+	</table>
+	<div class="buttons-section">
+		<button icon="ui-icon-search" onclick="framework.getScreen().search()">Search</button>
+		<button icon="ui-icon-arrowrefresh-1-w" onclick="Form.clear($('#search-form'))">Reset</button>
+	</div>
+	</div>
+</div><div class="jquery-accordion">
+	<h3>
+		<a href="#">Contacts List</a>
+	</h3>
+	<div>
+		<div id="contactsListTable"></div>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section">
+	<button icon="ui-icon-mail-closed" onclick="framework.getScreen().communicate(false)">Communicate to Selected</button>
+	<button icon="ui-icon-mail-closed" onclick="framework.getScreen().communicate(true)">Communicate to All</button>
+	<button icon="ui-icon-trash" onclick="framework.getScreen().deleteSelectedUser()">Delete Selected User</button>
+	<button icon="ui-icon-note" onclick="framework.getScreen().exportToExcel($(this))" id="export-to-excel">Export to Excel</button>
+</div></div>
+<div class="jquery-dialog" id="view-followup-history-dialog" title="View Followup History">
+	<div id="followup-history-table">
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-close" onclick="$('#view-followup-history-dialog').dialog('close');return false;">Close</button>
+</div></div>
+<div class="jquery-dialog" id="add-notification-dialog" title="Add New Notification">
+	<div id="add-notification-dialog-form">
+		<table class="form" width="100%"><tr>
+			<th nowrap="nowrap" width="30%"><label for="forUserId">Notification For</label></th>
+			<td nowrap="nowrap">
+				<select id="forUserId" mandatory="true">
+					<option dwrFetch="CommonView.getAssignmentOptions" label="employeeName" value="emailId" disabled>Loading...</option>
+				</select>
+			</td>
+		</tr><tr>
+			<th nowrap="nowrap" width="30%"><label for="notificationTime">Notification Time</label></th>
+			<td nowrap="nowrap">
+				<input type="text" id="notificationTime" class="jquery-datetimepicker" mandatory="true" />
+			</td>
+		</tr><tr>
+			<th nowrap="nowrap"><label for="notificationComment">Comments</label></th>
+			<td nowrap="nowrap">
+				<textarea id="notificationComment" mandatory="true" format="any( ,250)"></textarea>
+			</td>
+		</tr></table>	
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-check" onclick="framework.getScreen().addNotification();">Add Notification</button>
+		<button icon="ui-icon-close" onclick="$('#add-notification-dialog').dialog('close');return false;">Close</button>
+</div></div>
+
+<div class="jquery-dialog" id="edit-user-dialog" title="Edit User">
+	<div id="edit-user-dialog-form">
+		<table class="form"><tr><th>
+			<label for="name">Name</label>
+		</th><td>
+			<input type="text" id="name" mandatory="true"/>
+		</td><th>
+			<label for="gender">Gender</label>
+		</th><td>
+			<input type="text" id="gender" />
+		</td></tr><tr><th>
+			<label for="age">Age</label>
+		</th><td>
+			<input type="text" id="age" format="positiveNumeric(2,0)"/>
+		</td><th>
+			<label for="qualCompleted">Qualification Completed</label>
+		</th><td>
+			<input type="text" id="qualCompleted" />
+		</td></tr><tr><th>
+			<label for="email">e-mail</label>
+		</th><td>
+			<input type="text" id="email" format="email"/>
+		</td><th>
+			<label for="dateOfBirth">Date of Birth</label>
+		</th><td>
+			<input type="text" id="dateOfBirth"/>
+		</td></tr><tr><th>
+			<label for="telephoneNo">Landline</label>
+		</th><td>
+			<input type="text" id="telephoneNo" />
+		</td><th>
+			<label for="mobile">Mobile</label>
+		</th><td>
+			<input type="text" id="mobile"/>
+		</td></tr><tr><th>
+			<label for="desCountries">Desired Countries</label>
+		</th><td>
+			<input type="text" id="desCountries" />
+		</td><th>
+			<label for="desCourse">Desired Course</label>
+		</th><td>
+			<input type="text" id="desCourse" />
+		</td></tr><tr><th>
+			<label for="specialization">Specialization</label>
+		</th><td>
+			<input type="text" id="specialization" />
+		</td><th>
+			<label for="desCollege">Desired College</label>
+		</th><td>
+			<input type="text" id="desCollege" />
+		</td></tr></table>
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-check" onclick="framework.getScreen().saveUser();">Save User Details</button>
+		<button icon="ui-icon-close" onclick="$('#edit-user-dialog').dialog('close');return false;">Close</button>
+</div></div>

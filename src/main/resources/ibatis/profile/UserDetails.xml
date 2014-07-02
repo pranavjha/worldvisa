@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="profileUserDetails">
+    <!-- sql map for UserDetails -->
+    <resultMap id="UserDetails" class="com.worldvisa.business.domain.profile.UserDetails">
+        <result property="seqNum" column="SEQ_NUM" />
+        <result property="city" column="CITY" />
+        <result property="state" column="STATE" />
+        <result property="country" column="COUNTRY" />
+        <result property="dateOfBirth" column="DATE_OF_BIRTH" />
+        <result property="mailingAddress" column="MAILING_ADDRESS" />
+        <result property="cellphone" column="CELLPHONE" />
+        <result property="landline" column="LANDLINE" />
+        <result property="emailId" column="EMAIL_ID" />
+        <result property="maritalStatus" column="MARITAL_STATUS" />
+        <result property="name" column="NAME" />
+        <result property="salutation" column="SALUTATION" />
+        <result property="userRole" column="USER_ROLE" />
+        <result property="registrationStatus" column="REGISTRATION_STATUS" />
+        <result property="password" column="PASSWORD" />
+        <result property="passwordExpFlag" column="PASSWORD_EXP_FLAG" />
+        <result property="createdDate" column="CREATED_DATE" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="isActive" column="IS_ACTIVE" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.profile.UserDetails">
+		<selectKey resultClass="java.lang.Long" keyProperty="seqNum" type="pre">
+	        select IFNULL(MAX(SEQ_NUM)+1, 1) AS seqNum FROM PROFILE_USER_DETAILS
+	    </selectKey>
+        INSERT INTO PROFILE_USER_DETAILS (	        
+	        SEQ_NUM,
+	        CITY,
+	        STATE,
+	        COUNTRY,
+	        DATE_OF_BIRTH,
+	        MAILING_ADDRESS,
+	        CELLPHONE,
+	        LANDLINE,
+	        EMAIL_ID,
+	        MARITAL_STATUS,
+	        NAME,
+	        SALUTATION
+        )
+        VALUES (
+	        #seqNum:DECIMAL#,
+	        #city:VARCHAR#,
+	        #state:VARCHAR#,
+	        #country:VARCHAR#,
+	        #dateOfBirth:TIMESTAMP#,
+	        #mailingAddress:VARCHAR#,
+	        #cellphone:VARCHAR#,
+	        #landline:VARCHAR#,
+	        #emailId:VARCHAR#,
+	        #maritalStatus:DECIMAL#,
+	        #name:VARCHAR#,
+	        #salutation:VARCHAR#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE PROFILE_USER_DETAILS SET
+        
+        	SEQ_NUM = #data.seqNum:DECIMAL#,
+        	CITY = #data.city:VARCHAR#,
+        	STATE = #data.state:VARCHAR#,
+        	COUNTRY = #data.country:VARCHAR#,
+        	DATE_OF_BIRTH = #data.dateOfBirth:TIMESTAMP#,
+        	MAILING_ADDRESS = #data.mailingAddress:VARCHAR#,
+        	CELLPHONE = #data.cellphone:VARCHAR#,
+        	LANDLINE = #data.landline:VARCHAR#,
+        	EMAIL_ID = #data.emailId:VARCHAR#,
+        	MARITAL_STATUS = #data.maritalStatus:DECIMAL#,
+        	NAME = #data.name:VARCHAR#,
+        	SALUTATION = #data.salutation:VARCHAR#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.seqNum">
+                SEQ_NUM = #filter.seqNum:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.city">
+                CITY = #filter.city:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.state">
+                STATE = #filter.state:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.country">
+                COUNTRY = #filter.country:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.dateOfBirth">
+                DATE_OF_BIRTH = #filter.dateOfBirth:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.mailingAddress">
+                MAILING_ADDRESS = #filter.mailingAddress:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.cellphone">
+                CELLPHONE = #filter.cellphone:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.landline">
+                LANDLINE = #filter.landline:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.emailId">
+                EMAIL_ID = #filter.emailId:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.maritalStatus">
+                MARITAL_STATUS = #filter.maritalStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.name">
+                NAME = #filter.name:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.salutation">
+                SALUTATION = #filter.salutation:VARCHAR#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.profile.UserDetails">
+        DELETE FROM PROFILE_USER_DETAILS
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="city">
+                CITY = #city#
+            </isNotNull>
+            <isNotNull prepend="AND" property="state">
+                STATE = #state#
+            </isNotNull>
+            <isNotNull prepend="AND" property="country">
+                COUNTRY = #country#
+            </isNotNull>
+            <isNotNull prepend="AND" property="dateOfBirth">
+                DATE_OF_BIRTH = #dateOfBirth#
+            </isNotNull>
+            <isNotNull prepend="AND" property="mailingAddress">
+                MAILING_ADDRESS = #mailingAddress#
+            </isNotNull>
+            <isNotNull prepend="AND" property="cellphone">
+                CELLPHONE = #cellphone#
+            </isNotNull>
+            <isNotNull prepend="AND" property="landline">
+                LANDLINE = #landline#
+            </isNotNull>
+            <isNotNull prepend="AND" property="emailId">
+                EMAIL_ID = #emailId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="maritalStatus">
+                MARITAL_STATUS = #maritalStatus#
+            </isNotNull>
+            <isNotNull prepend="AND" property="name">
+                NAME = #name#
+            </isNotNull>
+            <isNotNull prepend="AND" property="salutation">
+                SALUTATION = #salutation#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+            PUD.SEQ_NUM,
+            PUD.CITY,
+            PUD.STATE,
+            PUD.COUNTRY,
+            PUD.DATE_OF_BIRTH,
+            PUD.MAILING_ADDRESS,
+            PUD.CELLPHONE,
+            PUD.LANDLINE,
+            PUD.EMAIL_ID,
+            PUD.MARITAL_STATUS,
+            PUD.NAME,
+            PUD.SALUTATION,
+            PLD.USER_ROLE,
+            PLD.REGISTRATION_STATUS,
+            PLD.PASSWORD,
+            PLD.PASSWORD_EXP_FLAG,
+            PLD.CREATED_DATE,
+            PLD.CREATED_BY,
+            PLD.IS_ACTIVE
+        FROM PROFILE_USER_DETAILS PUD
+        LEFT OUTER JOIN PROFILE_LOGIN_DETAILS PLD ON PUD.EMAIL_ID = PLD.EMAIL_ID
+    </sql>
+    
+    <select id="read" resultMap="profileUserDetails.UserDetails" 
+    	parameterClass="com.worldvisa.business.domain.profile.UserDetails">
+        <include refid="profileUserDetails.readSelect" />
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="seqNum">
+                PUD.SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="city">
+                PUD.CITY = #city#
+            </isNotNull>
+            <isNotNull prepend="AND" property="state">
+                PUD.STATE = #state#
+            </isNotNull>
+            <isNotNull prepend="AND" property="country">
+                PUD.COUNTRY = #country#
+            </isNotNull>
+            <isNotNull prepend="AND" property="dateOfBirth">
+                PUD.DATE_OF_BIRTH = #dateOfBirth#
+            </isNotNull>
+            <isNotNull prepend="AND" property="mailingAddress">
+                PUD.MAILING_ADDRESS = #mailingAddress#
+            </isNotNull>
+            <isNotNull prepend="AND" property="cellphone">
+                PUD.CELLPHONE = #cellphone#
+            </isNotNull>
+            <isNotNull prepend="AND" property="landline">
+                PUD.LANDLINE = #landline#
+            </isNotNull>
+            <isNotNull prepend="AND" property="emailId">
+                PUD.EMAIL_ID = #emailId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="maritalStatus">
+                PUD.MARITAL_STATUS = #maritalStatus#
+            </isNotNull>
+            <isNotNull prepend="AND" property="name">
+                PUD.NAME = #name#
+            </isNotNull>
+            <isNotNull prepend="AND" property="salutation">
+                PUD.SALUTATION = #salutation#
+            </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="readForemailId" resultMap="profileUserDetails.UserDetails" 
+    	parameterClass="java.lang.String">
+        <include refid="profileUserDetails.readSelect" />
+        WHERE PUD.EMAIL_ID = #value#
+    </select>
+    
+    <select id="readFormaritalStatus" resultMap="profileUserDetails.UserDetails" 
+    	parameterClass="java.lang.Integer">
+        <include refid="profileUserDetails.readSelect" />
+        WHERE PUD.MARITAL_STATUS = #value#
+    </select>
+    
+    
+</sqlMap>

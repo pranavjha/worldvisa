@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="requestReportDetails">
+	<!-- sql map for ReportDetails -->
+	<resultMap id="ReportDetails"
+		class="com.worldvisa.business.domain.request.ReportDetails">
+		<result property="reportId" column="REPORT_ID" />
+		<result property="requestType" column="REQUEST_TYPE" />
+		<result property="requestMode" column="REQUEST_MODE" />
+		<result property="payableAmount" column="PAYABLE_AMOUNT" />
+		<result property="discountAmount" column="DISCOUNT_AMOUNT" />
+		<result property="paymentOption" column="PAYMENT_OPTION" />
+		<result property="assignedTo" column="ASSIGNED_TO" />
+		<result property="raisedDt" column="RAISED_DT" />
+		<result property="raisedBy" column="RAISED_BY" />
+		<result property="raisedFor" column="RAISED_FOR" />
+		<result property="rescheduledInd" column="RESCHEDULED_IND" />
+		<result property="editableInd" column="EDITABLE_IND" />
+		<result property="numPass" column="NUM_PASS" />
+		<result property="numUniv" column="NUM_UNIV" />
+		<result property="numColl" column="NUM_COLL" />
+		<result property="otherServices" column="OTHER_SERVICES" />
+        
+        <result property="personalDetails.city" column="CITY" />
+        <result property="personalDetails.state" column="STATE" />
+        <result property="personalDetails.country" column="COUNTRY" />
+        <result property="personalDetails.cellphone" column="CELLPHONE" />
+        <result property="personalDetails.emailId" column="EMAIL_ID" />
+        <result property="personalDetails.name" column="NAME" />
+        <result property="personalDetails.salutation" column="SALUTATION" />
+        <result property="personalDetails.registrationStatus" column="REGISTRATION_STATUS" />
+	</resultMap>
+	<!-- queries -->
+	<insert id="create" parameterClass="com.worldvisa.business.domain.request.ReportDetails">
+		INSERT INTO REQUEST_REPORT_DETAILS (
+			REPORT_ID,
+			REQUEST_TYPE,
+			REQUEST_MODE,
+			PAYABLE_AMOUNT,
+			DISCOUNT_AMOUNT,
+			PAYMENT_OPTION,
+			ASSIGNED_TO,
+			RAISED_DT,
+			RAISED_BY,
+			RAISED_FOR,
+			RESCHEDULED_IND,
+			NUM_PASS,
+			NUM_UNIV,
+			NUM_COLL,
+			OTHER_SERVICES
+		)
+		VALUES (
+
+			#reportId:CHAR#,
+			#requestType:DECIMAL#,
+			#requestMode:DECIMAL#,
+			#payableAmount:DECIMAL#,
+			#discountAmount:DECIMAL#,
+			#paymentOption:DECIMAL#,
+			#assignedTo:VARCHAR#,
+			#raisedDt:TIMESTAMP#,
+			#raisedBy:VARCHAR#,
+			#raisedFor:VARCHAR#,
+			#rescheduledInd:DECIMAL#,
+			#numPass:DECIMAL#,
+			#numUniv:DECIMAL#,
+			#numColl:DECIMAL#,
+			#otherServices:DECIMAL#
+		)
+    </insert>
+	<update id="update" parameterClass="java.util.HashMap">
+		UPDATE REQUEST_REPORT_DETAILS SET
+			REPORT_ID = #data.reportId:CHAR#,
+			REQUEST_TYPE = #data.requestType:DECIMAL#,
+			REQUEST_MODE = #data.requestMode:DECIMAL#,
+			PAYABLE_AMOUNT = #data.payableAmount:DECIMAL#,
+			DISCOUNT_AMOUNT = #data.discountAmount:DECIMAL#,
+			PAYMENT_OPTION = #data.paymentOption:DECIMAL#,
+			ASSIGNED_TO = #data.assignedTo:VARCHAR#,
+			RAISED_DT = #data.raisedDt:TIMESTAMP#,
+			RAISED_BY = #data.raisedBy:VARCHAR#,
+			RAISED_FOR = #data.raisedFor:VARCHAR#,
+			RESCHEDULED_IND = #data.rescheduledInd:DECIMAL#,
+			EDITABLE_IND = #data.editableInd:DECIMAL#,
+			NUM_PASS = #data.numPass:DECIMAL#,
+			NUM_UNIV = #data.numUniv:DECIMAL#,
+			NUM_COLL = #data.numColl:DECIMAL#,
+			OTHER_SERVICES = #data.otherServices:DECIMAL#
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="filter.reportId">
+				REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.requestType">
+				REQUEST_TYPE = #filter.requestType:DECIMAL#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.requestMode">
+				REQUEST_MODE = #filter.requestMode:DECIMAL#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.payableAmount">
+				PAYABLE_AMOUNT = #filter.payableAmount:DECIMAL#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.discountAmount">
+				DISCOUNT_AMOUNT = #filter.discountAmount:DECIMAL#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.paymentOption">
+				PAYMENT_OPTION = #filter.paymentOption:DECIMAL#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.assignedTo">
+				ASSIGNED_TO = #filter.assignedTo:VARCHAR#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.raisedDt">
+				RAISED_DT = #filter.raisedDt:TIMESTAMP#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.raisedBy">
+				RAISED_BY = #filter.raisedBy:VARCHAR#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.raisedFor">
+				RAISED_FOR = #filter.raisedFor:VARCHAR#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.rescheduledInd">
+				RESCHEDULED_IND = #filter.rescheduledInd:DECIMAL#
+            </isNotNull>
+		</dynamic>
+	</update>
+	<delete id="delete" parameterClass="com.worldvisa.business.domain.request.ReportDetails">
+		DELETE FROM REQUEST_REPORT_DETAILS
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="reportId">
+				REPORT_ID = #reportId#
+            </isNotNull>
+			<isNotNull prepend="AND" property="requestType">
+				REQUEST_TYPE = #requestType#
+            </isNotNull>
+			<isNotNull prepend="AND" property="requestMode">
+				REQUEST_MODE = #requestMode#
+            </isNotNull>
+			<isNotNull prepend="AND" property="payableAmount">
+				PAYABLE_AMOUNT = #payableAmount#
+            </isNotNull>
+			<isNotNull prepend="AND" property="discountAmount">
+				DISCOUNT_AMOUNT = #discountAmount#
+            </isNotNull>
+			<isNotNull prepend="AND" property="paymentOption">
+				PAYMENT_OPTION = #paymentOption#
+            </isNotNull>
+			<isNotNull prepend="AND" property="assignedTo">
+				ASSIGNED_TO = #assignedTo#
+            </isNotNull>
+			<isNotNull prepend="AND" property="raisedDt">
+				RAISED_DT = #raisedDt#
+            </isNotNull>
+			<isNotNull prepend="AND" property="raisedBy">
+				RAISED_BY = #raisedBy#
+            </isNotNull>
+			<isNotNull prepend="AND" property="raisedFor">
+				RAISED_FOR = #raisedFor#
+            </isNotNull>
+			<isNotNull prepend="AND" property="rescheduledInd">
+				RESCHEDULED_IND = #rescheduledInd#
+            </isNotNull>
+			<isNotNull prepend="AND" property="numPass">
+				NUM_PASS = #numPass#
+            </isNotNull>
+			<isNotNull prepend="AND" property="numUniv">
+				NUM_UNIV = #numUniv#
+            </isNotNull>
+			<isNotNull prepend="AND" property="numColl">
+				NUM_COLL = #numColl#
+            </isNotNull>
+		</dynamic>
+	</delete>
+	<sql id="readSelect">
+		SELECT
+			RRD.REPORT_ID,
+			RRD.REQUEST_TYPE,
+			RRD.REQUEST_MODE,
+			RRD.PAYABLE_AMOUNT,
+			RRD.DISCOUNT_AMOUNT,
+			RRD.PAYMENT_OPTION,
+			RRD.ASSIGNED_TO,
+			RRD.RAISED_DT,
+			RRD.RAISED_BY,
+			RRD.RAISED_FOR,
+			RRD.RESCHEDULED_IND,
+			RRD.EDITABLE_IND,
+			RRD.NUM_PASS,
+			RRD.NUM_UNIV,
+			RRD.NUM_COLL,
+			RRD.OTHER_SERVICES,
+            PUD.CITY,
+            PUD.STATE,
+            PUD.COUNTRY,
+            PUD.CELLPHONE,
+            PUD.EMAIL_ID,
+            PUD.NAME,
+            PUD.SALUTATION,
+            PLD.REGISTRATION_STATUS
+		FROM REQUEST_REPORT_DETAILS RRD
+		LEFT OUTER JOIN PROFILE_USER_DETAILS PUD ON PUD.EMAIL_ID = RRD.RAISED_FOR
+		LEFT OUTER JOIN PROFILE_LOGIN_DETAILS PLD ON PUD.EMAIL_ID = PLD.EMAIL_ID
+    </sql>
+
+	<select id="read" resultMap="requestReportDetails.ReportDetails"
+		parameterClass="com.worldvisa.business.domain.request.ReportDetails">
+		<include refid="requestReportDetails.readSelect" />
+		<dynamic prepend="WHERE">
+
+			<isNotNull prepend="AND" property="reportId">
+				REPORT_ID = #reportId#
+            </isNotNull>
+			<isNotNull prepend="AND" property="requestType">
+				REQUEST_TYPE = #requestType#
+            </isNotNull>
+			<isNotNull prepend="AND" property="requestMode">
+				REQUEST_MODE = #requestMode#
+            </isNotNull>
+			<isNotNull prepend="AND" property="payableAmount">
+				PAYABLE_AMOUNT = #payableAmount#
+            </isNotNull>
+			<isNotNull prepend="AND" property="discountAmount">
+				DISCOUNT_AMOUNT = #discountAmount#
+            </isNotNull>
+			<isNotNull prepend="AND" property="paymentOption">
+				PAYMENT_OPTION = #paymentOption#
+            </isNotNull>
+			<isNotNull prepend="AND" property="assignedTo">
+				ASSIGNED_TO = #assignedTo#
+            </isNotNull>
+			<isNotNull prepend="AND" property="raisedDt">
+				RAISED_DT = #raisedDt#
+            </isNotNull>
+			<isNotNull prepend="AND" property="raisedBy">
+				RAISED_BY = #raisedBy#
+            </isNotNull>
+			<isNotNull prepend="AND" property="raisedFor">
+				RAISED_FOR = #raisedFor#
+            </isNotNull>
+			<isNotNull prepend="AND" property="rescheduledInd">
+				RESCHEDULED_IND = #rescheduledInd#
+            </isNotNull>
+            <isNotNull prepend="AND" property="numPass">
+				NUM_PASS = #numPass#
+            </isNotNull>
+			<isNotNull prepend="AND" property="numUniv">
+				NUM_UNIV = #numUniv#
+            </isNotNull>
+			<isNotNull prepend="AND" property="numColl">
+				NUM_COLL = #numColl#
+            </isNotNull>
+		</dynamic>
+	</select>
+
+	<select id="readForraisedBy" resultMap="requestReportDetails.ReportDetails"
+		parameterClass="java.lang.String">
+		<include refid="requestReportDetails.readSelect" />
+		WHERE RAISED_BY = #value#
+	</select>
+
+	<select id="readForraisedFor" resultMap="requestReportDetails.ReportDetails"
+		parameterClass="java.lang.String">
+		<include refid="requestReportDetails.readSelect" />
+		WHERE RAISED_FOR = #value#
+	</select>
+
+	<select id="readForassignedTo" resultMap="requestReportDetails.ReportDetails"
+		parameterClass="java.lang.String">
+		<include refid="requestReportDetails.readSelect" />
+		WHERE ASSIGNED_TO = #value#
+	</select>
+
+	<select id="readForrequestMode" resultMap="requestReportDetails.ReportDetails"
+		parameterClass="java.lang.Integer">
+		<include refid="requestReportDetails.readSelect" />
+		WHERE REQUEST_MODE = #value#
+	</select>
+
+	<select id="readForrequestType" resultMap="requestReportDetails.ReportDetails"
+		parameterClass="java.lang.Integer">
+		<include refid="requestReportDetails.readSelect" />
+		WHERE REQUEST_TYPE = #value#
+	</select>
+
+	<select id="lastReportId" parameterClass="java.lang.String"
+		resultClass="java.lang.String">
+		SELECT MAX(REPORT_ID) FROM REQUEST_REPORT_DETAILS WHERE
+		REPORT_ID LIKE CONCAT(#value#,'%')
+	</select>
+	
+	<select id="unassignedRequest" resultMap="requestReportDetails.ReportDetails"
+    	parameterClass="com.worldvisa.business.domain.common.DataTableRequest">
+	    SELECT * FROM (
+			SELECT *,
+				@rownum:=@rownum+1 AS rownum
+			FROM (
+				<include refid="requestReportDetails.readSelect" />
+				LEFT OUTER JOIN (
+					SELECT
+				    	MAX(SUBSTATUS) as caseStatusId,
+				        REPORT_ID
+					FROM REQUEST_CASE_STATUS RCS
+				    GROUP BY REPORT_ID
+				  ) as caseStatus ON caseStatus.REPORT_ID = RRD.REPORT_ID
+				WHERE ASSIGNED_TO IS NULL
+				AND (caseStatus.caseStatusId IS NULL OR caseStatus.caseStatusId NOT IN (10605, 10606))
+		        ORDER BY $sortCol$ $sortOrder$) maintable, (SELECT @rownum:=0) r) a
+		WHERE a.rownum between #startRow# and #endRow#
+	</select>
+	<select id="unassignedRequestCount" resultClass="java.lang.Integer"
+    	parameterClass="com.worldvisa.business.domain.common.DataTableRequest">
+			SELECT count(*) as value
+				FROM (
+        		<include refid="requestReportDetails.readSelect" />
+				LEFT OUTER JOIN (
+					SELECT
+				    	MAX(SUBSTATUS) as caseStatusId,
+				        REPORT_ID
+					FROM REQUEST_CASE_STATUS RCS
+				    GROUP BY REPORT_ID
+				  ) as caseStatus ON caseStatus.REPORT_ID = RRD.REPORT_ID
+				WHERE ASSIGNED_TO IS NULL
+				AND (caseStatus.caseStatusId IS NULL OR caseStatus.caseStatusId NOT IN (10605, 10606))
+		        ) maintable
+	</select>
+	
+	<resultMap id="ReportDetailsList"
+		class="com.worldvisa.business.domain.request.ReportDetails">
+		<result property="reportId" column="REPORT_ID" />
+		<result property="requestType" column="REQUEST_TYPE" />
+		<result property="requestMode" column="REQUEST_MODE" />
+		<result property="payableAmount" column="PAYABLE_AMOUNT" />
+		<result property="discountAmount" column="DISCOUNT_AMOUNT" />
+		<result property="paymentOption" column="PAYMENT_OPTION" />
+		<result property="assignedTo" column="ASSIGNED_TO" />
+		<result property="raisedDt" column="RAISED_DT" />
+		<result property="raisedBy" column="RAISED_BY" />
+		<result property="raisedFor" column="RAISED_FOR" />
+		<result property="rescheduledInd" column="RESCHEDULED_IND" />
+		<result property="editableInd" column="EDITABLE_IND" />
+		<result property="personalDetails.cellphone" column="CELLPHONE" />
+		<result property="personalDetails.landline" column="LANDLINE" />
+		<result property="personalDetails.city" column="CITY" />
+		<result property="personalDetails.name" column="NAME" />
+		<result property="personalDetails.registrationStatus" column="REGISTRATION_STATUS" />
+		<result property="caseStatus" column="caseStatusId" />
+		<result property="lastStatusUpdate" column="ADDED_DATE" />
+	</resultMap>
+	<sql id="allRequestMainQuery">
+		SELECT
+			RRD.REPORT_ID,
+			RRD.REQUEST_TYPE,
+			RRD.REQUEST_MODE,
+			RRD.PAYABLE_AMOUNT,
+			RRD.DISCOUNT_AMOUNT,
+			RRD.PAYMENT_OPTION,
+			RRD.ASSIGNED_TO,
+			RRD.RAISED_DT,
+			RRD.RAISED_BY,
+			RRD.RAISED_FOR,
+			RRD.RESCHEDULED_IND,
+			RRD.EDITABLE_IND,
+			PUD.CELLPHONE,
+			PUD.LANDLINE,
+			PUD.CITY,
+			PUD.NAME,
+			PLUD.REGISTRATION_STATUS,
+      		caseStatus.caseStatusId,
+      		caseStatus.ADDED_DATE
+		FROM REQUEST_REPORT_DETAILS RRD
+		JOIN PROFILE_USER_DETAILS PUD ON RRD.RAISED_FOR = PUD.EMAIL_ID
+		JOIN PROFILE_LOGIN_DETAILS PLUD ON RRD.RAISED_FOR = PLUD.EMAIL_ID
+		JOIN PROFILE_LOGIN_DETAILS PLD ON PUD.EMAIL_ID = PLD.EMAIL_ID
+		LEFT OUTER JOIN (
+			SELECT
+		    	SUBSTATUS as caseStatusId,
+		        REPORT_ID,
+		        ADDED_DATE
+			FROM REQUEST_CASE_STATUS RCS
+		    WHERE (REPORT_ID,ADDED_DATE) IN (SELECT REPORT_ID, MAX(ADDED_DATE) FROM REQUEST_CASE_STATUS GROUP BY REPORT_ID)
+		  ) as caseStatus ON caseStatus.REPORT_ID = RRD.REPORT_ID
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="reportId">
+			    RRD.REPORT_ID LIKE CONCAT('%',#reportId#, '%')
+		    </isNotNull>
+			<isNotNull prepend="AND" property="requestType">
+			    RRD.REQUEST_TYPE = #requestType#
+		    </isNotNull>
+		    <isNotNull prepend="AND" property="mode">
+				RRD.REQUEST_MODE = #mode#
+			</isNotNull>
+		    <isNotEmpty prepend="AND" property="clientEmail">
+				RRD.RAISED_FOR LIKE CONCAT('%',#clientEmail#,'%')
+		    </isNotEmpty>
+		    <isNotNull prepend="AND" property="dateRange">
+				DATE(RRD.RAISED_DT) BETWEEN DATE(#dateRange[0]#) AND DATE(#dateRange[1]#)
+		    </isNotNull>
+		    <isNotEmpty prepend="AND" property="clientName">
+				PUD.NAME LIKE CONCAT('%',#clientName#,'%')
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="mobile">
+				( PUD.CELLPHONE LIKE CONCAT('%',#mobile#,'%') OR PUD.LANDLINE LIKE CONCAT('%',#mobile#,'%'))
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="assignedTo">
+				RRD.ASSIGNED_TO = #assignedTo#
+		    </isNotEmpty>
+		    <isNotNull prepend="AND" property="clientStatus">
+				PLUD.REGISTRATION_STATUS = #clientStatus#
+			</isNotNull>
+		    <isNotNull prepend="AND" property="caseSubStatus">
+				caseStatus.caseStatusId = #caseSubStatus#
+			</isNotNull>
+		    <isNull prepend="AND" property="caseSubStatus">
+				( caseStatus.caseStatusId IS NULL OR caseStatus.caseStatusId NOT IN (10605, 10606))
+			</isNull>
+		</dynamic>
+	</sql>
+	
+	<select id="allRequestsCount" resultClass="java.lang.Integer"
+	parameterClass="com.worldvisa.business.domain.request.RequestManagementFilter">
+		SELECT count(*) FROM (
+			<include refid="requestReportDetails.allRequestMainQuery" />
+		) maintable
+	</select>
+	<select id="allRequests" resultMap="requestReportDetails.ReportDetailsList"
+	parameterClass="com.worldvisa.business.domain.request.RequestManagementFilter">
+		SELECT * FROM (
+			SELECT *,
+				@rownum:=@rownum+1 AS rownum
+			FROM (
+			<include refid="requestReportDetails.allRequestMainQuery" />
+		        ORDER BY $sortCol$ $sortOrder$) maintable, (SELECT @rownum:=0) r) a
+		WHERE a.rownum between #startRow# and #endRow#
+	</select>
+</sqlMap>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="requestLangProfeciency">
+    <!-- sql map for LangProfeciency -->
+    <resultMap id="LangProfeciency" class="com.worldvisa.business.domain.request.LangProfeciency">
+    
+        <result property="reportId" column="REPORT_ID" />
+        <result property="languageId" column="LANGUAGE_ID" />
+        <result property="speakingLevel" column="SPEAKING_LEVEL" />
+        <result property="readingLevel" column="READING_LEVEL" />
+        <result property="writingLevel" column="WRITING_LEVEL" />
+        <result property="listeningLevel" column="LISTENING_LEVEL" />
+        <result property="seqNum" column="SEQ_NUM" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.request.LangProfeciency">
+        INSERT INTO REQUEST_LANG_PROFECIENCY (
+	        
+	        REPORT_ID,
+	        LANGUAGE_ID,
+	        SPEAKING_LEVEL,
+	        READING_LEVEL,
+	        WRITING_LEVEL,
+	        LISTENING_LEVEL,
+	        SEQ_NUM
+        )
+        VALUES (
+	        
+	        #reportId:CHAR#,
+	        #languageId:DECIMAL#,
+	        #speakingLevel:DECIMAL#,
+	        #readingLevel:DECIMAL#,
+	        #writingLevel:DECIMAL#,
+	        #listeningLevel:DECIMAL#,
+	        #seqNum:DECIMAL#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE REQUEST_LANG_PROFECIENCY SET
+        
+        	REPORT_ID = #data.reportId:CHAR#,
+        	LANGUAGE_ID = #data.languageId:DECIMAL#,
+        	SPEAKING_LEVEL = #data.speakingLevel:DECIMAL#,
+        	READING_LEVEL = #data.readingLevel:DECIMAL#,
+        	WRITING_LEVEL = #data.writingLevel:DECIMAL#,
+        	LISTENING_LEVEL = #data.listeningLevel:DECIMAL#,
+        	SEQ_NUM = #data.seqNum:DECIMAL#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.reportId">
+                REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.languageId">
+                LANGUAGE_ID = #filter.languageId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.speakingLevel">
+                SPEAKING_LEVEL = #filter.speakingLevel:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.readingLevel">
+                READING_LEVEL = #filter.readingLevel:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.writingLevel">
+                WRITING_LEVEL = #filter.writingLevel:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.listeningLevel">
+                LISTENING_LEVEL = #filter.listeningLevel:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.seqNum">
+                SEQ_NUM = #filter.seqNum:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.request.LangProfeciency">
+        DELETE FROM REQUEST_LANG_PROFECIENCY
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="languageId">
+                LANGUAGE_ID = #languageId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="speakingLevel">
+                SPEAKING_LEVEL = #speakingLevel#
+            </isNotNull>
+            <isNotNull prepend="AND" property="readingLevel">
+                READING_LEVEL = #readingLevel#
+            </isNotNull>
+            <isNotNull prepend="AND" property="writingLevel">
+                WRITING_LEVEL = #writingLevel#
+            </isNotNull>
+            <isNotNull prepend="AND" property="listeningLevel">
+                LISTENING_LEVEL = #listeningLevel#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            REPORT_ID,
+            LANGUAGE_ID,
+            SPEAKING_LEVEL,
+            READING_LEVEL,
+            WRITING_LEVEL,
+            LISTENING_LEVEL,
+            SEQ_NUM
+        FROM REQUEST_LANG_PROFECIENCY
+    </sql>
+    
+    <select id="read" resultMap="requestLangProfeciency.LangProfeciency" 
+    	parameterClass="com.worldvisa.business.domain.request.LangProfeciency">
+        <include refid="requestLangProfeciency.readSelect" />
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="languageId">
+                LANGUAGE_ID = #languageId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="speakingLevel">
+                SPEAKING_LEVEL = #speakingLevel#
+            </isNotNull>
+            <isNotNull prepend="AND" property="readingLevel">
+                READING_LEVEL = #readingLevel#
+            </isNotNull>
+            <isNotNull prepend="AND" property="writingLevel">
+                WRITING_LEVEL = #writingLevel#
+            </isNotNull>
+            <isNotNull prepend="AND" property="listeningLevel">
+                LISTENING_LEVEL = #listeningLevel#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="readForlanguageId" resultMap="requestLangProfeciency.LangProfeciency" 
+    	parameterClass="java.lang.Integer">
+        <include refid="requestLangProfeciency.readSelect" />
+        WHERE LANGUAGE_ID = #value#
+    </select>
+    
+    <select id="readForspeakingLevel" resultMap="requestLangProfeciency.LangProfeciency" 
+    	parameterClass="java.lang.Integer">
+        <include refid="requestLangProfeciency.readSelect" />
+        WHERE SPEAKING_LEVEL = #value#
+    </select>
+    
+    <select id="readForreadingLevel" resultMap="requestLangProfeciency.LangProfeciency" 
+    	parameterClass="java.lang.Integer">
+        <include refid="requestLangProfeciency.readSelect" />
+        WHERE READING_LEVEL = #value#
+    </select>
+    
+    <select id="readForwritingLevel" resultMap="requestLangProfeciency.LangProfeciency" 
+    	parameterClass="java.lang.Integer">
+        <include refid="requestLangProfeciency.readSelect" />
+        WHERE WRITING_LEVEL = #value#
+    </select>
+    
+    
+</sqlMap>

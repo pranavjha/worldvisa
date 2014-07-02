@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript" language="JavaScript" src="dwr/engine.js"></script>
+<script type="text/javascript" language="JavaScript" src="dwr/util.js"></script>
+<script type="text/javascript" language="JavaScript" src="dwr/interface/CommonView.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.cookie.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.uniform.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.ui.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.alerts.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.autosuggest.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.datatables.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.daterangepicker.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.timepicker.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.tooltip.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.dwrajax.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.editablelist.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.hashchange.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.jgrowl.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.mask.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.navigationmenu.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.validator.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.attribute.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/jquery.fileupload.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/tiny_mce/jquery.tinymce.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/framework.common.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/framework.dwr.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/framework.form.js"></script>
+<script type="text/javascript" language="JavaScript" src="js/framework/framework.formatter.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/framework.common.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.autosuggest.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.datatables.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.timepicker.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.jgrowl.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.menu.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.ui.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.uniform.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.tooltip.css" />
+
+<title>Welcome to Worldvisa Infra</title>
+</head>
+<body>
+<div id="menuContainer"></div>
+<div id="mainContainer"></div>
+<div id="global-loading-indicator" style="display:none;">working in background...</div>
+
+<div id="search-form-dialog">
+	<table class="form"><tr>
+		<th>Report ID</th>
+		<td>
+			<input type="text" id="reportId" />
+		</td>
+		<th>Client Name</th>
+		<td>
+			<input type="text" id="clientName" />
+		</td>
+	</tr><tr>
+		<th>Client Email</th>
+		<td>
+			<input type="text" id="clientEmail" />
+		</td>
+		<th>Mobile</th>
+		<td>
+			<input type="text" id="mobile" />
+		</td>
+	</tr></table>
+	<div class="buttons-section">
+		<button icon="ui-icon-search" onclick="framework.searchReports();$('#search-form-dialog').slideUp(300);">Search</button>
+		<button icon="ui-icon-arrowrefresh-1-w" onclick="Form.clear($('#search-form-dialog'))">Reset</button>
+		<button icon="ui-icon-close" onclick="$('#search-form-dialog').slideUp(300);">Close</button>
+	</div>
+</div>
+</body>
+</html>

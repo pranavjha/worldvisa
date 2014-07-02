@@ -1,0 +1,47 @@
+<div class="jquery-accordion" id="load-contacts-form-section">
+	<h3>
+		<a href="#">Load Contacts</a>
+	</h3>
+	<div id="load-contacts-form">
+		<table class="form"><tr>
+		<th><label for="userGroup-serviceType">Service to link this data</label></th>
+		<td>
+			<select id="userGroup-serviceType" mandatory="true">
+				<option value="">select...</option>
+				<option lookupFetch="101" disabled>Loading...</option>
+			</select>
+		</td>
+		<th><label for="userGroup-userGroupName">Data Group</label></th>
+		<td>
+			<input type="text" class="jquery-autosuggest" id="userGroup-userGroupName" 
+				binding="AddContactsView.autoCompleteDataGroup" mandatory="true" />
+		</td>
+	</tr><tr>
+		<th><label for="userGroup-branchOffice">Branch Location to link this data</label></th>
+		<td>
+			<select id="userGroup-branchOffice" mandatory="true">
+				<option value="">select...</option>
+				<option lookupFetch="119" disabled>Loading...</option>
+			</select>
+		</td>
+		<th><label for="uploadedFile">File to Import</label></th>
+		<td>
+			<div class="jquery-file-upload" id="uploadedFile" mandatory="true" allowedTypes="xls, xlsx"></div>
+		</td>
+	</tr></table>
+	<div class="buttons-section">
+		<button icon="ui-icon-search" onclick="framework.getScreen().loadContacts()">Load Contacts</button>
+		<button icon="ui-icon-arrowrefresh-1-w" onclick="Form.clear($('#load-contacts-form'))">Reset</button>
+	</div>
+	</div>
+</div><div class="jquery-accordion-collapsed"  id="load-contacts-data-section">
+	<h3>
+		<a href="#">Contacts Fetched</a>
+	</h3>
+	<div>
+		<div id="contacts-fetched-table"></div>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section">
+	<button icon="ui-icon-disk" onclick="framework.getScreen().saveContacts()">Save Contacts</button>
+</div></div>

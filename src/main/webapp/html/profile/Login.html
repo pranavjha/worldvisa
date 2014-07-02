@@ -1,0 +1,35 @@
+<div class="jquery-accordion" id="loginForm" >
+	<h3><a href="#">Login</a></h3>
+	<div class="body">
+	<div id="login-form-autologin-form" style="padding:30px;text-align:center;">
+		logging in...
+	</div>	
+	<div id="login-form-main-form" style="display:none">
+		<table class="form" width="50%"><tr>
+			<th nowrap="nowrap"><label for="emailId">Email ID</label></th>
+			<td nowrap="nowrap">
+				<input type="text" id="emailId" mandatory="true" format="email( ,150)"/>
+			</td>
+		</tr>
+		<tr>
+			<th nowrap="nowrap"><label for="password">Password</label></th>
+			<td nowrap="nowrap">
+				<input type="password" id="password"/>
+			</td>
+		</tr>
+		<tr>
+			<th nowrap="nowrap">&nbsp;</th>
+			<td>
+				<input type="checkbox" id="enableCookie"/>Keep me logged in.
+			</td>
+		</tr>
+		<tr>
+			<th>
+			&nbsp;
+			</th><td nowrap="nowrap">
+				<button onclick="framework.getScreen().login()" icon="ui-icon-key">Sign In</button>
+				<button onclick="framework.getScreen().forgotPassword()" icon="ui-icon-help">Forgot Password</button>
+			</td>
+		</tr></table>
+	</div>
+</div></div>

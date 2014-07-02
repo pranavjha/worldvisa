@@ -1,0 +1,35 @@
+<div class="jquery-accordion">
+	<h3>
+		<a href="#">Notifications</a>
+	</h3>
+	<div>
+		<div id="notificationListTable"></div>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section">
+	<button icon="ui-icon-note" onclick="framework.getScreen().exportToExcel($(this))"  id="export-to-excel">Export to Excel</button>
+</div></div>
+<div class="jquery-dialog" id="notificationHistoryDialog" title="Notification History">
+	<div id="notificationListHistoryTable"></div>
+	<div class="buttons-section">
+		<button icon="ui-icon-close" onclick="$('#notificationHistoryDialog').dialog('close');return false;">Close</button>
+	</div>
+</div>
+<div class="jquery-dialog" id="notificationUpdateDialog" title="Update Notification">
+	<div id="notificationUpdateForm">
+		<table class="form" width="100%"><tr>
+			<th nowrap="nowrap" width="30%"><label for="notificationTime">Notification Time</label></th>
+			<td nowrap="nowrap">
+				<input type="text" id="notificationTime" mandatory="true" class="jquery-datetimepicker" mindate="0"/>
+			</td>
+		</tr><tr>
+			<th nowrap="nowrap"><label for="notificationComment">Comments</label></th>
+			<td nowrap="nowrap">
+				<textarea id="notificationComment" mandatory="true" format="any( ,250)"></textarea>
+			</td>
+		</tr></table>	
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-check" onclick="framework.getScreen().updateNotificationStatus();">Update</button>
+		<button icon="ui-icon-close" onclick="$('#notificationUpdateDialog').dialog('close');return false;">Close</button>
+</div></div>

@@ -1,0 +1,72 @@
+<div class="jquery-accordion" >
+	<h3><a href="#">Basic Details</a></h3>
+	<div id="employee-details-main-form">
+	<table class="form">
+	<tr><th>
+		<label for="employeeId">Employee ID</label>
+	</th><td>
+		<input type="text" id="employeeId" disabled="true"/>
+	</td><th>
+		<label for="employeeName">Employee Name</label>
+	</th><td>
+		<input type="text" id="employeeName" mandatory="true"/>
+	</td></tr><tr><th>
+		<label for="joiningDate">Joining Date</label>
+	</th><td>
+		<input type="text" id="joiningDate" mandatory="true" class="jquery-datepicker" maxdate="0" />
+	</td><th>
+		<label for="mobileNum">Mobile Number</label>
+	</th><td>
+		<input type="text" id="mobileNum" mandatory="true" format="phoneNum(10,15)" />
+	</td></tr><tr><th>
+		<label for="emailId">e-Mail</label>
+	</th><td>
+		<input type="text" id="emailId" mandatory="true"  format="email" format="any( ,150)"></input> 
+	</td><th>
+		<label for="reportingManagers">Reporting Managers</label>
+	</th><td>
+		<select multiple="multiple" id="reportingManagers">
+			<option dwrFetch="EmployeeDetailsView.getReportsTo" label="emailId" value="emailId" disabled>Loading...</option>
+		</select>
+	</td></tr><tr><th>
+		<label for="userRole">Employee Role</label>
+	</th><td>
+		<select id="userRole" mandatory="true">
+			<option value="">select...</option>
+			<option lookupFetch="110" disabled>Loading...</option>
+		</select>
+	</td><th>
+		<label for="baseLocation">Base Location</label>
+	</th><td>
+		<select id="baseLocation" mandatory="true">
+			<option value="">select...</option>
+			<option lookupFetch="119" disabled>Loading...</option>
+		</select>
+	</td></tr>
+	</table>
+	</div>
+</div>
+<div class="jquery-accordion" id="employee-performance">
+	<h3><a href="#">Performance</a></h3>
+	<div id="employee-performance-filter-form">
+	    <table class="form"><tr><th>
+	   		Date Range
+	  		</th><td>
+	       	<input type="text" id="dateRange" class="jquery-daterangepicker"/> 
+	    </td><th>
+	       	Request Type
+	    </th><td>
+	       	<select id="requestType">
+	       		<option value="">Any</option>
+	       		<option lookupFetch="101" disabled>Loading...</option>
+	       	</select>
+		</td></tr></table>
+		<div id="employee-performance-report"></div>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section">
+	<button icon="ui-icon-disk" onclick="framework.getScreen().save()">Save</button>
+	<button icon="ui-icon-arrowreturnthick-1-w" onclick="framework.getScreen().reload()" >Reset</button>
+	<button icon="ui-icon-note" onclick="framework.getScreen().exportToExcel($(this))"  id="export-to-excel" >Export Performance Report</button>
+	<button icon="ui-icon-seek-prev" onclick="window.location.hash = 'profile/EmployeeManagement'">Back</button>
+</div></div>

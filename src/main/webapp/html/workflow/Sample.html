@@ -1,0 +1,42 @@
+<div class="jquery-accordion-collapsed">
+	<h3>
+		<a href="#">Search Criteria</a>
+	</h3>
+	<div id="search-form">
+	<table class="form"><tr><th width="25%">
+		Customer PO
+	</th><td width="25%">
+		<input type="text" id="po" />
+	</td><th width="25%">
+		APS Number
+	</th><td width="25%">
+		<input type="text" id="apsNumber" />
+	</td></tr><tr><th width="25%">
+		Destination
+	</th><td width="25%">
+		<input type="text" id="destination" />
+	</td><th width="25%">
+		Status
+	</th><td width="25%">
+		<select id="status">
+			<option value="">All</option>
+			<option value="ARRIVED">ARRIVED</option>
+			<option value="ON HOLD">ON HOLD</option>
+			<option value="DISPATCHED">DISPATCHED</option>
+			<option value="HOLD ON SHIPPING">HOLD ON SHIPPING</option>		
+		</select>
+	</td></tr></table>
+	<div class="buttons-section">
+		<button icon="ui-icon-search" onclick="framework.getScreen().search()">Search</button>
+	</div>
+	</div>
+</div>
+
+<div class="jquery-accordion">
+	<h3>
+		<a href="#">Orders</a>
+	</h3>
+	<div>
+		<div id="orderTable"></div>
+	</div>
+</div>

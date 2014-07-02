@@ -1,0 +1,45 @@
+<div class="jquery-accordion-collapsed">
+	<h3>
+		<a href="#">Search Criteria</a>
+	</h3>
+	<div id="search-form">
+	<table class="form"><tr><th width="25%">
+		<label for="mailSubject">Subject</label>
+	</th><td width="25%">
+		<input type="text" id="mailSubject" format="any( ,200)"/>
+	</td><th width="25%">
+		<label for="dateRange">Added on</label>
+	</th><td width="25%">
+		<input type="text" id="dateRange" class="jquery-daterangepicker"/>
+	</td></tr><tr><th>
+		<label for="actionType">Template Type</label>
+	</th><td>
+		<select id="actionType" >
+			<option value="">Any</option>
+			<option lookupFetch="121" disabled>Loading...</option>
+		</select>
+	</td><th>
+		<label for="addedBy">Added By</label>
+	</th><td>
+		<select id="addedBy">
+			<option value="">Any</option>
+			<option dwrFetch="CommonView.getAllEmployees" label="employeeName" value="emailId" disabled>Loading...</option>
+		</select>
+	</td></tr></table>
+	<div class="buttons-section">
+		<button icon="ui-icon-search" onclick="framework.getScreen().search()">Search</button>
+		<button icon="ui-icon-arrowrefresh-1-w" onclick="Form.clear($('#search-form'))">Reset</button>
+	</div>
+	</div>
+</div><div class="jquery-accordion">
+	<h3>
+		<a href="#">Template List</a>
+	</h3>
+	<div>
+		<div id="templateListTable"></div>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section">
+	<button id="button-select-template" icon="ui-icon-check" onclick="framework.getScreen().selectTemplates()">Select Templates</button>
+	<button id="button-add-template" icon="ui-icon-note" onclick="window.location.hash='market/AddTemplate'">Add New Template</button>
+</div></div>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="workflowFileDetails">
+    <!-- sql map for FileDetails -->
+    <resultMap id="FileDetails" class="com.worldvisa.business.domain.workflow.FileDetails">
+        <result property="reportId" column="REPORT_ID" />
+        <result property="fileId" column="FILE_ID" />
+        <result property="fileDesc" column="FILE_DESC" />
+        <result property="file.fileName" column="FILE_NAME" />
+        <result property="file.relativePath" column="RELATIVE_PATH" />
+        <result property="uploadedBy" column="UPLOADED_BY" />
+        <result property="uploadedDt" column="UPLOADED_DT" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.workflow.FileDetails">
+		<selectKey resultClass="java.lang.Long" keyProperty="fileId" type="pre">
+	        select IFNULL(MAX(FILE_ID)+1, 1) AS fileId FROM WORKFLOW_FILE_DETAILS WHERE REPORT_ID = #reportId:CHAR#
+	    </selectKey>
+        INSERT INTO WORKFLOW_FILE_DETAILS (
+	        REPORT_ID,
+	        FILE_ID,
+	        FILE_DESC,
+	        FILE_NAME,
+	        UPLOADED_BY,
+	        UPLOADED_DT
+        )
+        VALUES (
+	        
+	        #reportId:CHAR#,
+	        #fileId:DECIMAL#,
+	        #fileDesc:VARCHAR#,
+	        #file.fileName:VARCHAR#,
+	        #uploadedBy:VARCHAR#,
+	        #uploadedDt:TIMESTAMP#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE WORKFLOW_FILE_DETAILS SET
+        	REPORT_ID = #data.reportId:CHAR#,
+        	FILE_ID = #data.fileId:DECIMAL#,
+        	FILE_DESC = #data.fileDesc:VARCHAR#,
+        	FILE_NAME = #data.file.fileName:VARCHAR#,
+        	UPLOADED_BY = #data.uploadedBy:VARCHAR#,
+        	UPLOADED_DT = #data.uploadedDt:TIMESTAMP#
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="filter.reportId">
+                REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.fileId">
+                FILE_ID = #filter.fileId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.fileDesc">
+                FILE_DESC = #filter.fileDesc:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.file.fileName">
+                FILE_NAME = #filter.file.fileName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.uploadedBy">
+                UPLOADED_BY = #filter.uploadedBy:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.uploadedDt">
+                UPLOADED_DT = #filter.uploadedDt:TIMESTAMP#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.workflow.FileDetails">
+        DELETE FROM WORKFLOW_FILE_DETAILS
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fileId">
+                FILE_ID = #fileId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fileDesc">
+                FILE_DESC = #fileDesc#
+            </isNotNull>
+            <isNotNull prepend="AND" property="file.fileName">
+                FILE_NAME = #file.fileName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="uploadedBy">
+                UPLOADED_BY = #uploadedBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="uploadedDt">
+                UPLOADED_DT = #uploadedDt#
+            </isNotNull>
+      </dynamic>
+    </delete>
+
+    <delete id="deleteByFileIds" parameterClass="java.util.Map">
+        DELETE FROM WORKFLOW_FILE_DETAILS
+        WHERE
+                FILE_ID NOT IN 
+                <iterate property="fileIds" open="(" close=")" conjunction=",">
+                	#fileIds[]#
+                </iterate>
+                AND REPORT_ID = #reportId#
+    </delete>
+    <sql id="readSelect">
+        SELECT
+            REPORT_ID,
+            FILE_ID,
+            FILE_DESC,
+            FILE_NAME,
+            UPLOADED_BY,
+            UPLOADED_DT,
+            CONCAT('WORKFLOW_FILE_DETAILS/',REPORT_ID, '/',FILE_ID,'.',FILE_NAME) as RELATIVE_PATH
+        FROM WORKFLOW_FILE_DETAILS
+    </sql>
+    <select id="read" resultMap="workflowFileDetails.FileDetails" 
+    	parameterClass="com.worldvisa.business.domain.workflow.FileDetails">
+        <include refid="workflowFileDetails.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fileId">
+                FILE_ID = #fileId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fileDesc">
+                FILE_DESC = #fileDesc#
+            </isNotNull>
+            <isNotNull prepend="AND" property="file.fileName">
+                FILE_NAME = #file.fileName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="uploadedBy">
+                UPLOADED_BY = #uploadedBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="uploadedDt">
+                UPLOADED_DT = #uploadedDt#
+            </isNotNull>
+      </dynamic>
+      	ORDER BY UPLOADED_DT DESC
+    </select>
+    
+    <select id="readForreportId" resultMap="workflowFileDetails.FileDetails" 
+    	parameterClass="java.lang.String">
+        <include refid="workflowFileDetails.readSelect" />
+        WHERE REPORT_ID = #value#
+    </select>
+    
+    <select id="readForuploadedBy" resultMap="workflowFileDetails.FileDetails" 
+    	parameterClass="java.lang.String">
+        <include refid="workflowFileDetails.readSelect" />
+        WHERE UPLOADED_BY = #value#
+    </select>
+</sqlMap>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="marketFollowupStatus">
+    <!-- sql map for FollowupStatus -->
+    <resultMap id="FollowupStatus" class="com.worldvisa.business.domain.market.FollowupStatus">
+        <result property="followupStatusId" column="FOLLOWUP_STATUS_ID" />
+        <result property="userId" column="USER_ID" />
+        <result property="setBy" column="SET_BY" />
+        <result property="description" column="DESCRIPTION" />
+        <result property="substatus" column="SUBSTATUS" />
+        <result property="addedDate" column="ADDED_DATE" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.market.FollowupStatus">
+      	<selectKey resultClass="java.lang.Long" keyProperty="followupStatusId" type="pre">
+	        select IFNULL(MAX(FOLLOWUP_STATUS_ID)+1, 1) AS followupStatusId FROM MARKET_FOLLOWUP_STATUS WHERE USER_ID = #userId:DECIMAL#
+	    </selectKey>
+        INSERT INTO MARKET_FOLLOWUP_STATUS (
+	        FOLLOWUP_STATUS_ID,
+	        USER_ID,
+	        SET_BY,
+	        DESCRIPTION,
+	        SUBSTATUS,
+	        ADDED_DATE
+        )
+        VALUES (
+	        
+	        #followupStatusId:DECIMAL#,
+	        #userId:DECIMAL#,
+	        #setBy:VARCHAR#,
+	        #description:VARCHAR#,
+	        #substatus:DECIMAL#,
+	        #addedDate:TIMESTAMP#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE MARKET_FOLLOWUP_STATUS SET
+        
+        	FOLLOWUP_STATUS_ID = #data.followupStatusId:DECIMAL#,
+        	USER_ID = #data.userId:DECIMAL#,
+        	SET_BY = #data.setBy:VARCHAR#,
+        	DESCRIPTION = #data.description:VARCHAR#,
+        	SUBSTATUS = #data.substatus:DECIMAL#,
+        	ADDED_DATE = #data.addedDate:TIMESTAMP#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.followupStatusId">
+                FOLLOWUP_STATUS_ID = #filter.followupStatusId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.userId">
+                USER_ID = #filter.userId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.setBy">
+                SET_BY = #filter.setBy:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.description">
+                DESCRIPTION = #filter.description:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.substatus">
+                SUBSTATUS = #filter.substatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.addedDate">
+                ADDED_DATE = #filter.addedDate:TIMESTAMP#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.market.FollowupStatus">
+        DELETE FROM MARKET_FOLLOWUP_STATUS
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="followupStatusId">
+                FOLLOWUP_STATUS_ID = #followupStatusId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="userId">
+                USER_ID = #userId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="setBy">
+                SET_BY = #setBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="description">
+                DESCRIPTION = #description:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="substatus">
+                SUBSTATUS = #substatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="addedDate">
+                ADDED_DATE = #addedDate#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            FOLLOWUP_STATUS_ID,
+            USER_ID,
+            SET_BY,
+            DESCRIPTION,
+            SUBSTATUS,
+            ADDED_DATE
+        FROM MARKET_FOLLOWUP_STATUS
+    </sql>
+    
+    <select id="read" resultMap="marketFollowupStatus.FollowupStatus" 
+    	parameterClass="com.worldvisa.business.domain.market.FollowupStatus">
+        <include refid="marketFollowupStatus.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="followupStatusId">
+                FOLLOWUP_STATUS_ID = #followupStatusId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="userId">
+                USER_ID = #userId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="setBy">
+                SET_BY = #setBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="description">
+                DESCRIPTION = #description:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="substatus">
+                SUBSTATUS = #substatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="addedDate">
+                ADDED_DATE = #addedDate#
+            </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="readForuserId" resultMap="marketFollowupStatus.FollowupStatus" 
+    	parameterClass="java.lang.String">
+        <include refid="marketFollowupStatus.readSelect" />
+        WHERE USER_ID = #value#
+    </select>
+    
+    <select id="readForsetBy" resultMap="marketFollowupStatus.FollowupStatus" 
+    	parameterClass="java.lang.String">
+        <include refid="marketFollowupStatus.readSelect" />
+        WHERE SET_BY = #value#
+    </select>
+    
+    <select id="readForfollowupStatusId" resultMap="marketFollowupStatus.FollowupStatus" 
+    	parameterClass="java.lang.Integer">
+        <include refid="marketFollowupStatus.readSelect" />
+        WHERE FOLLOWUP_STATUS_ID = #value#
+    </select>
+</sqlMap>

@@ -1,0 +1,88 @@
+
+
+<div class="jquery-accordion-collapsed">
+	<h3>
+		<a href="#">Search Criteria</a>
+	</h3>
+	<div id="search-form">
+	<table class="form">
+	<tr>
+		<th><label for="userGroupName">Group Name</label></th>
+		<td><input type="text" id="userGroupName"/></td>
+		<th><label for="addedBy">Added By</label></th>
+		<td>
+			<select id="addedBy">
+				<option value="">Any</option>
+				<option dwrFetch="CommonView.getAllEmployees" label="employeeName" value="emailId" disabled>Loading...</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th><label for="addedOn">Added On</label></th>
+		<td colspan="2">
+			<input type="text" class="jquery-daterangepicker" id="addedOn" />
+		</td>
+	</tr>
+	<tr>
+		<th><label for="branchOffice">Base Location</label></th>
+		<td>
+			<select id="branchOffice" >
+				<option value="">Any</option>
+				<option lookupFetch="119" disabled>loading...</option>
+			</select>
+		</td>
+		<th><label for="serviceType">Service Type</label></th>
+		<td>
+			<select id="serviceType">
+				<option value="">Any</option>
+				<option lookupFetch="101" disabled>loading...</option>
+			</select>
+		</td>
+	</tr>
+	</table>
+	<div class="buttons-section">
+		<button icon="ui-icon-search" onclick="framework.getScreen().search()">Search</button>
+		<button icon="ui-icon-arrowrefresh-1-w" onclick="Form.clear($('#search-form'))">Reset</button>
+	</div>
+	</div>
+</div><div class="jquery-accordion">
+	<h3>
+		<a href="#">User Group List</a>
+	</h3>
+	<div>
+		<div id="userGroupListTable"></div>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section">
+</div></div>
+
+<div class="jquery-dialog" id="add-group-status-dialog" title="Add New Status">
+	<div id="add-group-status-dialog-form">
+		<table class="form" width="100%"><tr>
+			<th nowrap="nowrap" width="30%"><label for="substatus">Status</label></th>
+			<td nowrap="nowrap">
+				<select id="substatus" mandatory="true">
+					<option value="">select...</option>
+					<option value="10609">Tele Call</option>
+					<option value="10608">Phone enquiry</option>
+					<option value="10607">Walk In Counselled</option>
+					<option value="10601">Miscellaneous</option>
+				</select>
+			</td>
+		</tr><tr>
+			<th nowrap="nowrap"><label for="description">Description</label></th>
+			<td nowrap="nowrap">
+				<textarea id="description" mandatory="true" format="any( ,200)"></textarea>
+			</td>
+		</tr></table>	
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-check" onclick="framework.getScreen().addStatus();">Add Status</button>
+		<button icon="ui-icon-close" onclick="$('#add-group-status-dialog').dialog('close');return false;">Close</button>
+</div></div>
+<div class="jquery-dialog" id="view-group-followup-history-dialog" title="View Followup History">
+	<div id="group-followup-history-table">
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-close" onclick="$('#view-group-followup-history-dialog').dialog('close');return false;">Close</button>
+</div></div>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="requestCountryPreferences">
+    <!-- sql map for CountryPreferences -->
+    <resultMap id="CountryPreferences" class="com.worldvisa.business.domain.request.CountryPreferences">
+    
+        <result property="reportId" column="REPORT_ID" />
+        <result property="seqNum" column="SEQ_NUM" />
+        <result property="country" column="COUNTRY" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.request.CountryPreferences">
+        INSERT INTO REQUEST_COUNTRY_PREFERENCES (
+	        
+	        REPORT_ID,
+	        SEQ_NUM,
+	        COUNTRY
+        )
+        VALUES (
+	        
+	        #reportId:CHAR#,
+	        #seqNum:DECIMAL#,
+	        #country:VARCHAR#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE REQUEST_COUNTRY_PREFERENCES SET
+        
+        	REPORT_ID = #data.reportId:CHAR#,
+        	SEQ_NUM = #data.seqNum:DECIMAL#,
+        	COUNTRY = #data.country:VARCHAR#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.reportId">
+                REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.seqNum">
+                SEQ_NUM = #filter.seqNum:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.country">
+                COUNTRY = #filter.country:VARCHAR#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.request.CountryPreferences">
+        DELETE FROM REQUEST_COUNTRY_PREFERENCES
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="country">
+                COUNTRY = #country#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            REPORT_ID,
+            SEQ_NUM,
+            COUNTRY
+        FROM REQUEST_COUNTRY_PREFERENCES
+    </sql>
+    
+    <select id="read" resultMap="requestCountryPreferences.CountryPreferences" 
+    	parameterClass="com.worldvisa.business.domain.request.CountryPreferences">
+        <include refid="requestCountryPreferences.readSelect" />
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="country">
+                COUNTRY = #country#
+            </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="readForreportId" resultMap="requestCountryPreferences.CountryPreferences" 
+    	parameterClass="java.lang.String">
+        <include refid="requestCountryPreferences.readSelect" />
+        WHERE REPORT_ID = #value#
+    </select>
+    
+    
+</sqlMap>

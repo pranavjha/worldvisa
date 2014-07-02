@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="marketCommHistory">
+    <!-- sql map for LoginDetails -->
+    <resultMap id="CommHistory" class="com.worldvisa.business.domain.market.CommHistory">
+        <result property="userId" column="USER_ID" />
+        <result property="mailSeqNum" column="MAIL_SEQ_NUM" />
+        <result property="addedBy" column="ADDED_BY" />
+        <result property="sentTime" column="SENT_TIME" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.market.CommHistory">
+        INSERT INTO MARKET_COMM_HISTORY (
+	        USER_ID,
+	        MAIL_SEQ_NUM,
+	        ADDED_BY,
+	        SENT_TIME
+        )
+        VALUES (
+	        #userId:DECIMAL#,
+	        #mailSeqNum:DECIMAL#,
+	        #addedBy:VARCHAR#,
+	        #sentTime:DATETIME#
+        )
+    </insert>
+    <sql id="readSelect">
+        SELECT
+            USER_ID,
+            MAIL_SEQ_NUM,
+            ADDED_BY,
+            SENT_TIME
+        FROM MARKET_COMM_HISTORY
+    </sql>
+    <select id="read" resultMap="marketCommHistory.CommHistory" 
+    	parameterClass="com.worldvisa.business.domain.market.CommHistory">
+        <include refid="marketCommHistory.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="userId">
+                USER_ID = #userId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="mailSeqNum">
+                MAIL_SEQ_NUM = #mailSeqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="addedBy">
+                ADDED_BY = #addedBy#
+            </isNotNull>
+      </dynamic>
+    </select>
+    <select id="readAllMailsForUser" resultMap="marketCommunication.Communication"  
+    	parameterClass="java.lang.Long">
+    	SELECT             
+    		MC.SEQ_NUM,
+            MC.MAIL_SUBJECT,
+	        MC.MAIL_BODY,
+	        MCH.SENT_TIME,
+	        MC.ACTION_TYPE,
+	        MC.ADDED_BY 
+        FROM MARKET_COMM_HISTORY MCH
+        INNER JOIN MARKET_COMMUNICATION MC ON MC.SEQ_NUM = MCH.MAIL_SEQ_NUM
+    	WHERE MCH.USER_ID= #value#
+   		ORDER BY MCH.SENT_TIME
+    </select>
+    
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.market.CommHistory">
+        DELETE FROM MARKET_COMM_HISTORY
+        WHERE
+        <isNotNull property="mailSeqNum">
+            MAIL_SEQ_NUM = #mailSeqNum:DECIMAL#
+        </isNotNull>
+        <isNull property="mailSeqNum">
+            0 = 1
+        </isNull>
+    </delete>
+    <delete id="deleteByUserId" parameterClass="java.util.Map">
+        DELETE FROM MARKET_COMM_HISTORY WHERE USER_ID IN
+        <iterate property="user" open="(" close=")" conjunction=",">#user[]#</iterate>
+    </delete>
+    
+</sqlMap>

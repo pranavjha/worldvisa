@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="commonLookup">
+    <!-- sql map for Lookup -->
+    <resultMap id="Lookup" class="com.worldvisa.business.domain.common.Lookup">
+    
+        <result property="lookupId" column="LOOKUP_ID" />
+        <result property="parentLookupId" column="PARENT_LOOKUP_ID" />
+        <result property="lookupDescription" column="LOOKUP_DESCRIPTION" />
+        <result property="seqNum" column="SEQ_NUM" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.common.Lookup">
+        INSERT INTO COMMON_LOOKUP (
+	        
+	        LOOKUP_ID,
+	        PARENT_LOOKUP_ID,
+	        LOOKUP_DESCRIPTION,
+	        SEQ_NUM
+        )
+        VALUES (
+	        
+	        #lookupId:DECIMAL#,
+	        #parentLookupId:DECIMAL#,
+	        #lookupDescription:VARCHAR#,
+	        #seqNum:DECIMAL#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE COMMON_LOOKUP SET
+        
+        	LOOKUP_ID = #data.lookupId:DECIMAL#,
+        	PARENT_LOOKUP_ID = #data.parentLookupId:DECIMAL#,
+        	LOOKUP_DESCRIPTION = #data.lookupDescription:VARCHAR#,
+        	SEQ_NUM = #data.seqNum:DECIMAL#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.lookupId">
+                LOOKUP_ID = #filter.lookupId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.parentLookupId">
+                PARENT_LOOKUP_ID = #filter.parentLookupId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.lookupDescription">
+                LOOKUP_DESCRIPTION = #filter.lookupDescription:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.seqNum">
+                SEQ_NUM = #filter.seqNum:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.common.Lookup">
+        DELETE FROM COMMON_LOOKUP
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="lookupId">
+                LOOKUP_ID = #lookupId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="parentLookupId">
+                PARENT_LOOKUP_ID = #parentLookupId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="lookupDescription">
+                LOOKUP_DESCRIPTION = #lookupDescription#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            LOOKUP_ID,
+            PARENT_LOOKUP_ID,
+            LOOKUP_DESCRIPTION,
+            SEQ_NUM
+        FROM COMMON_LOOKUP
+    </sql>
+    
+    <select id="read" resultMap="commonLookup.Lookup" 
+    	parameterClass="com.worldvisa.business.domain.common.Lookup">
+        <include refid="commonLookup.readSelect" />
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="lookupId">
+                LOOKUP_ID = #lookupId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="parentLookupId">
+                PARENT_LOOKUP_ID = #parentLookupId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="lookupDescription">
+                LOOKUP_DESCRIPTION = #lookupDescription#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="readForparentLookupId" resultMap="commonLookup.Lookup" 
+    	parameterClass="java.lang.Integer">
+        <include refid="commonLookup.readSelect" />
+        WHERE PARENT_LOOKUP_ID = #value#
+    </select>
+    
+    
+</sqlMap>

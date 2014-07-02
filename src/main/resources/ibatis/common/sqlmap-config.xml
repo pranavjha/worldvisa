@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+    <settings useStatementNamespaces="true" enhancementEnabled="true" />
+
+   	<transactionManager type="EXTERNAL">
+		<dataSource type="DBCP"></dataSource>
+	</transactionManager>
+	<!-- Reference to sql maps -->
+    <sqlMap resource="ibatis/common/Lookup.xml" />
+    <sqlMap resource="ibatis/market/Communication.xml" />
+    <sqlMap resource="ibatis/market/FileDetails.xml" />
+    <sqlMap resource="ibatis/market/User.xml" />
+    <sqlMap resource="ibatis/market/UserComment.xml" />
+    <sqlMap resource="ibatis/market/UserGroup.xml" />
+    <sqlMap resource="ibatis/market/UserGroupComment.xml" />
+    <sqlMap resource="ibatis/profile/EmployeeDart.xml" />
+    <sqlMap resource="ibatis/profile/EmployeeDetails.xml" />
+    <sqlMap resource="ibatis/profile/EmployeeRelation.xml" />
+    <sqlMap resource="ibatis/profile/LoginDetails.xml" />
+    <sqlMap resource="ibatis/profile/UserDetails.xml" />
+    <sqlMap resource="ibatis/request/AttributeMaster.xml" />
+    <sqlMap resource="ibatis/request/CaseStatus.xml" />
+    <sqlMap resource="ibatis/request/CountryPreferences.xml" />
+    <sqlMap resource="ibatis/request/CoursePreference.xml" />
+    <sqlMap resource="ibatis/request/EduExperience.xml" />
+    <sqlMap resource="ibatis/request/FamilyDetails.xml" />
+    <sqlMap resource="ibatis/request/LangProfeciency.xml" />
+    <sqlMap resource="ibatis/request/RelativesAbroad.xml" />
+    <sqlMap resource="ibatis/request/ReportAttributes.xml" />
+    <sqlMap resource="ibatis/request/ReportDetails.xml" />
+    <sqlMap resource="ibatis/request/TestScore.xml" />
+    <sqlMap resource="ibatis/request/WorkExperience.xml" />
+    <sqlMap resource="ibatis/workflow/Conversation.xml" />
+    <sqlMap resource="ibatis/workflow/FileDetails.xml" />
+    <sqlMap resource="ibatis/workflow/Notification.xml" />
+    <sqlMap resource="ibatis/workflow/Payment.xml" />
+    <sqlMap resource="ibatis/workflow/PaymentOption.xml" />
+</sqlMapConfig>

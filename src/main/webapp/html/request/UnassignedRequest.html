@@ -1,0 +1,14 @@
+<div class="jquery-accordion">
+	<h3>
+		<a href="#">Unassigned Requests</a>
+	</h3>
+	<div>
+		<div id="unassignedRequestListTable"></div>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section">
+	<select id="assign-to">
+		<option dwrFetch="CommonView.getAssignmentOptions" label="employeeName" value="emailId" disabled>Loading...</option>
+	</select><button icon="ui-icon-locked" onclick="framework.getScreen().lockRequests()">Assign</button>
+	<button icon="ui-icon-note" onclick="framework.getScreen().exportToExcel($(this));"  id="export-to-excel">Export to Excel</button>
+</div></div>

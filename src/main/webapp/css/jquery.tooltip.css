@@ -1,0 +1,13 @@
+#tooltip {
+	position: absolute;
+	z-index: 3000;
+	background-color: #FFFFFF;
+	padding: 10px;
+	opacity: 0.85;
+	border-radius:5px;
+	box-shadow:0 0 3px #000000;
+    background: url("images/ui-bg_inset-hard_100_f5f8f9_1x100.png") repeat-x scroll 50% 50% #F5F8F9;
+    border: 3px solid #FFFFFF;
+    
+}
+#tooltip h3, #tooltip div { margin: 0; }

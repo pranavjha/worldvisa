@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="marketUserGroupComment">
+    <!-- sql map for UserGroupComment -->
+    <resultMap id="UserGroupComment" class="com.worldvisa.business.domain.market.UserGroupComment">
+		<result property="commentId" column="COMMENT_ID" />
+		<result property="userGroupId" column="USER_GROUP_ID" />
+		<result property="communicationId" column="COMMUNICATION_ID" />
+		<result property="addedBy" column="ADDED_BY" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="substatus" column="SUBSTATUS" />
+		<result property="addedOn" column="ADDED_ON" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.market.UserGroupComment">
+        <selectKey resultClass="java.lang.Long" keyProperty="commentId" type="pre">
+	        select IFNULL(MAX(COMMENT_ID)+1, 1) AS commentId FROM MARKET_USER_GROUP_COMMENT WHERE USER_GROUP_ID = #userGroupId#
+	    </selectKey>
+        INSERT INTO MARKET_USER_GROUP_COMMENT (
+			COMMENT_ID,
+			USER_GROUP_ID,
+			COMMUNICATION_ID,
+			ADDED_BY,
+			DESCRIPTION,
+			SUBSTATUS,
+			ADDED_ON
+        )
+        VALUES (
+	        #commentId:DECIMAL#,
+	        #userGroupId:DECIMAL#,
+	        #communicationId:DECIMAL#,
+	        #addedBy:VARCHAR#,
+	        #description:VARCHAR#,
+	        #substatus:DECIMAL#,
+	        #addedOn:TIMESTAMP#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE MARKET_USER_GROUP_COMMENT SET
+			COMMUNICATION_ID = #data.communicationId:DECIMAL#,
+			ADDED_BY = #data.addedBy:VARCHAR#,
+			DESCRIPTION = #data.description:VARCHAR#,
+			SUBSTATUS = #data.substatus:DECIMAL#,
+			ADDED_ON = #data.addedOn:TIMESTAMP#
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="filter.commentId">
+                COMMENT_ID = #filter.commentId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.userGroupId">
+                USER_GROUP_ID = #filter.userGroupId:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.market.UserGroupComment">
+        DELETE FROM MARKET_USER_GROUP_COMMENT
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="commentId">
+                COMMENT_ID = #commentId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="userGroupId">
+                USER_GROUP_ID = #userGroupId:DECIMAL#
+            </isNotNull>
+        </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+			COMMENT_ID,
+			USER_GROUP_ID,
+			COMMUNICATION_ID,
+			ADDED_BY,
+			DESCRIPTION,
+			SUBSTATUS,
+			ADDED_ON
+        FROM MARKET_USER_GROUP_COMMENT
+    </sql>
+    
+    <select id="read" resultMap="marketUserGroupComment.UserGroupComment" 
+    	parameterClass="com.worldvisa.business.domain.market.UserGroupComment">
+        <include refid="marketUserGroupComment.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="commentId">
+	            COMMENT_ID = #commentId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="userGroupId">
+				USER_GROUP_ID = #userGroupId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="communicationId">
+				COMMUNICATION_ID = #communicationId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="addedBy">
+				ADDED_BY = #addedBy#
+            </isNotNull>
+      </dynamic>
+      ORDER BY ADDED_ON DESC
+    </select>
+</sqlMap>

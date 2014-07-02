@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="workflowPayment">
+	<!-- sql map for Payment -->
+	<resultMap id="Payment"
+		class="com.worldvisa.business.domain.workflow.Payment">
+		<result property="paymentId" column="PAYMENT_ID" />
+		<result property="reportId" column="REPORT_ID" />
+		<result property="transactionDt" column="TRANSACTION_DT" />
+		<result property="transactionRemarks" column="TRANSACTION_REMARKS" />
+		<result property="amount" column="AMOUNT" />
+		<result property="paymentMode" column="PAYMENT_MODE" />
+		<result property="chequeDdNo" column="CHEQUE_DD_NO" />
+		<result property="invoiceSentInd" column="INVOICE_SENT_IND" />
+	</resultMap>
+	<!-- queries -->
+	<insert id="create" parameterClass="com.worldvisa.business.domain.workflow.Payment">
+    	<selectKey resultClass="java.lang.String" keyProperty="paymentId" type="pre">
+	        select CONCAT(#reportId:CHAR#,SUBSTRING((101+COUNT(*)), 2)) AS paymentId FROM WORKFLOW_PAYMENT WHERE REPORT_ID = #reportId:CHAR#
+	    </selectKey>
+		INSERT INTO WORKFLOW_PAYMENT (
+			PAYMENT_ID,
+			REPORT_ID,
+			TRANSACTION_DT,
+			TRANSACTION_REMARKS,
+			AMOUNT,
+			PAYMENT_MODE,
+			CHEQUE_DD_NO,
+			INVOICE_SENT_IND
+		)
+		VALUES (
+		#paymentId:CHAR#,
+		#reportId:CHAR#,
+		#transactionDt:TIMESTAMP#,
+		#transactionRemarks:VARCHAR#,
+		#amount:DECIMAL#,
+		#paymentMode:DECIMAL#,
+		#chequeDdNo:VARCHAR#,
+		#invoiceSentInd:DECIMAL#
+	)
+    </insert>
+	<update id="update" parameterClass="java.util.HashMap">
+		UPDATE WORKFLOW_PAYMENT SET
+
+		PAYMENT_ID = #data.paymentId:CHAR#,
+		REPORT_ID = #data.reportId:CHAR#,
+		TRANSACTION_DT = #data.transactionDt:TIMESTAMP#,
+		TRANSACTION_REMARKS = #data.transactionRemarks:VARCHAR#,
+		AMOUNT = #data.amount:DECIMAL#,
+		PAYMENT_MODE = #data.paymentMode:DECIMAL#,
+		CHEQUE_DD_NO = #data.chequeDdNo:VARCHAR#,
+		INVOICE_SENT_IND = #data.invoiceSentInd:DECIMAL#
+		<dynamic prepend="WHERE">
+
+			<isNotNull prepend="AND" property="filter.paymentId">
+				PAYMENT_ID = #filter.paymentId:CHAR#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.reportId">
+				REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.transactionDt">
+				TRANSACTION_DT = #filter.transactionDt:TIMESTAMP#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.transactionRemarks">
+				TRANSACTION_REMARKS = #filter.transactionRemarks:VARCHAR#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.amount">
+				AMOUNT = #filter.amount:DECIMAL#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.paymentMode">
+				PAYMENT_MODE = #filter.paymentMode:DECIMAL#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.chequeDdNo">
+				CHEQUE_DD_NO = #filter.chequeDdNo:VARCHAR#
+            </isNotNull>
+			<isNotNull prepend="AND" property="filter.invoiceSentInd">
+				INVOICE_SENT_IND = #filter.invoiceSentInd:DECIMAL#
+            </isNotNull>
+		
+		</dynamic>
+	</update>
+	<delete id="delete" parameterClass="com.worldvisa.business.domain.workflow.Payment">
+		DELETE FROM WORKFLOW_PAYMENT
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="paymentId">
+				PAYMENT_ID = #paymentId#
+            </isNotNull>
+			<isNotNull prepend="AND" property="reportId">
+				REPORT_ID = #reportId#
+            </isNotNull>
+			<isNotNull prepend="AND" property="transactionDt">
+				TRANSACTION_DT = #transactionDt#
+            </isNotNull>
+			<isNotNull prepend="AND" property="transactionRemarks">
+				TRANSACTION_REMARKS = #transactionRemarks#
+            </isNotNull>
+			<isNotNull prepend="AND" property="amount">
+				AMOUNT = #amount#
+            </isNotNull>
+			<isNotNull prepend="AND" property="paymentMode">
+				PAYMENT_MODE = #paymentMode#
+            </isNotNull>
+			<isNotNull prepend="AND" property="chequeDdNo">
+				CHEQUE_DD_NO = #chequeDdNo#
+            </isNotNull>
+			<isNotNull prepend="AND" property="invoiceSentInd">
+				INVOICE_SENT_IND = #invoiceSentInd#
+            </isNotNull>
+		</dynamic>
+	</delete>
+	<sql id="readSelect">
+		SELECT
+
+		PAYMENT_ID,
+		REPORT_ID,
+		TRANSACTION_DT,
+		TRANSACTION_REMARKS,
+		AMOUNT,
+		PAYMENT_MODE,
+		CHEQUE_DD_NO,
+		INVOICE_SENT_IND
+		FROM WORKFLOW_PAYMENT
+    </sql>
+
+	<select id="read" resultMap="workflowPayment.Payment"
+		parameterClass="com.worldvisa.business.domain.workflow.Payment">
+		<include refid="workflowPayment.readSelect" />
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="paymentId">
+				PAYMENT_ID = #paymentId#
+            </isNotNull>
+			<isNotNull prepend="AND" property="reportId">
+				REPORT_ID = #reportId#
+            </isNotNull>
+			<isNotNull prepend="AND" property="transactionDt">
+				TRANSACTION_DT = #transactionDt#
+            </isNotNull>
+			<isNotNull prepend="AND" property="transactionRemarks">
+				TRANSACTION_REMARKS = #transactionRemarks#
+            </isNotNull>
+			<isNotNull prepend="AND" property="amount">
+				AMOUNT = #amount#
+            </isNotNull>
+			<isNotNull prepend="AND" property="paymentMode">
+				PAYMENT_MODE = #paymentMode#
+            </isNotNull>
+			<isNotNull prepend="AND" property="chequeDdNo">
+				CHEQUE_DD_NO = #chequeDdNo#
+            </isNotNull>
+			<isNotNull prepend="AND" property="invoiceSentInd">
+				INVOICE_SENT_IND = #invoiceSentInd#
+            </isNotNull>
+			ORDER BY TRANSACTION_DT DESC
+		</dynamic>
+	</select>
+
+	<select id="readForreportId" resultMap="workflowPayment.Payment"
+		parameterClass="java.lang.String">
+		<include refid="workflowPayment.readSelect" />
+		WHERE REPORT_ID = #value#
+		ORDER BY TRANSACTION_DT DESC
+	</select>
+	<resultMap id="PaymentSearchResult"
+		class="com.worldvisa.business.domain.workflow.Payment">
+		<result property="paymentId" column="paymentId" />
+		<result property="reportId" column="reportId" />
+		<result property="paymentMode" column="paymentMode" />
+		<result property="transactionDt" column="transactionDt" />
+		<result property="amount" column="amount" />
+		<result property="chequeDdNo" column="chequeDdNo" />
+		<result property="transactionRemarks" column="transactionRemarks" />
+		<result property="details.personalDetails.name" column="customerName" />
+		<result property="details.personalDetails.emailId" column="customerEmail" />
+		<result property="details.assignmentDetails.employeeName"
+			column="employeeName" />
+		<result property="details.assignmentDetails.employeeId" column="employeeId" />
+	</resultMap>
+	<sql id="allPaymentMainQuery">
+		SELECT
+			WP.PAYMENT_ID as paymentId,
+			WP.REPORT_ID as reportId,
+			WP.TRANSACTION_DT as transactionDt,
+			WP.AMOUNT as amount,
+			WP.PAYMENT_MODE as paymentMode,
+			WP.TRANSACTION_REMARKS as transactionRemarks,
+			WP.CHEQUE_DD_NO as chequeDdNo,
+			PUD.NAME as customerName,
+			PUD.EMAIL_ID as customerEmail,
+			PED.EMPLOYEE_NAME as employeeName,
+			PED.EMPLOYEE_ID as employeeId
+		FROM WORKFLOW_PAYMENT WP
+		JOIN REQUEST_REPORT_DETAILS RRD on RRD.REPORT_ID = WP.REPORT_ID   
+		LEFT OUTER JOIN PROFILE_EMPLOYEE_DETAILS PED on PED.EMAIL_ID = RRD.ASSIGNED_TO   
+		JOIN PROFILE_USER_DETAILS PUD ON PUD.EMAIL_ID = RRD.RAISED_FOR
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="paymentId">
+				WP.PAYMENT_ID LIKE CONCAT('%',#paymentId:VARCHAR#,'%')
+		    </isNotNull>
+			<isNotNull prepend="AND" property="paymentMode">
+				WP.PAYMENT_MODE = #paymentMode:NUMBER#
+		    </isNotNull>
+			<isNotEmpty prepend="AND" property="chequeDdNo">
+				WP.CHEQUE_DD_NO LIKE CONCAT('%',#chequeDdNo:VARCHAR#,'%')
+	      	</isNotEmpty>
+			<isNotEmpty prepend="AND" property="customerName">
+				PUD.NAME LIKE CONCAT('%',#customerName:VARCHAR#,'%')
+	            </isNotEmpty>
+			<isNotEmpty prepend="AND" property="customerEmail">
+				PUD.EMAIL_ID LIKE CONCAT('%',#customerEmail:VARCHAR#,'%')
+				</isNotEmpty>
+			<isNotEmpty prepend="AND" property="employeeName">
+				PED.EMAIL_ID LIKE CONCAT('%',#employeeName:VARCHAR#,'%')
+		      </isNotEmpty>
+			<isNotNull prepend="AND" property="amountRangeFrom">
+				WP.AMOUNT <![CDATA[>=]]> #amountRangeFrom:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="AND" property="amountRangeTo">
+				WP.AMOUNT <![CDATA[<=]]> #amountRangeTo:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="AND" property="transactionDates">
+				DATE(WP.TRANSACTION_DT) BETWEEN DATE(#transactionDates[0]:DATE#) AND DATE(#transactionDates[1]:DATE#) 
+			</isNotNull>
+		</dynamic>
+	</sql>
+	
+	<select id="readSearchListCount" resultClass="java.lang.Integer"
+		parameterClass="com.worldvisa.business.domain.workflow.TransactionRecordsFilter">
+		SELECT count(*) FROM (
+			<include refid="workflowPayment.allPaymentMainQuery" />
+		) maintable
+	</select>
+	<select id="readSearchList" resultMap="workflowPayment.PaymentSearchResult"
+		parameterClass="com.worldvisa.business.domain.workflow.TransactionRecordsFilter">
+		SELECT * FROM (
+			SELECT *,
+				@rownum:=@rownum+1 AS rownum
+			FROM (
+			<include refid="workflowPayment.allPaymentMainQuery" />
+		        ORDER BY $sortCol$ $sortOrder$) maintable, (SELECT @rownum:=0) r) a
+		WHERE a.rownum between #startRow# and #endRow#
+	</select>
+</sqlMap>

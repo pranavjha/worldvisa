@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="requestEduExperience">
+    <!-- sql map for EduExperience -->
+    <resultMap id="EduExperience" class="com.worldvisa.business.domain.request.EduExperience">
+    
+        <result property="reportId" column="REPORT_ID" />
+        <result property="degree" column="DEGREE" />
+        <result property="fromDate" column="FROM_DATE" />
+        <result property="toDate" column="TO_DATE" />
+        <result property="university" column="UNIVERSITY" />
+        <result property="discipline" column="DISCIPLINE" />
+        <result property="seqNum" column="SEQ_NUM" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.request.EduExperience">
+        INSERT INTO REQUEST_EDU_EXPERIENCE (
+	        
+	        REPORT_ID,
+	        DEGREE,
+	        FROM_DATE,
+	        TO_DATE,
+	        UNIVERSITY,
+	        DISCIPLINE,
+	        SEQ_NUM
+        )
+        VALUES (
+	        
+	        #reportId:CHAR#,
+	        #degree:DECIMAL#,
+	        #fromDate:TIMESTAMP#,
+	        #toDate:TIMESTAMP#,
+	        #university:VARCHAR#,
+	        #discipline:VARCHAR#,
+	        #seqNum:DECIMAL#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE REQUEST_EDU_EXPERIENCE SET
+        
+        	REPORT_ID = #data.reportId:CHAR#,
+        	DEGREE = #data.degree:DECIMAL#,
+        	FROM_DATE = #data.fromDate:TIMESTAMP#,
+        	TO_DATE = #data.toDate:TIMESTAMP#,
+        	UNIVERSITY = #data.university:VARCHAR#,
+        	DISCIPLINE = #data.discipline:VARCHAR#,
+        	SEQ_NUM = #data.seqNum:DECIMAL#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.reportId">
+                REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.degree">
+                DEGREE = #filter.degree:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.fromDate">
+                FROM_DATE = #filter.fromDate:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.toDate">
+                TO_DATE = #filter.toDate:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.university">
+                UNIVERSITY = #filter.university:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.discipline">
+                DISCIPLINE = #filter.discipline:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.seqNum">
+                SEQ_NUM = #filter.seqNum:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.request.EduExperience">
+        DELETE FROM REQUEST_EDU_EXPERIENCE
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="degree">
+                DEGREE = #degree#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fromDate">
+                FROM_DATE = #fromDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="toDate">
+                TO_DATE = #toDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="university">
+                UNIVERSITY = #university#
+            </isNotNull>
+            <isNotNull prepend="AND" property="discipline">
+                DISCIPLINE = #discipline#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            REPORT_ID,
+            DEGREE,
+            FROM_DATE,
+            TO_DATE,
+            UNIVERSITY,
+            DISCIPLINE,
+            SEQ_NUM
+        FROM REQUEST_EDU_EXPERIENCE
+    </sql>
+    
+    <select id="read" resultMap="requestEduExperience.EduExperience" 
+    	parameterClass="com.worldvisa.business.domain.request.EduExperience">
+        <include refid="requestEduExperience.readSelect" />
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="degree">
+                DEGREE = #degree#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fromDate">
+                FROM_DATE = #fromDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="toDate">
+                TO_DATE = #toDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="university">
+                UNIVERSITY = #university#
+            </isNotNull>
+            <isNotNull prepend="AND" property="discipline">
+                DISCIPLINE = #discipline#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="readFordegree" resultMap="requestEduExperience.EduExperience" 
+    	parameterClass="java.lang.Integer">
+        <include refid="requestEduExperience.readSelect" />
+        WHERE DEGREE = #value#
+    </select>
+    
+    <select id="readForreportId" resultMap="requestEduExperience.EduExperience" 
+    	parameterClass="java.lang.String">
+        <include refid="requestEduExperience.readSelect" />
+        WHERE REPORT_ID = #value#
+    </select>
+    
+    
+</sqlMap>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="profileEmployeeDetails">
+    <!-- sql map for EmployeeDetails -->
+    <resultMap id="EmployeeDetails" class="com.worldvisa.business.domain.profile.EmployeeDetails">
+        <result property="employeeId" column="EMPLOYEE_ID" />
+        <result property="employeeName" column="EMPLOYEE_NAME" />
+        <result property="joiningDate" column="JOINING_DATE" />
+        <result property="mobileNum" column="MOBILE_NUM" />
+        <result property="emailId" column="EMAIL_ID" />
+        <result property="baseLocation" column="BASE_LOCATION" />
+        <result property="userRole" column="USER_ROLE" />
+        <result property="registrationStatus" column="REGISTRATION_STATUS" />
+        <result property="password" column="PASSWORD" />
+        <result property="passwordExpFlag" column="PASSWORD_EXP_FLAG" />
+        <result property="createdDate" column="CREATED_DATE" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="isActive" column="IS_ACTIVE" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.profile.EmployeeDetails">
+		<selectKey resultClass="java.lang.Long" keyProperty="employeeId" type="pre">
+	        select IFNULL(MAX(EMPLOYEE_ID)+1, 1) AS employeeId FROM PROFILE_EMPLOYEE_DETAILS
+	    </selectKey>
+        INSERT INTO PROFILE_EMPLOYEE_DETAILS (
+	        EMPLOYEE_ID,
+	        EMPLOYEE_NAME,
+	        JOINING_DATE,
+	        MOBILE_NUM,
+	        EMAIL_ID,
+	        BASE_LOCATION
+	    )
+        VALUES (
+	        
+	        #employeeId:DECIMAL#,
+	        #employeeName:VARCHAR#,
+	        #joiningDate:TIMESTAMP#,
+	        #mobileNum:VARCHAR#,
+	        #emailId:VARCHAR#,
+	        #baseLocation:DECIMAL#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE PROFILE_EMPLOYEE_DETAILS SET
+        	EMPLOYEE_ID = #data.employeeId:DECIMAL#,
+        	EMPLOYEE_NAME = #data.employeeName:VARCHAR#,
+        	JOINING_DATE = #data.joiningDate:TIMESTAMP#,
+        	MOBILE_NUM = #data.mobileNum:VARCHAR#,
+        	EMAIL_ID = #data.emailId:VARCHAR#,
+        	BASE_LOCATION = #data.baseLocation:NUMBER#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.employeeId">
+                EMPLOYEE_ID = #filter.employeeId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.employeeName">
+                EMPLOYEE_NAME = #filter.employeeName:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.joiningDate">
+                JOINING_DATE = #filter.joiningDate:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.mobileNum">
+                MOBILE_NUM = #filter.mobileNum:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.emailId">
+                EMAIL_ID = #filter.emailId:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.baseLocation">
+                BASE_LOCATION = #filter.baseLocation:NUMBER#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.profile.EmployeeDetails">
+        DELETE FROM PROFILE_EMPLOYEE_DETAILS
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="employeeId">
+                EMPLOYEE_ID = #employeeId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="employeeName">
+                EMPLOYEE_NAME = #employeeName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="joiningDate">
+                JOINING_DATE = #joiningDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="mobileNum">
+                MOBILE_NUM = #mobileNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="emailId">
+                EMAIL_ID = #emailId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="baseLocation">
+                BASE_LOCATION = #baseLocation:NUMBER#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT        
+            PED.EMPLOYEE_ID,
+            PED.EMPLOYEE_NAME,
+            PED.JOINING_DATE,
+            PED.MOBILE_NUM,
+            PED.EMAIL_ID,
+            PED.BASE_LOCATION,
+            PLD.USER_ROLE,
+            PLD.REGISTRATION_STATUS,
+            PLD.PASSWORD,
+            PLD.PASSWORD_EXP_FLAG,
+            PLD.CREATED_DATE,
+            PLD.CREATED_BY,
+            PLD.IS_ACTIVE
+        FROM PROFILE_EMPLOYEE_DETAILS PED
+        LEFT OUTER JOIN PROFILE_LOGIN_DETAILS PLD ON PED.EMAIL_ID = PLD.EMAIL_ID
+    </sql>
+    
+    <select id="read" resultMap="profileEmployeeDetails.EmployeeDetails" 
+    	parameterClass="com.worldvisa.business.domain.profile.EmployeeDetails">
+        <include refid="profileEmployeeDetails.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="employeeId">
+                PED.EMPLOYEE_ID = #employeeId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="employeeName">
+                PED.EMPLOYEE_NAME = #employeeName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="joiningDate">
+                PED.JOINING_DATE = #joiningDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="mobileNum">
+                PED.MOBILE_NUM = #mobileNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="emailId">
+                PED.EMAIL_ID = #emailId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="baseLocation">
+                PED.BASE_LOCATION = #baseLocation#
+            </isNotNull>            
+      </dynamic>
+    </select>
+    
+    <select id="readForemailId" resultMap="profileEmployeeDetails.EmployeeDetails" 
+    	parameterClass="java.lang.String">
+        <include refid="profileEmployeeDetails.readSelect" />
+        WHERE EMAIL_ID = #value#
+    </select>
+	
+	<select id="readAssignmentOptions" parameterClass="java.lang.String"
+    	resultClass="com.worldvisa.business.domain.profile.EmployeeDetails">
+		SELECT e1.EMPLOYEE_NAME as employeeName, e1.EMAIL_ID as emailId
+		FROM PROFILE_EMPLOYEE_DETAILS e1 WHERE 
+		e1.EMAIL_ID = #value# 
+		OR e1.EMAIL_ID IN (SELECT EMPLOYEE_ID FROM PROFILE_EMPLOYEE_RELATION WHERE MANAGER_ID = #value#)
+	</select>
+	
+    <sql id="allEmployeeMainQuery">
+    	SELECT
+            ped.EMPLOYEE_ID as employeeId,
+            ped.EMPLOYEE_NAME as employeeName,
+            ped.JOINING_DATE as joiningDate,
+            ped.MOBILE_NUM as mobileNum,
+            ped.EMAIL_ID as emailId,
+            ped.BASE_LOCATION as baseLocation,
+            pld.USER_ROLE as userRole,
+	        pld.REGISTRATION_STATUS as registrationStatus,
+	        pld.PASSWORD as password,
+	        pld.PASSWORD_EXP_FLAG as passwordExpFlag,
+	        pld.CREATED_DATE as createdDate,
+	        pld.CREATED_BY as createdBy,
+	        pld.IS_ACTIVE as isActive,
+            (SELECT COUNT(REPORT_ID) 
+              FROM REQUEST_REPORT_DETAILS 
+              WHERE REQUEST_TYPE IN (10101,10102,10104,10105,10106,10107,10108,10112,10113) AND ASSIGNED_TO = ped.EMAIL_ID) 
+                as immigrationTotal,
+            (SELECT COUNT(REPORT_ID) 
+              FROM REQUEST_REPORT_DETAILS rrd
+              JOIN PROFILE_LOGIN_DETAILS pld on pld.EMAIL_ID = rrd.RAISED_FOR AND pld.REGISTRATION_STATUS = 10302
+              WHERE rrd.REQUEST_TYPE IN (10101,10102,10104,10105,10106,10107,10108,10112,10113) AND rrd.ASSIGNED_TO = ped.EMAIL_ID )
+                as immigrationConverted,
+
+            (SELECT COUNT(REPORT_ID) 
+              FROM REQUEST_REPORT_DETAILS 
+              WHERE REQUEST_TYPE IN (10109, 10110) AND ASSIGNED_TO = ped.EMAIL_ID) 
+                as educationTotal,
+            (SELECT COUNT(REPORT_ID) 
+              FROM REQUEST_REPORT_DETAILS rrd
+              JOIN PROFILE_LOGIN_DETAILS pld on pld.EMAIL_ID = rrd.RAISED_FOR AND pld.REGISTRATION_STATUS = 10302
+              WHERE rrd.REQUEST_TYPE IN (10109, 10110) AND rrd.ASSIGNED_TO = ped.EMAIL_ID ) 
+                as educationConverted,
+            
+            (SELECT COUNT(REPORT_ID) 
+              FROM REQUEST_REPORT_DETAILS 
+              WHERE REQUEST_TYPE IN (10103, 10111, 10114) AND ASSIGNED_TO = ped.EMAIL_ID) 
+                as othersTotal,
+            (SELECT COUNT(REPORT_ID) 
+              FROM REQUEST_REPORT_DETAILS rrd
+              JOIN PROFILE_LOGIN_DETAILS pld on pld.EMAIL_ID = rrd.RAISED_FOR AND pld.REGISTRATION_STATUS = 10302
+              WHERE rrd.REQUEST_TYPE IN (10103, 10111, 10114) AND rrd.ASSIGNED_TO = ped.EMAIL_ID ) 
+                as othersConverted
+        FROM 
+        	PROFILE_EMPLOYEE_DETAILS ped
+        	JOIN PROFILE_LOGIN_DETAILS pld ON ped.EMAIL_ID = pld.EMAIL_ID
+       	<dynamic prepend="WHERE ">
+       		<isNotNull prepend="AND" property="employeeId">
+       			ped.employee_ID LIKE CONCAT('%',#employeeId#,'%')
+        	</isNotNull>
+       		<isNotNull prepend="AND" property="name">
+        		ped.employee_name LIKE CONCAT('%',#name#,'%')
+        	</isNotNull>
+       		<isNotNull prepend="AND" property="mobileNum">
+        		ped.mobile_num LIKE CONCAT('%',#mobileNum#,'%')
+        	</isNotNull>
+       		<isNotNull prepend="AND" property="eMail">
+        		ped.email_id LIKE CONCAT('%',#eMail#,'%')
+        	</isNotNull>
+       		<isNotNull prepend="AND" property="reportsTo">
+        		ped.email_id IN (SELECT EMPLOYEE_ID FROM PROFILE_EMPLOYEE_RELATION WHERE MANAGER_ID = #reportsTo#) 
+        	</isNotNull>
+       		<isNotNull prepend="AND" property="joiningDates">
+        		DATE(ped.joining_date) BETWEEN DATE(#joiningDates[0]#) AND DATE(#joiningDates[1]#) 
+        	</isNotNull>
+       		<isNotNull prepend="AND" property="baseLocation">
+        		ped.BASE_LOCATION = #baseLocation#
+        	</isNotNull>
+       	</dynamic>
+    </sql>
+    
+	<select id="readLengthFromFilter" resultClass="java.lang.Integer"
+		parameterClass="com.worldvisa.business.domain.profile.EmployeeManagementFilter">
+		SELECT count(*) FROM (
+			<include refid="profileEmployeeDetails.allEmployeeMainQuery" />
+		) maintable
+	</select>
+	<select id="readFromFilter" parameterClass="com.worldvisa.business.domain.profile.EmployeeManagementFilter"
+    	resultClass="com.worldvisa.business.domain.profile.EmployeeDetails">
+		SELECT * FROM (
+			SELECT *,
+				@rownum:=@rownum+1 AS rownum
+			FROM (
+			<include refid="profileEmployeeDetails.allEmployeeMainQuery" />
+		        ORDER BY $sortCol$ $sortOrder$) maintable, (SELECT @rownum:=0) r) a
+		WHERE a.rownum between #startRow# and #endRow#
+	</select>
+    
+    <select id="getTotalReport" 
+    	parameterClass="com.worldvisa.business.domain.profile.EmployeePerformanceFilter"
+    resultClass="com.worldvisa.business.domain.profile.EmployeePerformanceReport">
+    	SELECT
+      		COUNT(REPORT_ID) as totalRequest,
+      		RAISED_DT as pdate
+   		FROM
+      		REQUEST_REPORT_DETAILS rrd
+      	WHERE
+      		1 = 1
+		<isNotNull property="requestType">
+		  	AND rrd.REQUEST_TYPE = #requestType#
+	  	</isNotNull>
+	  	<isNotEmpty property="employeeEmail">
+		  	AND rrd.ASSIGNED_TO = #employeeEmail#
+	  	</isNotEmpty>
+	  	<isNotNull property="dateRange">
+			AND rrd.RAISED_DT BETWEEN #dateRange[0]# AND #dateRange[1]#
+		</isNotNull>
+   		GROUP BY
+      		rrd.RAISED_DT
+    	ORDER BY 
+    		rrd.RAISED_DT
+	</select>
+    <select id="getConvertedReport" 
+    	parameterClass="com.worldvisa.business.domain.profile.EmployeePerformanceFilter"
+    resultClass="com.worldvisa.business.domain.profile.EmployeePerformanceReport">
+   		SELECT
+			COUNT(REPORT_ID) as convertedRequests,
+			RAISED_DT as pdate
+		FROM REQUEST_REPORT_DETAILS rrd
+		JOIN 
+			PROFILE_LOGIN_DETAILS pld
+			ON pld.EMAIL_ID = rrd.RAISED_FOR
+		WHERE
+			pld.REGISTRATION_STATUS = 10302
+		<isNotNull property="requestType">
+		  	AND rrd.REQUEST_TYPE = #requestType#
+	  	</isNotNull>
+	  	<isNotEmpty property="employeeEmail">
+		  	AND rrd.ASSIGNED_TO = #employeeEmail#
+	  	</isNotEmpty>
+	  	<isNotNull property="dateRange">
+			AND rrd.RAISED_DT BETWEEN #dateRange[0]# AND #dateRange[1]#
+		</isNotNull>
+		GROUP BY
+		  	rrd.RAISED_DT
+		ORDER BY
+		  	rrd.RAISED_DT
+	</select>
+    <select id="getRevenueReport" 
+    	parameterClass="com.worldvisa.business.domain.profile.EmployeePerformanceFilter"
+    resultClass="com.worldvisa.business.domain.profile.EmployeePerformanceReport">
+    	SELECT
+      		SUM(AMOUNT) as totalRevenue,
+      		TRANSACTION_DT as pdate
+    	FROM
+      		WORKFLOW_PAYMENT wp
+    	JOIN
+      		REQUEST_REPORT_DETAILS rrd
+      		ON wp.REPORT_ID = rrd.REPORT_ID
+   		WHERE
+   			1 = 1
+		<isNotNull property="requestType">
+		  	AND rrd.REQUEST_TYPE = #requestType#
+	  	</isNotNull>
+	  	<isNotEmpty property="employeeEmail">
+		  	AND rrd.ASSIGNED_TO = #employeeEmail#
+	  	</isNotEmpty>
+	  	<isNotNull property="dateRange">
+			AND rrd.RAISED_DT BETWEEN #dateRange[0]# AND #dateRange[1]#
+		</isNotNull>
+    	GROUP BY
+      		wp.TRANSACTION_DT
+    	ORDER BY
+      		wp.TRANSACTION_DT DESC
+     </select>
+</sqlMap>

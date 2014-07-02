@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="marketUserGroup">
+    <!-- sql map for UserGroup -->
+    <resultMap id="UserGroup" class="com.worldvisa.business.domain.market.UserGroup">
+		<result property="userGroupId" column="USER_GROUP_ID" />
+		<result property="userGroupName" column="USER_GROUP_NAME" />
+		<result property="branchOffice" column="BRANCH_OFFICE" />
+		<result property="serviceType" column="SERVICE_TYPE" />
+		<result property="addedBy" column="ADDED_BY" />
+		<result property="addedOn" column="ADDED_ON" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.market.UserGroup">
+      	<selectKey resultClass="java.lang.Long" keyProperty="userGroupId" type="pre">
+	        select IFNULL(MAX(USER_GROUP_ID)+1, 1) AS userGroupId FROM MARKET_USER_GROUP
+	    </selectKey>
+        INSERT INTO MARKET_USER_GROUP (
+			USER_GROUP_ID,
+			USER_GROUP_NAME,
+			BRANCH_OFFICE,
+			SERVICE_TYPE,
+			ADDED_BY,
+			ADDED_ON
+        )
+        VALUES (
+	        #userGroupId:DECIMAL#,
+	        #userGroupName:VARCHAR#,
+	        #branchOffice:DECIMAL#,
+	        #serviceType:DECIMAL#,
+	        #addedBy:VARCHAR#,
+	        #addedOn:TIMESTAMP#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE MARKET_USER_GROUP SET
+			USER_GROUP_NAME = #data.userGroupName:VARCHAR#,
+			BRANCH_OFFICE = #data.branchOffice:DECIMAL#,
+			SERVICE_TYPE = #data.serviceType:DECIMAL#
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="filter.userGroupId">
+                USER_GROUP_ID = #filter.userGroupId:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </update>
+
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.market.UserGroup">
+        DELETE FROM MARKET_USER_GROUP
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="userGroupId">
+                USER_GROUP_ID = #userGroupId#
+            </isNotNull>
+      </dynamic>
+    </delete>
+
+    <sql id="readSelect">
+        SELECT
+	        USER_GROUP_ID,
+			USER_GROUP_NAME,
+			BRANCH_OFFICE,
+			SERVICE_TYPE,
+			ADDED_BY,
+			ADDED_ON
+        FROM MARKET_USER_GROUP
+    </sql>
+
+    <select id="read" resultMap="marketUserGroup.UserGroup" 
+    	parameterClass="com.worldvisa.business.domain.market.UserGroup">
+        <include refid="marketUserGroup.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="userGroupId">
+	            USER_GROUP_ID = #userGroupId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="userGroupName">
+				USER_GROUP_NAME = #userGroupName#
+            </isNotNull>
+            <isNotNull prepend="AND" property="branchOffice">
+				BRANCH_OFFICE = #branchOffice#
+            </isNotNull>
+            <isNotNull prepend="AND" property="serviceType">
+				SERVICE_TYPE = #serviceType#
+            </isNotNull>
+            <isNotNull prepend="AND" property="addedBy">
+				ADDED_BY = #addedBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="addedOn">
+				ADDED_ON = #addedOn#
+            </isNotNull>
+      </dynamic>
+    </select> 
+      
+	<sql id="userGroupListMainQuery">
+        <include refid="marketUserGroup.readSelect" />
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="userGroupName">
+			    USER_GROUP_NAME LIKE CONCAT('%',#userGroupName#, '%')
+		    </isNotNull>
+		    <isNotNull prepend="AND" property="addedOn">
+				DATE(ADDED_ON) BETWEEN DATE(#addedOn[0]#) AND DATE(#addedOn[1]#)
+		    </isNotNull>
+		    <isNotNull prepend="AND" property="addedBy">
+				aDDED_BY  = #addedBy#
+		    </isNotNull>
+		</dynamic>
+	</sql>
+	
+	<select id="readCountByFilter" resultClass="java.lang.Integer"
+	parameterClass="com.worldvisa.business.domain.market.UserGroupFilter">
+		SELECT count(*) FROM (
+			<include refid="marketUserGroup.userGroupListMainQuery" />
+		) maintable
+	</select>
+	<select id="readByFilter" resultMap="marketUserGroup.UserGroup"
+	parameterClass="com.worldvisa.business.domain.market.UserGroupFilter">
+		SELECT * FROM (
+			SELECT *,
+				@rownum:=@rownum+1 AS rownum
+			FROM (
+			<include refid="marketUserGroup.userGroupListMainQuery" />
+		        ORDER BY $sortCol$ $sortOrder$) maintable, (SELECT @rownum:=0) r) a
+		WHERE a.rownum between #startRow# and #endRow#
+	</select>
+</sqlMap>

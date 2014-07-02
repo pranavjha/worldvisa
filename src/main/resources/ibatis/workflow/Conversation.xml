@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="workflowConversation">
+    <!-- sql map for Conversation -->
+    <resultMap id="Conversation" class="com.worldvisa.business.domain.workflow.Conversation">
+        <result property="conversationId" column="CONVERSATION_ID" />
+        <result property="reportId" column="REPORT_ID" />
+        <result property="sentBy" column="SENT_BY" />
+        <result property="fileDetails" column="FILE_DETAILS" />
+        <result property="receivedBy" column="RECEIVED_BY" />
+        <result property="mailSubject" column="MAIL_SUBJECT" />
+        <result property="remarks" column="REMARKS" />
+        <result property="timestamp" column="TIMESTAMP" />
+        <result property="draftInd" column="DRAFT_IND" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.workflow.Conversation">
+    	<selectKey resultClass="java.lang.Long" keyProperty="conversationId" type="pre">
+	        select IFNULL(MAX(CONVERSATION_ID)+1, 1) AS conversationId FROM WORKFLOW_CONVERSATION WHERE REPORT_ID = #reportId:CHAR#
+	    </selectKey>
+        INSERT INTO WORKFLOW_CONVERSATION (
+	        CONVERSATION_ID,
+	        REPORT_ID,
+	        SENT_BY,
+	        FILE_DETAILS,
+	        RECEIVED_BY,
+	        MAIL_SUBJECT,
+	        REMARKS,
+	        TIMESTAMP,
+	        DRAFT_IND
+        )
+        VALUES (
+	        #conversationId:DECIMAL#,
+	        #reportId:CHAR#,
+	        #sentBy:VARCHAR#,
+	        #fileDetails:VARCHAR#,
+	        #receivedBy:VARCHAR#,
+	        #mailSubject:VARCHAR#,
+	        #remarks:VARCHAR#,
+	        #timestamp:TIMESTAMP#,
+	        #draftInd:DECIMAL#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE WORKFLOW_CONVERSATION SET
+        	CONVERSATION_ID = #data.conversationId:DECIMAL#,
+        	REPORT_ID = #data.reportId:CHAR#,
+        	SENT_BY = #data.sentBy:VARCHAR#,
+        	FILE_DETAILS = #data.fileDetails:VARCHAR#,
+        	RECEIVED_BY = #data.receivedBy:VARCHAR#,
+        	MAIL_SUBJECT = #data.mailSubject:VARCHAR#,
+        	REMARKS = #data.remarks:VARCHAR#,
+        	TIMESTAMP = #data.timestamp:TIMESTAMP#,
+        	DRAFT_IND = #data.draftInd:DECIMAL#
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="filter.conversationId">
+                CONVERSATION_ID = #filter.conversationId:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.reportId">
+                REPORT_ID = #filter.reportId:CHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.sentBy">
+                SENT_BY = #filter.sentBy:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.fileDetails">
+                FILE_DETAILS = #filter.fileDetails:VARCHAR#
+            </isNotNull>
+        	<isNotNull prepend="AND" property="filter.receivedBy">
+                RECEIVED_BY = #filter.receivedBy:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.mailSubject">
+                MAIL_SUBJECT = #filter.mailSubject:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.remarks">
+                REMARKS = #filter.remarks:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.timestamp">
+                TIMESTAMP = #filter.timestamp:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.draftInd">
+                DRAFT_IND = #filter.draftInd:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.workflow.Conversation">
+        DELETE FROM WORKFLOW_CONVERSATION
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="conversationId">
+                CONVERSATION_ID = #conversationId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="sentBy">
+                SENT_BY = #sentBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fileDetails">
+                FILE_DETAILS = #fileDetails#
+            </isNotNull>
+            <isNotNull prepend="AND" property="receivedBy">
+                RECEIVED_BY = #receivedBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="mailSubject">
+                MAIL_SUBJECT = #mailSubject#
+            </isNotNull>
+            <isNotNull prepend="AND" property="remarks">
+                REMARKS = #remarks#
+            </isNotNull>
+            <isNotNull prepend="AND" property="timestamp">
+                TIMESTAMP = #timestamp#
+            </isNotNull>
+            <isNotNull prepend="AND" property="draftInd">
+                DRAFT_IND = #draftInd#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+            CONVERSATION_ID,
+            REPORT_ID,
+            SENT_BY,
+            FILE_DETAILS,
+            RECEIVED_BY,
+            MAIL_SUBJECT,
+            REMARKS,
+            TIMESTAMP,
+            DRAFT_IND
+        FROM WORKFLOW_CONVERSATION
+    </sql>
+    
+    <select id="read" resultMap="workflowConversation.Conversation" 
+    	parameterClass="com.worldvisa.business.domain.workflow.Conversation">
+        <include refid="workflowConversation.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="conversationId">
+                CONVERSATION_ID = #conversationId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="sentBy">
+                SENT_BY = #sentBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fileDetails">
+                FILE_DETAILS = #fileDetails#
+            </isNotNull>
+            <isNotNull prepend="AND" property="receivedBy">
+                RECEIVED_BY = #receivedBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="mailSubject">
+                MAIL_SUBJECT = #mailSubject#
+            </isNotNull>
+            <isNotNull prepend="AND" property="remarks">
+                REMARKS = #remarks#
+            </isNotNull>
+            <isNotNull prepend="AND" property="timestamp">
+                TIMESTAMP = #timestamp#
+            </isNotNull>
+            <isNotNull prepend="AND" property="draftInd">
+                DRAFT_IND = #draftInd#
+            </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="readForreceivedBy" resultMap="workflowConversation.Conversation" 
+    	parameterClass="java.lang.String">
+        <include refid="workflowConversation.readSelect" />
+        WHERE RECEIVED_BY = #value#
+    </select>
+    
+    <select id="readForsentBy" resultMap="workflowConversation.Conversation" 
+    	parameterClass="java.lang.String">
+        <include refid="workflowConversation.readSelect" />
+        WHERE SENT_BY = #value#
+    </select>
+    
+    <select id="readForreportId" resultMap="workflowConversation.Conversation" 
+    	parameterClass="java.lang.String">
+        <include refid="workflowConversation.readSelect" />
+        WHERE REPORT_ID = #value#
+    </select>
+</sqlMap>

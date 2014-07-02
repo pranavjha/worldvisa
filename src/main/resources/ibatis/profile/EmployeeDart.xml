@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="profileEmployeeDart">
+    <!-- sql map for EmployeeDart -->
+    <resultMap id="EmployeeDart" class="com.worldvisa.business.domain.profile.EmployeeDart">
+    
+        <result property="employeeEmail" column="EMPLOYEE_EMAIL" />
+        <result property="seqNum" column="SEQ_NUM" />
+        <result property="reportDate" column="REPORT_DATE" />
+        <result property="description" column="DESCRIPTION" />
+        <result property="reportId" column="REPORT_ID" />
+        <result property="dartType" column="DART_TYPE" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.profile.EmployeeDart">
+    	<selectKey resultClass="java.lang.Long" keyProperty="seqNum" type="pre">
+	        select IFNULL(MAX(SEQ_NUM)+1, 1) AS seqNum FROM PROFILE_EMPLOYEE_DART 
+	        WHERE EMPLOYEE_EMAIL = #employeeEmail:CHAR# AND DATE(REPORT_DATE) = DATE(#reportDate:TIMESTAMP#)
+	    </selectKey>
+        INSERT INTO PROFILE_EMPLOYEE_DART (
+	        
+	        EMPLOYEE_EMAIL,
+	        SEQ_NUM,
+	        REPORT_DATE,
+	        DESCRIPTION,
+	        REPORT_ID,
+	        DART_TYPE
+        )
+        VALUES (
+	        
+	        #employeeEmail:VARCHAR#,
+	        #seqNum:DECIMAL#,
+	        #reportDate:TIMESTAMP#,
+	        #description:VARCHAR#,
+	        #reportId:VARCHAR#,
+	        #dartType:DECIMAL#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE PROFILE_EMPLOYEE_DART SET
+        
+        	EMPLOYEE_EMAIL = #data.employeeEmail:VARCHAR#,
+        	SEQ_NUM = #data.seqNum:DECIMAL#,
+        	REPORT_DATE = #data.reportDate:TIMESTAMP#,
+        	DESCRIPTION = #data.description:VARCHAR#,
+        	REPORT_ID = #data.reportId:VARCHAR#,
+        	DART_TYPE = #data.dartType:DECIMAL#
+        <dynamic prepend="WHERE">
+            <isNotEmpty prepend="AND" property="filter.employeeEmail">
+                EMPLOYEE_EMAIL = #filter.employeeEmail:VARCHAR#
+            </isNotEmpty>
+            <isNotNull prepend="AND" property="filter.seqNum">
+                SEQ_NUM = #filter.seqNum:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.reportDate">
+                REPORT_DATE = #filter.reportDate:TIMESTAMP#,
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.description">
+                DESCRIPTION = #filter.description:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.reportId">
+                REPORT_ID = #filter.reportId:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.dartType">
+                DART_TYPE = #filter.dartType:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.profile.EmployeeDart">
+        DELETE FROM PROFILE_EMPLOYEE_DART
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="employeeEmail">
+                EMPLOYEE_EMAIL = #employeeEmail#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="reportDate">
+                REPORT_DATE = #reportDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="description">
+                DESCRIPTION = #description#
+            </isNotNull>
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="dartType">
+                DART_TYPE = #dartType:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            EMPLOYEE_EMAIL,
+            SEQ_NUM,
+            REPORT_DATE,
+            DESCRIPTION,
+            REPORT_ID,
+            DART_TYPE
+        FROM PROFILE_EMPLOYEE_DART
+    </sql>
+    
+    <select id="read" resultMap="profileEmployeeDart.EmployeeDart" 
+    	parameterClass="com.worldvisa.business.domain.profile.EmployeeDart">
+        <include refid="profileEmployeeDart.readSelect" />
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="employeeEmail">
+                EMPLOYEE_EMAIL = #employeeEmail#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="reportDate">
+                DATE(REPORT_DATE) = DATE(#reportDate#)
+            </isNotNull>
+            <isNotNull prepend="AND" property="description">
+                DESCRIPTION = #description#
+            </isNotNull>
+            <isNotNull prepend="AND" property="reportId">
+                REPORT_ID = #reportId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="dartType">
+                DART_TYPE = #dartType#
+            </isNotNull>
+      </dynamic>
+            ORDER BY EMPLOYEE_EMAIL, SEQ_NUM, REPORT_DATE
+    </select>
+    
+    <select id="readForEmployeeEmail" resultMap="profileEmployeeDart.EmployeeDart" 
+    	parameterClass="java.lang.Integer">
+        <include refid="profileEmployeeDart.readSelect" />
+        WHERE EMPLOYEE_EMAIL = #value#
+    </select>
+</sqlMap>

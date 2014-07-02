@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="marketFileDetails">
+    <!-- sql map for FileDetails -->
+    <resultMap id="FileDetails" class="com.worldvisa.business.domain.market.FileDetails">
+        <result property="mailId" column="MAIL_ID" />
+        <result property="fileId" column="FILE_ID" />
+        <result property="fileDesc" column="FILE_DESC" />
+        <result property="file.relativePath" column="RELATIVE_PATH" />
+        <result property="file.fileName" column="FILE_NAME" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.market.FileDetails">
+		<selectKey resultClass="java.lang.Long" keyProperty="fileId" type="pre">
+	        select IFNULL(MAX(FILE_ID)+1, 1) AS fileId FROM MARKET_FILE_DETAILS WHERE MAIL_ID = #mailId:DECIMAL#
+	    </selectKey>
+        INSERT INTO MARKET_FILE_DETAILS (
+	        MAIL_ID,
+	        FILE_ID,
+	        FILE_DESC,
+	        FILE_NAME 
+        )
+        VALUES (
+	        
+	        #mailId:DECIMAL#,
+	        #fileId:DECIMAL#,
+	        #fileDesc:VARCHAR#,
+	        #file.fileName:VARCHAR#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE MARKET_FILE_DETAILS SET
+        	MAIL_ID = #data.mailId:DECIMAL#,
+        	FILE_ID = #data.fileId:DECIMAL#,
+        	FILE_DESC = #data.fileDesc:VARCHAR#,
+        	FILE_NAME  = #data.file.fileName:VARCHAR#
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="filter.mailId">
+                MAIL_ID = #filter.mailId:CHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.fileId">
+                FILE_ID = #filter.fileId:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.market.FileDetails">
+        DELETE FROM MARKET_FILE_DETAILS
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="mailId">
+                MAIL_ID = #mailId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fileId">
+                FILE_ID = #fileId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fileDesc">
+                FILE_DESC = #fileDesc#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+            MAIL_ID,
+            FILE_ID,
+            FILE_DESC,
+            FILE_NAME,
+            CONCAT('MARKET_FILE_DETAILS/', MAIL_ID, '/', FILE_ID, '.', FILE_NAME) RELATIVE_PATH 
+        FROM MARKET_FILE_DETAILS
+    </sql>
+    <select id="read" resultMap="marketFileDetails.FileDetails" 
+    	parameterClass="com.worldvisa.business.domain.market.FileDetails">
+        <include refid="marketFileDetails.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="mailId">
+                MAIL_ID = #mailId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="fileId">
+                FILE_ID = #fileId#
+            </isNotNull>
+            ORDER BY FILE_ID
+      </dynamic>
+    </select>
+    <delete id="deleteByFileIds" parameterClass="java.util.Map">
+        DELETE FROM MARKET_FILE_DETAILS
+        WHERE
+                FILE_ID NOT IN 
+                <iterate property="fileIds" open="(" close=")" conjunction=",">
+                	#fileIds[]#
+                </iterate>
+                AND MAIL_ID = #mailId#
+    </delete>
+</sqlMap>

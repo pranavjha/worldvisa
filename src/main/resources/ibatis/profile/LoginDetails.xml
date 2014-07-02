@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="profileLoginDetails">
+    <!-- sql map for LoginDetails -->
+    <resultMap id="LoginDetails" class="com.worldvisa.business.domain.profile.LoginDetails">
+    
+        <result property="emailId" column="EMAIL_ID" />
+        <result property="userRole" column="USER_ROLE" />
+        <result property="registrationStatus" column="REGISTRATION_STATUS" />
+        <result property="password" column="PASSWORD" />
+        <result property="passwordExpFlag" column="PASSWORD_EXP_FLAG" />
+        <result property="createdDate" column="CREATED_DATE" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="isActive" column="IS_ACTIVE" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.profile.LoginDetails">
+        INSERT INTO PROFILE_LOGIN_DETAILS (
+	        
+	        EMAIL_ID,
+	        USER_ROLE,
+	        REGISTRATION_STATUS,
+	        PASSWORD,
+	        PASSWORD_EXP_FLAG,
+	        CREATED_DATE,
+	        CREATED_BY,
+	        IS_ACTIVE
+        )
+        VALUES (
+	        #emailId:VARCHAR#,
+	        #userRole:DECIMAL#,
+	        #registrationStatus:DECIMAL#,
+	        #password:VARCHAR#,
+	        #passwordExpFlag:DECIMAL#,
+	        #createdDate:TIMESTAMP#,
+	        #createdBy:VARCHAR#,
+	        #isActive:DECIMAL#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE PROFILE_LOGIN_DETAILS SET
+        
+        	EMAIL_ID = #data.emailId:VARCHAR#,
+        	USER_ROLE = #data.userRole:DECIMAL#,
+        	REGISTRATION_STATUS = #data.registrationStatus:DECIMAL#,
+        	PASSWORD = #data.password:VARCHAR#,
+        	PASSWORD_EXP_FLAG = #data.passwordExpFlag:DECIMAL#,
+        	CREATED_DATE = #data.createdDate:TIMESTAMP#,
+        	CREATED_BY = #data.createdBy:VARCHAR#,
+        	IS_ACTIVE = #data.isActive:DECIMAL#
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="filter.emailId">
+                EMAIL_ID = #filter.emailId:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.userRole">
+                USER_ROLE = #filter.userRole:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.registrationStatus">
+                REGISTRATION_STATUS = #filter.registrationStatus:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.password">
+                PASSWORD = #filter.password:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.passwordExpFlag">
+                PASSWORD_EXP_FLAG = #filter.passwordExpFlag:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.createdDate">
+                CREATED_DATE = #filter.createdDate:TIMESTAMP#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.createdBy">
+                CREATED_BY = #filter.createdBy:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.isActive">
+                IS_ACTIVE = #filter.isActive:DECIMAL#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.profile.LoginDetails">
+        DELETE FROM PROFILE_LOGIN_DETAILS
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="emailId">
+                EMAIL_ID = #emailId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="userRole">
+                USER_ROLE = #userRole#
+            </isNotNull>
+            <isNotNull prepend="AND" property="registrationStatus">
+                REGISTRATION_STATUS = #registrationStatus#
+            </isNotNull>
+            <isNotNull prepend="AND" property="password">
+                PASSWORD = #password#
+            </isNotNull>
+            <isNotNull prepend="AND" property="passwordExpFlag">
+                PASSWORD_EXP_FLAG = #passwordExpFlag#
+            </isNotNull>
+            <isNotNull prepend="AND" property="createdDate">
+                CREATED_DATE = #createdDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="createdBy">
+                CREATED_BY = #createdBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="isActive">
+                IS_ACTIVE = #isActive#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+        
+            EMAIL_ID,
+            USER_ROLE,
+            REGISTRATION_STATUS,
+            PASSWORD,
+            PASSWORD_EXP_FLAG,
+            CREATED_DATE,
+            CREATED_BY,
+            IS_ACTIVE
+        FROM PROFILE_LOGIN_DETAILS
+    </sql>
+    
+    <select id="read" resultMap="profileLoginDetails.LoginDetails" 
+    	parameterClass="com.worldvisa.business.domain.profile.LoginDetails">
+        <include refid="profileLoginDetails.readSelect" />
+        <dynamic prepend="WHERE">
+        
+            <isNotNull prepend="AND" property="emailId">
+                EMAIL_ID = #emailId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="userRole">
+                USER_ROLE = #userRole#
+            </isNotNull>
+            <isNotNull prepend="AND" property="registrationStatus">
+                REGISTRATION_STATUS = #registrationStatus#
+            </isNotNull>
+            <isNotNull prepend="AND" property="password">
+                PASSWORD = #password#
+            </isNotNull>
+            <isNotNull prepend="AND" property="passwordExpFlag">
+                PASSWORD_EXP_FLAG = #passwordExpFlag#
+            </isNotNull>
+            <isNotNull prepend="AND" property="createdDate">
+                CREATED_DATE = #createdDate#
+            </isNotNull>
+            <isNotNull prepend="AND" property="createdBy">
+                CREATED_BY = #createdBy#
+            </isNotNull>
+            <isNotNull prepend="AND" property="isActive">
+                IS_ACTIVE = #isActive#
+            </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="readForcreatedBy" resultMap="profileLoginDetails.LoginDetails" 
+    	parameterClass="java.lang.String">
+        <include refid="profileLoginDetails.readSelect" />
+        WHERE CREATED_BY = #value#
+    </select>
+    
+    <select id="readForregistrationStatus" resultMap="profileLoginDetails.LoginDetails" 
+    	parameterClass="java.lang.Integer">
+        <include refid="profileLoginDetails.readSelect" />
+        WHERE REGISTRATION_STATUS = #value#
+    </select>
+    
+    <select id="readForuserRole" resultMap="profileLoginDetails.LoginDetails" 
+    	parameterClass="java.lang.Integer">
+        <include refid="profileLoginDetails.readSelect" />
+        WHERE USER_ROLE = #value#
+    </select>
+    
+    
+</sqlMap>

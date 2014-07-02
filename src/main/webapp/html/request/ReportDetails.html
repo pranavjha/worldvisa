@@ -1,0 +1,544 @@
+<div class="jquery-tabs" id="reportDetailsForm">
+	<ul>
+		<li><a href="#basic-details">Basic Details</a></li>
+		<li><a href="#personal-details">Personal Details</a></li>
+		<li><a href="#spouse-and-family-details">Spouse and Family Details</a></li>
+		<li><a href="#educational-and-work-background">Educational and Work Background</a></li>
+		<li><a href="#other-details">Other Details</a></li>
+	</ul>
+	<div id="basic-details">
+		<h1>Step 1 of 5: Enter Basic Details</h1>
+		<table class="form"><tr><th width="25%"><label for="countryPreferencesList">Country Preference</label></th>
+		<td colspan="3">
+			<input type="text" class="jquery-autosuggest" id="countryPreferencesList" binding="CommonView.getCountriesList" mandatory="true" multiselect="true"
+			style="width:400px" />
+		</td>
+		</tr><tr>
+		<th width="25%"><label for="requestType">Area of Interest</label></th>
+		<td colspan="3">
+			<select id="requestType" mandatory="true" style="width:350px" >
+				<option value="">select...</option>
+				<option disabled="true" lookupFetch="101">loading...</option>
+			</select>
+		</td></tr><tr><th><label for="coursePreferenceList">Course Preference</label></th>
+		<td colspan="3">
+		<div class="jquery-editable-list" id="coursePreferenceList" mandatory="true">
+			<table><thead><tr><th>
+				<label for="courseDetail">Course Details</label>
+			</th><th>
+				<label for="institutionChoice">Institution</label>
+			</th></tr></thead><tbody><tr><td>
+				<input type="text" id="courseDetail" mandatory="true" format="any( ,250)"/>
+			</td><td>
+				<input type="text" id="institutionChoice" mandatory="true" format="any( ,250)"/>
+			</td></tr></tbody></table>
+		</div>
+		</td></tr><tr><th width="25%"><label for="editableInd">Editable by Client</label></th>
+		<td width="25%">
+		<select id="editableInd" mandatory="true">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</select>
+		</td>
+		<th width="25%"><label for="requestMode">Request Mode</label></th>
+		<td width="25%">
+		<select id="requestMode" mandatory="true">
+			<option value="">select...</option>
+			<option disabled="true" lookupFetch="102">loading...</option>
+		</select>
+		</td></tr></table>
+	</div>
+	<div id="personal-details">
+	<h1>Step 2 of 5: Enter Your Details</h1>
+	<table class="form"><tr><th width="25%">
+		<label for="personalDetails-name">Name</label>
+	</th><td width="25%">
+		<input type="text" id="personalDetails-name" mandatory="true"  format="any( ,150)"/>
+	</td><th rowspan="3" width="25%">
+		<label for="personalDetails-mailingAddress">Mailing Address</label>
+	</th><td rowspan="3" width="25%">
+		<textarea id="personalDetails-mailingAddress" rows="5" mandatory="true" format="any( ,200)"></textarea>
+	</td></tr><tr><th>
+		<label for="personalDetails-cellphone">Mobile Number</label>
+	</th><td>
+		<input type="text" id="personalDetails-cellphone" mandatory="true" format="phoneNum(10,15)"/>
+	</td></tr><tr><th>
+		<label for="personalDetails-landline">Landline</label>
+	</th><td>
+		<input type="text" id="personalDetails-landline"  format="phoneNum(10,15)"/>
+	</td></tr>
+	<tr><th>
+		<label for="personalDetails-city">City</label>
+	</th><td>
+		<input type="text" id="personalDetails-city" mandatory="true" format="any( ,50)"/>
+	</td><th>
+		<label for="personalDetails-dateOfBirth">Date Of Birth</label>
+	</th><td>
+		<input type="text" id="personalDetails-dateOfBirth" mandatory="true" class="jquery-datepicker" maxdate="0"/>
+	</td></tr><tr><th>
+		<label for="personalDetails-state">State</label>
+	</th><td>
+		<input type="text" id="personalDetails-state" mandatory="true"  format="any( ,50)"/>
+	</td><th>
+		<label for="personalDetails-emailId">Email Id</label>
+	</th><td>
+		<input type="text" id="personalDetails-emailId" mandatory="true" format="email( ,150)"/>
+	</td></tr><tr><th>
+		<label for="personalDetails-country">Country</label>
+	</th><td>
+		<input type="text" id="personalDetails-country" mandatory="true"  format="any( ,50)"/>
+	</td></tr><tr><th>
+		<label for="langProfeciencieList">Language Proficiency</label>
+	</th>
+	<td colspan="3">
+		<div class="jquery-editable-list" id="langProfeciencieList">
+			<table><thead><tr><th>
+				<label for="languageId">Language</label>
+			</th><th>
+				<label for="speakingLevel">Speaking Level</label>
+			</th><th>
+				<label for="readingLevel">Reading Level</label>
+			</th><th>
+				<label for="writingLevel">Writing Level</label>
+			</th><th>
+				<label for="listeningLevel">Interpretation</label>
+			</th></tr></thead><tbody><tr><td>
+				<select id="languageId" mandatory="true">
+					<option value="">select...</option>
+					<option disabled="true" lookupFetch="112">loading...</option>
+				</select>
+			</td><td>
+				<select id="speakingLevel" mandatory="true">
+					<option value = "">select...</option>
+					<option disabled="true" lookupFetch="111">loading...</option>
+				</select>
+			</td><td>
+				<select id="readingLevel" mandatory="true">
+					<option value = "">select...</option>
+					<option disabled="true" lookupFetch="111">loading...</option>
+				</select>
+			</td><td>
+				<select id="writingLevel" mandatory="true">
+					<option value = "">select...</option>
+					<option disabled="true" lookupFetch="111">loading...</option>
+				</select>
+			</td><td>
+				<select id="listeningLevel" mandatory="true">
+					<option value = "">select...</option>
+					<option disabled="true" lookupFetch="111">loading...</option>
+				</select>
+			</td></tr></tbody></table>
+		</div>
+	</td><tr><th>
+		<label for="testScoreList">Test Scores</label>
+	</th>
+	<td colspan="3">
+		<div class="jquery-editable-list" id="testScoreList">
+			<table><thead><tr><th>
+				<label for="testId">Test Name</label>
+			</th><th>
+				<label for="score">Score</label>
+			</th><th>
+				<label for="testDate">Test Date</label>
+			</th></tr></thead><tbody><tr><td>
+				<select id="testId" mandatory="true">
+					<option value = "">select...</option>
+					<option disabled="true" lookupFetch="113">loading...</option>
+				</select>
+			</td><td>
+				<input type="text" id="score" mandatory="true" format="any( ,20)"/>
+			</td><td>
+				<input type="text" id="testDate" class="jquery-datepicker" mandatory="true" maxdate="0"/>
+			</td></tr></tbody></table>
+		</div>
+	</td></tr></table>
+	</div>
+	<div id="spouse-and-family-details">
+	<h1>Step 3 of 5: Enter Your Spouse / Family Details</h1>
+	<table class="form">
+	<tr>
+		<th width="25%"><label for="personalDetails-maritalStatus">Marital Status</label></th>
+		<td width="75%">
+			<select id="personalDetails-maritalStatus" mandatory="true">
+				<option value="">select...</option>
+				<option lookupFetch="107" disabled="true">loading...</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			<label for="familyDetailsList">Family Details</label>
+		</th>
+		<td>
+			<div class="jquery-editable-list" id="familyDetailsList">
+				<table><thead><tr><th>
+					<label for="relativeName">Name</label>
+				</th><th>
+					<label for="relation">Relation</label>
+				</th><th>
+					<label for="dateOfBirth">Date of Birth</label>
+				</th><th>
+					<label for="highestDegree">Highest Degree</label>
+				</th><th>
+					<label for="workExperience">Work Experience (years)</label>
+				</th></tr></thead><tbody><tr><td>
+					<input type="text" id="relativeName" mandatory="true" format="any( ,200)"/>
+				</td><td>
+					<select id="relation" mandatory="true">
+						<option value="">select...</option>
+						<option lookupFetch="120" disabled="true">loading...</option>
+					</select>
+				</td><td>
+					<input type="text" id="dateOfBirth" class="jquery-datepicker"  mandatory="true" maxdate="0"/>
+				</td><td>
+					<input type="text" id="highestDegree" mandatory="true"  format="any( ,200)"/>
+				</td>
+				<td nowrap="nowrap">
+				<input type="text" id="workExperience"  format="numeric(2,2)"/>
+			</td></tr></tbody></table>
+			</div>
+		</td></tr><tr><th>
+			Relatives Abroad
+		</th><td>
+			<div class="jquery-editable-list" id="relativesAbroadList">
+			<table><thead><tr><th>
+				<label for="relativeName">Relative's Name</label>
+			</th><th>
+				<label for="relation">Relation</label>
+			</th><th>
+				<label for="cityCountry">City, Country</label>
+			</th></tr></thead><tbody><tr><td>
+				<input type="text" id="relativeName" mandatory="true"  format="any( ,200)"/>
+			</td><td>
+				<select id="relation" mandatory="true" >
+					<option value="">select...</option>
+					<option lookupFetch="109" disabled="true">loading...</option>
+				</select>
+			</td><td>
+				<input type="text" id="cityCountry" mandatory="true"  format="any( ,200)"/>
+			</td></tr></tbody></table>
+			</div>
+		</td></tr></table>
+	</div>
+	<div id="educational-and-work-background">
+	<h1>Step 4 of 5: Enter Your Educational and Work Experience</h1>
+	<table class="form"><tr><th>
+		Educational Background
+	</th><td>
+		<div class="jquery-editable-list" id="eduExperienceList">
+		<table><thead><tr><th>
+			<label for="fromDate">From</label>
+		</th><th>
+			<label for="toDate">To</label>
+		</th><th>
+			<label for="university">University</label>
+		</th><th>
+			<label for="degree">Degree</label>
+		</th><th>
+			<label for="discipline">Discipline</label>
+		</th></tr></thead><tbody><tr><td>
+			<input type="text" id="fromDate" class="jquery-datepicker" mandatory="true" maxdate="0"/>
+		</td><td>
+			<input type="text" id="toDate" class="jquery-datepicker" mandatory="true" maxdate="0"/>
+		</td><td>
+			<input type="text" id="university" mandatory="true" format="any( ,250)"/>
+		</td><td>
+			<select id="degree" mandatory="true" >
+				<option value="">select...</option>
+				<option lookupFetch="108" disabled="true">loading...</option>
+			</select>
+		</td><td>
+			<input type="text" id="discipline" mandatory="true"  format="any( ,250)"/>
+		</td></tr></tbody></table>
+		</div>
+	</td></tr><tr><th>
+		Work Experience
+	</th><td>
+		<div class="jquery-editable-list" id="workExperienceList">
+		<table><thead><tr><th>
+			<label for="fromDate">From</label>
+		</th><th>
+			<label for="toDate">To</label>
+		</th><th>
+			<label for="employer">Employers Name and Address</label>
+		</th><th>
+			<label for="designation">Designation</label>
+		</th></tr></thead><tbody><tr><td>
+			<input type="text" id="fromDate" class="jquery-datepicker" mandatory="true" maxdate="0"/>
+		</td><td>
+			<input type="text" id="toDate" class="jquery-datepicker" mandatory="true" maxdate="0"/>
+		</td><td>
+			<textarea id="employer" mandatory="true"  format="any( ,200)" ></textarea>
+		</td><td>
+			<input type="text" id="designation" mandatory="true"   format="any( ,200)" />
+		</td></tr></tbody></table>
+		</div>
+	</td></tr></table>
+	</div>
+	<div id="other-details">
+	<h1>Step 5 of 5: Enter The details below</h1>
+		<div id="other-details-form">
+		</div>
+	</div>
+</div>
+<div id="payment-record" style="display:none;">
+<div class="jquery-accordion">
+	<h3>
+		<a href="#">Payment Options</a>
+	</h3>
+	<div id="payment-record-main-form">
+		<table class="form"><tr><th width="25%">
+			<label for="reportId">File number</label>
+		</th><td width="25%">
+			<input type="text" id="reportId" disabled />
+		</td><th width="25%">
+			<label for="countryPreferencesList">Country of Interest</label>
+		</th><td width="25%">
+	       	<input type="text" class="jquery-autosuggest" id="countryPreferencesList" multiselect="true" disabled />
+		</td></tr><tr><th>
+			<label for="requestType">Request Type</label>
+		</th><td>
+			<select id="requestType" disabled >
+				<option value="">select...</option>
+				<option disabled="true" lookupFetch="101">loading...</option>
+			</select>
+		</td><th>
+			<label for="numPass">Number of Visas to be processed</label>
+		</th><td>
+	       	<input type="text" id="numPass" mandatory="true" format="numeric(1,0)"/>
+	   	</td></tr><tr><th>
+	   		<label for="numUniv">Number of Universities Applied</label>
+	  		</th><td>
+	       	<input type="text" id="numUniv" mandatory="true" format="numeric(1,0)"/>
+		</td><th>
+	   		<label for="numColl">Number of Colleges Applied</label>
+		</th><td>
+	       	<input type="text" id="numColl" mandatory="true" format="numeric(1,0)"/>
+		</td></tr><tr><th>
+			<label for="otherServices">Additional Services</label>
+		</th><td>
+	       	<select id="otherServices" >
+				<option value="">none</option>
+				<option disabled="true" lookupFetch="122">loading...</option>
+	       	</select>
+	  	    </td><th>
+	  	    	<label for="paymentOption">Payment Option</label>
+	 	    </th><td>
+	       	<select id="paymentOption" mandatory="true">
+				<option value="">select...</option>
+				<option disabled="true" lookupFetch="105">loading...</option>
+	       	</select>
+	  	    </td></tr><tr><th>
+	  	    	<label for="payableAmount">Cost of Service</label>
+	 	    </th><td>
+	      		<input type="text" id="payableAmount" format="currency" />
+	   	</td><th>
+			<label for="discountAmount">Discount</label>
+		</th><td>
+	    	<input type="text" id="discountAmount" format="currency" />
+	    </td></tr><tr><th>
+			<label for="netPayableAmount">Net Payable</label>
+	    </th><td>
+	      	<input type="text" id="netPayableAmount" format="currency" disabled immediate/>
+		</td></tr><tr><td colspan="4">
+	    	<button id="freeze-payment" icon="ui-icon-locked">Freeze Payment Options</button>
+	  	</td></tr></table>
+  	    </div>
+    </div>
+	<div class="jquery-accordion">
+		<h3>
+			<a href="#">Payment List</a>
+		</h3>
+		<div>
+	    <div id="payment-list-table"></div>
+		</div>
+	</div>
+</div>
+<div id="conversations" style="display:none;">
+	<div class="jquery-tabs" id="reportDetailsForm">
+		<ul>
+			<li><a href="#documents-details">Documents</a></li>
+			<li><a href="#conversation-details">Conversation</a></li>
+		</ul>
+		<div id="documents-details">
+			<div style="padding: 5px;margin:5px;" class="ui-state-highlight ui-corner-all"> 
+				<p><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-info"></span>Only <strong>bmp, doc, docx, dot, gif, jpg, jpeg, png, pdf, ppt, rtf, txt, xls, zip</strong> file types can be uploaded.</p>
+			</div>
+			<div id="documents-list-table"></div>
+		</div>
+		<div id="conversation-details">
+			<div id="conversations-list-table"></div>
+		</div>
+	</div>
+</div>
+<div id="notifications" style="display:none;">
+	<div class="jquery-accordion">
+		<h3>
+			<a href="#">Notifications</a>
+		</h3>
+		<div>
+			<div id="notifications-list-table"></div>
+		</div>
+	</div>
+</div>
+<div id="case-status" style="display:none;">
+	<div class="jquery-accordion">
+		<h3>
+			<a href="#">Case Status</a>
+		</h3>
+		<div>
+			<div id="case-status-list-table"></div>
+		</div>
+	</div>
+</div>
+<div class="footer"><div class="buttons-section" style="display:none;">
+<span id="reportDetailsForm-button">
+	<span id="new-request">
+		<button icon="ui-icon-seek-prev" id="report-details-back">Back</button>
+		<button icon="ui-icon-seek-next" id="report-details-next">Next</button>
+		<button icon="ui-icon-check" id="report-details-submit">Submit</button>
+	</span>
+	<span id="edit-request">
+		<button icon="ui-icon-disk" id="report-details-update">Save Changes</button>
+	</span>
+</span>
+<span id="payment-record-button">
+<button id="add-new-payment-details" icon="ui-icon-note">Add New Payment</button>
+</span>
+<span id="conversations-button">
+<button id="add-new-file" icon="ui-icon-circle-plus">Add New File</button>
+<button id="add-new-conversation" icon="ui-icon-circle-plus">Add New Conversation</button>
+</span>
+<span id="notifications-button">
+<button id="add-new-notification" icon="ui-icon-circle-plus">Add New Notification</button>
+</span>
+<span id="case-status-button">
+<button id="add-new-case-status" icon="ui-icon-circle-plus">Add New Case Status</button>
+</span>
+<span id="view-request">
+	<button icon="ui-icon-refresh" id="report-details-reload">Reload</button>
+</span>
+
+<span id="report-details-jump-menu-wrap" style="float:right;">
+	Jump To: 
+	<select id="report-details-jump-menu" immediate>
+		<option value="reportDetailsForm">Basic Details</option>
+		<option value="payment-record">Payment Records</option>
+		<option value="conversations">Documents and Conversations</option>
+		<option value="notifications">Notifications</option>
+		<option value="case-status">Case Status</option>
+	</select>
+</span>
+</div></div>
+<div class="jquery-dialog" id="add-new-payment-details-dialog" title="Add New Payment Details">
+	<div id="add-new-payment-details-dialog-form">
+		<table class="form" width="100%"><tr><th nowrap="nowrap" width="30%">
+			<label for="transactionDt">Transaction Date</label>
+		</th><td nowrap="nowrap">
+			<input type="text" id="transactionDt" mandatory="true" class="jquery-datepicker" maxdate="0"/>
+		</td></tr><tr><th nowrap="nowrap">
+			<label for="paymentMode">Payment Mode</label>
+		</th><td nowrap="nowrap">
+			<select id="paymentMode" mandatory="true">
+				<option value="">select...</option>
+				<option disabled="true" lookupFetch="116">loading...</option>
+			</select>
+		</td></tr><tr><th nowrap="nowrap">
+			<label for="chequeDdNo">Cheque / DD No.</label>
+		</th><td nowrap="nowrap">
+			<input type="text" id="chequeDdNo" />
+		</td></tr><tr><th nowrap="nowrap" width="30%">
+			<label for="transactionRemarks">Remarks</label>
+		</th><td nowrap="nowrap">
+			<textarea id="transactionRemarks" format="any( ,200)"></textarea>
+		</td></tr><tr><th nowrap="nowrap" width="30%">
+			<label for="amount">Amount</label>
+		</th><td nowrap="nowrap">
+			<input type="text" id="amount" mandatory="true" format="currency" />
+		</td></tr></table>
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-check" onclick="framework.getScreen().addNewPayment();">Add</button>
+		<button icon="ui-icon-close" onclick="$('#add-new-payment-details-dialog').dialog('close');return false;">Close</button>
+</div></div>
+<div class="jquery-dialog" id="add-new-document-dialog" title="Add New Document">
+	<div id="add-new-document-dialog-form">
+		<table class="form" width="100%"><tr><th nowrap="nowrap">
+			<label for="file">File</label>
+		</th><td nowrap="nowrap">
+			<div class="jquery-file-upload" id="file" mandatory="true" allowedTypes="bmp, doc, docx, dot, gif, jpg, jpeg, png, pdf, ppt, rtf, txt, xls, zip"></div>
+		</td></tr><tr><th>
+			<label for="fileDesc">Description</label>
+		</th><td nowrap="nowrap">
+			<input type="text" id="fileDesc" mandatory="true" format="any( ,200)"/>
+		</td></tr></table>
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-disk" onclick="framework.getScreen().addNewFile();">Add File</button>
+		<button icon="ui-icon-close" onclick="$('#add-new-document-dialog').dialog('close');return false;">Close</button>
+</div></div>
+<div class="jquery-dialog" id="add-new-conversation-dialog" title="Conversation">
+	<div id="add-new-conversation-dialog-form">
+		<table class="form" width="100%"><tr><th nowrap="nowrap" width="10%">
+			<label for="attatchments">Attatchments</label>
+		</th><td nowrap="nowrap">
+			<select id="attatchments" multiple="true" style="width:100%">
+			</select>
+		</td></tr><tr><th nowrap="nowrap">
+			<label for="mailSubject">Subject</label>
+		</th><td nowrap="nowrap">
+			<input type="text" id="mailSubject" style="width:99%" mandatory="true" format="any( ,200)"/>
+		</td></tr><tr><td colspan="2">
+			<textarea id="remarks" label="Mail Body" class="jquery-richeditor" mandatory="true" ></textarea>
+		</td></tr></table>
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-disk" onclick="framework.getScreen().addNewConversation(1);">Save as Draft</button>
+		<button icon="ui-icon-mail-closed" onclick="framework.getScreen().addNewConversation(0);">Send</button>
+		<button icon="ui-icon-close" onclick="$('#add-new-conversation-dialog').dialog('close');return false;">Close</button>
+</div></div>
+<div class="jquery-dialog" id="notificationHistoryDialog" title="Notification History">
+	<div id="notificationListHistoryTable"></div>
+	<div class="buttons-section">
+		<button icon="ui-icon-close" onclick="$('#notificationHistoryDialog').dialog('close');return false;">Close</button>
+	</div>
+</div>
+<div class="jquery-dialog" id="notificationUpdateDialog" title="Update Notification">
+	<div id="notificationUpdateForm">
+		<table class="form" width="100%"><tr>
+			<th nowrap="nowrap" width="30%"><label for="notificationTime">Notification Time</label></th>
+			<td nowrap="nowrap">
+				<input type="text" id="notificationTime" mandatory="true" class="jquery-datetimepicker" mindate="0"/>
+			</td>
+		</tr><tr>
+			<th nowrap="nowrap"><label for="notificationComment">Comments</label></th>
+			<td nowrap="nowrap">
+				<textarea id="notificationComment" mandatory="true" format="any( ,250)"></textarea>
+			</td>
+		</tr></table>	
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-check" onclick="framework.getScreen().updateNotificationStatus();">Save</button>
+		<button icon="ui-icon-close" onclick="$('#notificationUpdateDialog').dialog('close');return false;">Close</button>
+</div></div>
+
+
+<div class="jquery-dialog" id="add-new-case-status-dialog" title="Add New Case Status">
+	<div id="add-new-case-status-dialog-form">
+		<table class="form" width="100%"><tr><th nowrap="nowrap" width="30%">
+			<label for="description">Description</label>
+		</th><td nowrap="nowrap">
+			<textarea id="description" mandatory="true"  format="any( ,200)"></textarea>
+		</td></tr><tr><th nowrap="nowrap">
+			<label for="substatus">Sub-Status</label>
+		</th><td nowrap="nowrap">
+			<select id="substatus" mandatory="true" >
+				<option value="">select...</option>
+				<option lookupFetch="106" disabled="true">loading...</option>
+			</select>
+		</td></tr></table>
+	</div>
+	<div class="buttons-section">
+		<button icon="ui-icon-disk" onclick="framework.getScreen().addNewCaseStatus();">Save</button>
+		<button icon="ui-icon-close" onclick="$('#add-new-case-status-dialog').dialog('close');return false;">Close</button>
+</div></div>

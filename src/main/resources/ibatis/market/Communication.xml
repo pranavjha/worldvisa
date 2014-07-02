@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="marketCommunication">
+    <!-- sql map for LoginDetails -->
+    <resultMap id="Communication" class="com.worldvisa.business.domain.market.Communication">
+        <result property="seqNum" column="SEQ_NUM" />
+        <result property="mailSubject" column="MAIL_SUBJECT" />
+        <result property="mailBody" column="MAIL_BODY" />
+        <result property="sentTime" column="SENT_TIME" />
+        <result property="actionType" column="ACTION_TYPE" />
+        <result property="addedBy" column="ADDED_BY" />
+	</resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.market.Communication">
+    	<selectKey resultClass="java.lang.Long" keyProperty="seqNum" type="pre">
+	        SELECT IFNULL(MAX(SEQ_NUM), 0)+1 FROM MARKET_COMMUNICATION
+	    </selectKey>
+        INSERT INTO MARKET_COMMUNICATION (
+        	SEQ_NUM,
+	        MAIL_SUBJECT,
+	        MAIL_BODY,
+	        SENT_TIME,
+	        ACTION_TYPE,
+	        ADDED_BY
+        )
+        VALUES (
+	        #seqNum:DECIMAL#,
+	        #mailSubject:VARCHAR#,
+	        #mailBody:VARCHAR#,
+	        #sentTime:TIMESTAMP#,
+	        #actionType:DECIMAL#,
+	        #addedBy:VARCHAR#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE MARKET_COMMUNICATION SET
+        	MAIL_SUBJECT = #data.mailSubject:VARCHAR#,
+	        MAIL_BODY = #data.mailBody:VARCHAR#,
+	        SENT_TIME = #data.sentTime:DATETIME#,
+	        ACTION_TYPE = #data.actionType:DECIMAL#,
+	        ADDED_BY = #data.addedBy:DECIMAL#
+        WHERE
+            SEQ_NUM = #filter.seqNum:DECIMAL#
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.market.Communication">
+        DELETE FROM MARKET_COMMUNICATION
+        WHERE
+            SEQ_NUM = #seqNum:DECIMAL#
+    </delete>
+    
+    <sql id="readSelect">
+        SELECT
+            SEQ_NUM,
+            MAIL_SUBJECT,
+	        MAIL_BODY,
+	        SENT_TIME,
+	        ACTION_TYPE,
+	        ADDED_BY
+        FROM MARKET_COMMUNICATION
+    </sql>
+    <select id="read" resultMap="marketCommunication.Communication" 
+    	parameterClass="com.worldvisa.business.domain.market.Communication">
+        <include refid="marketCommunication.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="mailSubject">
+                MAIL_SUBJECT = #mailSubject#
+            </isNotNull>
+            <isNotNull prepend="AND" property="mailBody">
+                MAIL_BODY = #mailBody#
+            </isNotNull>
+            <isNotNull prepend="AND" property="sentTime">
+                SENT_TIME = #sentTime#
+            </isNotNull>
+            <isNotNull prepend="AND" property="actionType">
+                ACTION_TYPE = #actionType#
+            </isNotNull>
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="addedBy">
+                ADDED_BY = #addedBy#
+            </isNotNull>
+      </dynamic>
+    </select>
+	
+	<select id="readByCommunicationIds" resultMap="marketCommunication.Communication" 
+    	parameterClass="java.util.Map">
+        <include refid="marketCommunication.readSelect" />
+       	    WHERE SEQ_NUM IN
+	        <iterate property="id" open="(" close=")" conjunction=",">#id[]#</iterate>
+    </select>
+    
+    <sql id="readSearchResultsQuery" >
+        <include refid="marketCommunication.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="mailSubject">
+	            MAIL_SUBJECT LIKE CONCAT('%',#mailSubject#,'%')
+            </isNotNull>
+            <isNotNull prepend="AND" property="dateRange">
+            	DATE(SENT_TIME) BETWEEN DATE(#dateRange[0]#) AND DATE(#dateRange[1]#)
+            </isNotNull>
+            <isNotNull prepend="AND" property="actionType">
+                ACTION_TYPE = #actionType#
+            </isNotNull>
+            <isNotEmpty prepend="AND" property="addedBy">
+                ADDED_BY = #addedBy#
+            </isNotEmpty>
+      </dynamic>
+    </sql>
+    <select id="readSearchResultsCount" resultClass="java.lang.Integer"
+	parameterClass="com.worldvisa.business.domain.market.CommunicationsFilter">
+		SELECT count(*) FROM (
+			<include refid="marketCommunication.readSearchResultsQuery" />
+		) maintable
+	</select>
+	<select id="readSearchResults" resultMap="marketCommunication.Communication"
+	parameterClass="com.worldvisa.business.domain.market.CommunicationsFilter">
+		SELECT * FROM (
+			SELECT *,
+				@rownum:=@rownum+1 AS rownum
+			FROM (
+			<include refid="marketCommunication.readSearchResultsQuery" />
+		        ORDER BY $sortCol$ $sortOrder$) maintable, (SELECT @rownum:=0) r) a
+		WHERE a.rownum between #startRow# and #endRow#
+	</select>
+</sqlMap>

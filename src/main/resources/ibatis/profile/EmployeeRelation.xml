@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="profileEmployeeRelation">
+    <!-- sql map for EmployeeRelation -->
+    <resultMap id="EmployeeRelation" class="com.worldvisa.business.domain.profile.EmployeeRelation">
+        <result property="seqNum" column="SEQ_NUM" />
+        <result property="managerId" column="MANAGER_ID" />
+        <result property="employeeId" column="EMPLOYEE_ID" />
+    </resultMap>
+    <!-- queries -->
+    <insert id="create" parameterClass="com.worldvisa.business.domain.profile.EmployeeRelation">
+        INSERT INTO PROFILE_EMPLOYEE_RELATION (
+	        MANAGER_ID,
+	        EMPLOYEE_ID
+        )
+        VALUES (
+	        #managerId:VARCHAR#,
+	        #employeeId:VARCHAR#
+        )
+    </insert>
+    <update id="update" parameterClass="java.util.HashMap">
+        UPDATE PROFILE_EMPLOYEE_RELATION SET
+        	SEQ_NUM = #data.seqNum:DECIMAL#,
+        	MANAGER_ID = #data.managerId:VARCHAR#,
+        	EMPLOYEE_ID = #data.employeeId:VARCHAR#
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="filter.seqNum">
+                SEQ_NUM = #filter.seqNum:DECIMAL#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.managerId">
+                MANAGER_ID = #filter.managerId:VARCHAR#
+            </isNotNull>
+            <isNotNull prepend="AND" property="filter.employeeId">
+                EMPLOYEE_ID = #filter.employeeId:VARCHAR#
+            </isNotNull>
+      </dynamic>
+    </update>
+    <delete id="delete" parameterClass="com.worldvisa.business.domain.profile.EmployeeRelation">
+        DELETE FROM PROFILE_EMPLOYEE_RELATION
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="managerId">
+                MANAGER_ID = #managerId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="employeeId">
+                EMPLOYEE_ID = #employeeId#
+            </isNotNull>
+      </dynamic>
+    </delete>
+    <sql id="readSelect">
+        SELECT
+            SEQ_NUM,
+            MANAGER_ID,
+            EMPLOYEE_ID
+        FROM PROFILE_EMPLOYEE_RELATION
+    </sql>
+    
+    <select id="read" resultMap="profileEmployeeRelation.EmployeeRelation" 
+    	parameterClass="com.worldvisa.business.domain.profile.EmployeeRelation">
+        <include refid="profileEmployeeRelation.readSelect" />
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="seqNum">
+                SEQ_NUM = #seqNum#
+            </isNotNull>
+            <isNotNull prepend="AND" property="managerId">
+                MANAGER_ID = #managerId#
+            </isNotNull>
+            <isNotNull prepend="AND" property="employeeId">
+                EMPLOYEE_ID = #employeeId#
+            </isNotNull>
+      </dynamic>
+    </select>
+</sqlMap>
